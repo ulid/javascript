@@ -1,0 +1,16 @@
+{
+  "name": "ulid",
+  "version": "0.1.0",
+  "description": "A universally unique lexicographically sortable identifier generator",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yayyulid/ulid-js.git"
+  },
+  "author": "Alizain Feerasta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yayyulid/ulid-js/issues"
+  },
+  "homepage": "https://github.com/yayyulid/ulid-js#readme"
+}
