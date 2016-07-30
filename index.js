@@ -9,30 +9,29 @@ function strongRandomNumber() {
 }
 
 function encodeTime(now, len) {
-  var arr = []
+  var mod
+  var now
+  var str = ''
   for (var x = len; x > 0; x--) {
-    var mod = now % ENCODING.length
-    arr[x] = ENCODING.charAt(mod)
+    mod = now % ENCODING.length
+    str = ENCODING.charAt(mod) + str
     now = (now - mod) / ENCODING.length
   }
-  return arr
+  return str
 }
 
 function encodeRandom(len) {
   var rand
-  var arr = []
+  var str = ''
   for (var x = 0; x < len; x++) {
     rand = Math.floor(ENCODING.length * strongRandomNumber())
-    arr[x] = ENCODING.charAt(rand)
+    str = ENCODING.charAt(rand) + str
   }
-  return arr
+  return str
 }
 
 function ulid() {
-  return []
-    .concat(encodeTime(Date.now(), 10))
-    .concat(encodeRandom(16))
-    .join('')
+  encodeTime(Date.now(), 10) + encodeRandom(16)
 }
 
 ulid.strongRandomNumber = strongRandomNumber
