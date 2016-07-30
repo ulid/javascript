@@ -17,5 +17,8 @@
     "matcha": "^0.7.0",
     "mocha": "^2.5.3",
     "should": "^10.0.0"
+  },
+  "scripts": {
+    "perf": "./node_modules/.bin/matcha perf.js"
   }
 }
