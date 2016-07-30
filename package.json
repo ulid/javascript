@@ -19,8 +19,7 @@
     "mocha": "^2.5.3"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/_mocha",
-    "coverage": "./node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
+    "test": "./node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
     "perf": "./node_modules/.bin/matcha perf.js"
   }
 }
