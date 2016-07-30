@@ -21,15 +21,15 @@ describe('ulid', function() {
     var time = 1469918176385
 
     it('should return expected encoded result', function() {
-      assert.strictEqual('01ARYZ6S41', ulid.encodeTime(time, 10).join(''))
+      assert.strictEqual('01ARYZ6S41', ulid.encodeTime(time, 10))
     })
 
     it('should change length properly', function() {
-      assert.strictEqual('0001ARYZ6S41', ulid.encodeTime(time, 12).join(''))
+      assert.strictEqual('0001ARYZ6S41', ulid.encodeTime(time, 12))
     })
 
     it('should truncate time if not enough length', function() {
-      assert.strictEqual('ARYZ6S41', ulid.encodeTime(time, 8).join(''))
+      assert.strictEqual('ARYZ6S41', ulid.encodeTime(time, 8))
     })
 
   })

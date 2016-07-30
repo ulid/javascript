@@ -31,7 +31,7 @@ function encodeRandom(len) {
 }
 
 function ulid() {
-  encodeTime(Date.now(), 10) + encodeRandom(16)
+  return encodeTime(Date.now(), 10) + encodeRandom(16)
 }
 
 ulid.strongRandomNumber = strongRandomNumber
