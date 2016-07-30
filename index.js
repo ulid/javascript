@@ -1,18 +1,14 @@
+import { randomBytes } from 'crypto';
+
 // Crockford's Base32
 // https://en.wikipedia.org/wiki/Base32
 const ENCODING = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
-if (ENCODING.length !== 32) throw new Error('ENCODING')
 
-// Current Version of SUID
-const VERSION = 1
-
-function encodeVersion() {
-  if (VERSION >= 16) throw new Error('VERSION')
-  return VERSION.toString(16)
+function strongRandomNumber() {
+  return randomBytes(4).readUInt32LE() / 0xFFFFFFFF
 }
 
-function encodeTime(len) {
-  let now = Date.now()
+function encodeTime(now, len) {
   let arr = []
   for (let x = len; x > 0; x--) {
     let mod = now % ENCODING.length
@@ -25,23 +21,23 @@ function encodeTime(len) {
 function encodeRandom(len) {
   let arr = []
   for (let x = len; x > 0; x--) {
-    let rando = Math.floor(ENCODING.length * Math.random())
+    let rando = Math.floor(ENCODING.length * strongRandomNumber())
     arr[x] = ENCODING.charAt(rando)
   }
   return arr
 }
 
-function fixedChar() {
-  return "F"
-}
-
 function ulid() {
   return []
-    .concat(encodeTime(10))
+    .concat(encodeTime(Date.now(), 10))
     .concat(encodeRandom(16))
     .join('')
-    + fixedChar()
-    + encodeVersion()
+}
+
+export {
+  strongRandomNumber,
+  encodeTime,
+  encodeRandom
 }
 
 export default ulid
