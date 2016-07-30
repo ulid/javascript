@@ -5,14 +5,14 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yayyulid/ulid-js.git"
+    "url": "git+https://github.com/alizain/ulid.git"
   },
   "author": "Alizain Feerasta",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yayyulid/ulid-js/issues"
+    "url": "https://github.com/alizain/ulid/issues"
   },
-  "homepage": "https://github.com/yayyulid/ulid-js#readme",
+  "homepage": "https://github.com/alizain/ulid#readme",
   "devDependencies": {
     "matcha": "^0.7.0",
     "mocha": "^2.5.3",
