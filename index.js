@@ -21,7 +21,7 @@ function encodeTime(now, len) {
 function encodeRandom(len) {
   var rand
   var arr = []
-  for (var x = len; x > 0; x--) {
+  for (var x = 0; x < len; x++) {
     rand = Math.floor(ENCODING.length * strongRandomNumber())
     arr[x] = ENCODING.charAt(rand)
   }
@@ -35,9 +35,7 @@ function ulid() {
     .join('')
 }
 
-var exported = ulid
-exported.strongRandomNumber = strongRandomNumber
-exported.encodeTime = encodeTime
-exported.encodeRandom = encodeRandom
-
-module.exports = exported
+ulid.strongRandomNumber = strongRandomNumber
+ulid.encodeTime = encodeTime
+ulid.encodeRandom = encodeRandom
+module.exports = ulid

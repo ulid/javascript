@@ -14,11 +14,13 @@
   },
   "homepage": "https://github.com/alizain/ulid#readme",
   "devDependencies": {
+    "istanbul": "^0.4.4",
     "matcha": "^0.7.0",
-    "mocha": "^2.5.3",
-    "should": "^10.0.0"
+    "mocha": "^2.5.3"
   },
   "scripts": {
+    "test": "./node_modules/mocha/bin/_mocha",
+    "coverage": "./node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
     "perf": "./node_modules/.bin/matcha perf.js"
   }
 }
