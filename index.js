@@ -35,9 +35,9 @@ function ulid() {
     .join('')
 }
 
-module.exports = {
-  "strongRandomNumber": strongRandomNumber,
-  "encodeTime": encodeTime,
-  "encodeRandom": encodeRandom,
-  "ulid": ulid
-}
+var exported = ulid
+exported.strongRandomNumber = strongRandomNumber
+exported.encodeTime = encodeTime
+exported.encodeRandom = encodeRandom
+
+module.exports = exported
