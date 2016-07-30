@@ -1,17 +1,17 @@
-import { randomBytes } from 'crypto';
+var crypto = require('crypto')
 
 // Crockford's Base32
 // https://en.wikipedia.org/wiki/Base32
-const ENCODING = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
+var ENCODING = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
 
 function strongRandomNumber() {
-  return randomBytes(4).readUInt32LE() / 0xFFFFFFFF
+  return crypto.randomBytes(4).readUInt32LE() / 0xFFFFFFFF
 }
 
 function encodeTime(now, len) {
-  let arr = []
-  for (let x = len; x > 0; x--) {
-    let mod = now % ENCODING.length
+  var arr = []
+  for (var x = len; x > 0; x--) {
+    var mod = now % ENCODING.length
     arr[x] = ENCODING.charAt(mod)
     now = (now - mod) / ENCODING.length
   }
@@ -19,9 +19,10 @@ function encodeTime(now, len) {
 }
 
 function encodeRandom(len) {
-  let arr = []
-  for (let x = len; x > 0; x--) {
-    let rando = Math.floor(ENCODING.length * strongRandomNumber())
+  var rand
+  var arr = []
+  for (var x = len; x > 0; x--) {
+    rand = Math.floor(ENCODING.length * strongRandomNumber())
     arr[x] = ENCODING.charAt(rando)
   }
   return arr
@@ -34,10 +35,9 @@ function ulid() {
     .join('')
 }
 
-export {
-  strongRandomNumber,
-  encodeTime,
-  encodeRandom
+module.exports = {
+  "strongRandomNumber": strongRandomNumber,
+  "encodeTime": encodeTime,
+  "encodeRandom": encodeRandom,
+  "ulid": ulid
 }
-
-export default ulid
