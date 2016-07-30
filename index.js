@@ -23,7 +23,7 @@ function encodeRandom(len) {
   var arr = []
   for (var x = len; x > 0; x--) {
     rand = Math.floor(ENCODING.length * strongRandomNumber())
-    arr[x] = ENCODING.charAt(rando)
+    arr[x] = ENCODING.charAt(rand)
   }
   return arr
 }

@@ -14,7 +14,8 @@
   },
   "homepage": "https://github.com/yayyulid/ulid-js#readme",
   "devDependencies": {
-    "babel-cli": "^6.11.4",
-    "babel-preset-es2015": "^6.9.0"
+    "matcha": "^0.7.0",
+    "mocha": "^2.5.3",
+    "should": "^10.0.0"
   }
 }
