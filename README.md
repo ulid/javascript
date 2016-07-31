@@ -1,4 +1,17 @@
-![ULID](logo.png)
+<h1 align="center">
+	<br>
+	<br>
+	<img width="360" src="logo.png" alt="ulid">
+	<br>
+	<br>
+	<br>
+</h1>
+
+---
+
+[![Build Status](https://travis-ci.org/alizain/ulid.svg?branch=master)](https://travis-ci.org/alizain/ulid) [![codecov](https://codecov.io/gh/alizain/ulid/branch/master/graph/badge.svg)](https://codecov.io/gh/alizain/ulid)
+
+---
 
 # Universally Unique Lexicographically Sortable Identifier
 
@@ -12,13 +25,47 @@ Instead, herein is proposed ULID:
 
 - 128-bit compatibility with UUID
 - 1.21e+24 unique ULIDs per millisecond
-- Canonically encoded as a 26 character string (all caps), as opposed to the 36 character UUID
-- Uses Crockford's base32 for length efficiency and readability (5 bits per character or 5 characters per octet)
-- Encodes the current UNIX-time in milliseconds for lexicographic sorting
+- Lexicographically sortable!
+- Canonically encoded as a 26 character string, as opposed to the 36 character UUID
+- Uses Crockford's base32 for better efficiency and readability (5 bits per character)
 - Case insensitive
 - No special characters (URL safe)
 
-## Components
+---
+
+## JavaScript
+
+### Installation
+
+```
+npm install --save ulid
+```
+
+### Usage
+
+```javascript
+import ulid from 'ulid'
+
+ulid() // 01ARZ3NDEKTSV4RRFFQ69G5FAV
+```
+
+---
+
+## Specification
+
+Below is the current specification of ULID as implemented in this repository. *Note: the binary format has not been implemented.*
+
+```
+ 01AN4Z07BY      79KA1307SR9X4MV3
+
+|----------|    |----------------|
+ Timestamp          Randomness
+  10 chars           16 chars
+   48bits             80bits
+   base32             base32
+```
+
+### Components
 
 **Timestamp**
 - 48 bit integer
@@ -29,7 +76,11 @@ Instead, herein is proposed ULID:
 - 80 bits
 - Cryptographically secure source of randomness, if possible
 
-## Binary Layout and Byte Order
+### Sorting
+
+The left-most character must be sorted first, and the right-most character sorted last. The default ASCII order is used for sorting.
+
+### Binary Layout and Byte Order
 
 The components are encoded as 16 octets. Each component is encoded with the Most Significant Byte first (network byte order).
 
@@ -47,29 +98,40 @@ The components are encoded as 16 octets. Each component is encoded with the Most
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ```
 
-## String Representation
+### String Representation
 
 ```
-vttttttttttrrrrrrrrrrrrrrrrr
+ttttttttttrrrrrrrrrrrrrrrr
 
 where
-v is the current version number
-t is the current epoch time (in milliseconds)
-r is 10 bytes of randomness
+t is Timestamp
+r is Randomness
 ```
 
-## Sorting
+---
 
-The left-most character must be sorted first, and the right-most character sorted last. The default ASCII order is used for sorting.
-
-## Example
+## Test Suite
 
 ```
-   1       01AN4Z07BY      79KA1307SR9X4MV3A
+npm test
+```
 
-  |-|     |----------|    |-----------------|
-version    epoch time         randomness
-1 char      10 chars           15 chars
-3 bits       50bits             75bits
- int         base32             base32
+---
+
+## Performance
+
+```
+npm run perf
+```
+
+```
+ulid
+336,331,131 op/s » encodeTime
+102,041,736 op/s » encodeRandom
+17,408 op/s » generate
+
+
+Suites:  1
+Benches: 3
+Elapsed: 7,285.75 ms
 ```
