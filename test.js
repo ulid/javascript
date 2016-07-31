@@ -3,14 +3,14 @@ var ulid = require('./')
 
 describe('ulid', function() {
 
-  describe('strongRandomNumber', function() {
+  describe('prng', function() {
 
     it('should produce a number', function() {
-      assert.strictEqual(false, isNaN(ulid.strongRandomNumber()))
+      assert.strictEqual(false, isNaN(ulid.prng()))
     })
 
     it('should be between 0 and 1', function() {
-      var num = ulid.strongRandomNumber()
+      var num = ulid.prng()
       assert(num > 0 && num < 1)
     })
 
