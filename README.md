@@ -43,6 +43,20 @@ import ulid from 'ulid'
 ulid() // 01ARZ3NDEKTSV4RRFFQ69G5FAV
 ```
 
+## Implementations in other languages
+
+From the community!
+
+| Language | Author |
+| -------- | ------ |
+| [Go](https://github.com/imdario/go-ulid) | [imdario](https://github.com/imdario/) |
+| [Java](https://github.com/Lewiscowles1986/jULID) | [Lewiscowles1986](https://github.com/Lewiscowles1986) |
+| [Julia](https://github.com/ararslan/ULID.jl) | [ararslan](https://github.com/ararslan) |
+| [.NET](https://github.com/fvilers/ulid.net) | | [fvilvers](https://github.com/fvilers)
+| [PHP](https://github.com/Lewiscowles1986/ulid) | [Lewiscowles1986](https://github.com/Lewiscowles1986) |
+| [Python](https://github.com/mdipierro/ulid) | [mdipierro](https://github.com/mdipierro) |
+| [Ruby](https://github.com/rafaelsales/ulid) | [rafaelsales](https://github.com/rafaelsales) |
+
 ## Specification
 
 Below is the current specification of ULID as implemented in this repository. *Note: the binary format has not been implemented.*
