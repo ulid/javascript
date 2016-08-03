@@ -52,7 +52,7 @@ From the community!
 | [Go](https://github.com/imdario/go-ulid) | [imdario](https://github.com/imdario/) |
 | [Java](https://github.com/Lewiscowles1986/jULID) | [Lewiscowles1986](https://github.com/Lewiscowles1986) |
 | [Julia](https://github.com/ararslan/ULID.jl) | [ararslan](https://github.com/ararslan) |
-| [.NET](https://github.com/fvilers/ulid.net) | | [fvilvers](https://github.com/fvilers)
+| [.NET](https://github.com/fvilers/ulid.net) | [fvilvers](https://github.com/fvilers)
 | [PHP](https://github.com/Lewiscowles1986/ulid) | [Lewiscowles1986](https://github.com/Lewiscowles1986) |
 | [Python](https://github.com/mdipierro/ulid) | [mdipierro](https://github.com/mdipierro) |
 | [Ruby](https://github.com/rafaelsales/ulid) | [rafaelsales](https://github.com/rafaelsales) |
@@ -86,6 +86,16 @@ Below is the current specification of ULID as implemented in this repository. *N
 
 The left-most character must be sorted first, and the right-most character sorted last. The default ASCII order is used for sorting.
 
+To ensure sortability for IDs generated within the same millisecond, implementations should remember the most recently generated randomness string and increment the most significant character that is not the last character in the encoding.
+
+### Encoding
+
+Crockford's Base32 is used as shown. This alphabet excludes the letters I, L, O, and U to avoid confusion and abuse.
+
+```
+0123456789ABCDEFGHJKMNPQRSTVWXYZ
+```
+
 ### Binary Layout and Byte Order
 
 The components are encoded as 16 octets. Each component is encoded with the Most Significant Byte first (network byte order).
@@ -113,6 +123,14 @@ where
 t is Timestamp
 r is Randomness
 ```
+
+## Prior Art
+
+Partly inspired by:
+- http://instagram-engineering.tumblr.com/post/10853187575/sharding-ids-at-instagram
+- https://firebase.googleblog.com/2015/02/the-2120-ways-to-ensure-unique_68.html
+- https://gist.github.com/mikelehen/3596a30bd69384624c11
+
 
 ## Test Suite
 
