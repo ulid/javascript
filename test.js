@@ -18,8 +18,6 @@ describe('ulid', function() {
 
   describe('encodeTime', function() {
 
-    var time =
-
     it('should return expected encoded result', function() {
       assert.strictEqual('01ARYZ6S41', ulid.encodeTime(1469918176385, 10))
     })
