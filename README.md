@@ -54,7 +54,7 @@ From the community!
 | [Java](https://github.com/Lewiscowles1986/jULID) | [Lewiscowles1986](https://github.com/Lewiscowles1986) |
 | [Julia](https://github.com/ararslan/ULID.jl) | [ararslan](https://github.com/ararslan) |
 | [.NET](https://github.com/RobThree/NUlid) | [RobThree](https://github.com/RobThree)
-| [.NET](https://github.com/fvilers/ulid.net) | [fvilvers](https://github.com/fvilers)
+| [.NET](https://github.com/fvilers/ulid.net) | [fvilers](https://github.com/fvilers)
 | [PHP](https://github.com/Lewiscowles1986/ulid) | [Lewiscowles1986](https://github.com/Lewiscowles1986) |
 | [Python](https://github.com/mdipierro/ulid) | [mdipierro](https://github.com/mdipierro) |
 | [Ruby](https://github.com/rafaelsales/ulid) | [rafaelsales](https://github.com/rafaelsales) |
