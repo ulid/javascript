@@ -50,6 +50,7 @@ From the community!
 | Language | Author |
 | -------- | ------ |
 | [Erlang](https://github.com/savonarola/ulid) | [savonarola](https://github.com/savonarola) |
+| [Elixir](https://github.com/merongivian/ulid) | [merongivian](https://github.com/merongivian) |
 | [Go](https://github.com/imdario/go-ulid) | [imdario](https://github.com/imdario/) |
 | [Java](https://github.com/Lewiscowles1986/jULID) | [Lewiscowles1986](https://github.com/Lewiscowles1986) |
 | [Julia](https://github.com/ararslan/ULID.jl) | [ararslan](https://github.com/ararslan) |
