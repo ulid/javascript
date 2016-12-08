@@ -47,13 +47,13 @@ ulid() // 01ARZ3NDEKTSV4RRFFQ69G5FAV
 
 From the community!
 
-| Language | Author |
-| -------- | ------ |
+| Language | Author | Binary Implementation |
+| -------- | ------ | --------------------- |
 | [Crystal](https://github.com/SuperPaintman/ulid) | [SuperPaintman](https://github.com/SuperPaintman) |
 | [Erlang](https://github.com/savonarola/ulid) | [savonarola](https://github.com/savonarola) |
 | [Elixir](https://github.com/merongivian/ulid) | [merongivian](https://github.com/merongivian) |
 | [Go](https://github.com/imdario/go-ulid) | [imdario](https://github.com/imdario/) |
-| [Go](https://github.com/oklog/ulid) | [oklog](https://github.com/oklog) |
+| [Go](https://github.com/oklog/ulid) | [oklog](https://github.com/oklog) | ✓ |
 | [Java](https://github.com/Lewiscowles1986/jULID) | [Lewiscowles1986](https://github.com/Lewiscowles1986) |
 | [Julia](https://github.com/ararslan/ULID.jl) | [ararslan](https://github.com/ararslan) |
 | [.NET](https://github.com/RobThree/NUlid) | [RobThree](https://github.com/RobThree)
