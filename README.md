@@ -14,8 +14,9 @@
 UUID can be suboptimal for many uses-cases because:
 
 - It isn't the most character efficient way of encoding 128 bits of randomness
-- The string format itself is apparently based on the original MAC & time version (UUIDv1 from Wikipedia)
-- It provides no other information than randomness
+- UUID v1/v2 is impractical in many environments, as it requires access to a unique, stable MAC address
+- UUID v3/v5 requires a unique seed and produces randomly distributed IDs, which can cause fragmentation in many data structures
+- UUID v4 provides no other information than randomness which can cause fragmentation in many data structures
 
 Instead, herein is proposed ULID:
 
