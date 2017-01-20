@@ -50,6 +50,7 @@ From the community!
 
 | Language | Author | Binary Implementation |
 | -------- | ------ | --------------------- |
+| [C++](https://github.com/suyash/ulid) | [suyash](https://github.com/suyash) | ✓ |
 | [Crystal](https://github.com/SuperPaintman/ulid) | [SuperPaintman](https://github.com/SuperPaintman) |
 | [Erlang](https://github.com/savonarola/ulid) | [savonarola](https://github.com/savonarola) |
 | [Elixir](https://github.com/merongivian/ulid) | [merongivian](https://github.com/merongivian) |
