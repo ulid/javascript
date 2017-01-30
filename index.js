@@ -6,6 +6,7 @@
   // https://en.wikipedia.org/wiki/Base32
   var ENCODING = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
   var ENCODING_LEN = ENCODING.length
+  var TIME_MAX = 281474976710655
   var TIME_LEN = 10
   var RANDOM_LEN = 16
 
@@ -40,6 +41,9 @@
   }
 
   function encodeTime(now, len) {
+    if (now > TIME_MAX) {
+      throw new Error("cannot encode time greater than " + TIME_MAX)
+    }
     var mod
     var now
     var str = ""

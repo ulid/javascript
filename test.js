@@ -30,6 +30,10 @@ describe('ulid', function() {
       assert.strictEqual('AS4Y1E11', ulid.encodeTime(1470118279201, 8))
     })
 
+    it('should throw if time greater than (2 ^ 48) - 1', function() {
+      assert.throws(() => ulid.encodeTime(Math.pow(2, 48), 8), Error)
+    })
+
   })
 
   describe('encodeRandom', function() {
