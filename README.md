@@ -52,6 +52,7 @@ From the community!
 | -------- | ------ | --------------------- |
 | [C++](https://github.com/suyash/ulid) | [suyash](https://github.com/suyash) | ✓ |
 | [Crystal](https://github.com/SuperPaintman/ulid) | [SuperPaintman](https://github.com/SuperPaintman) |
+| [Delphi](https://github.com/martinusso/ulid) | [matinusso](https://github.com/martinusso) |
 | [Erlang](https://github.com/savonarola/ulid) | [savonarola](https://github.com/savonarola) |
 | [Elixir](https://github.com/merongivian/ulid) | [merongivian](https://github.com/merongivian) |
 | [Go](https://github.com/imdario/go-ulid) | [imdario](https://github.com/imdario/) |
