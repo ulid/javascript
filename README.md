@@ -71,16 +71,16 @@ From the community!
 
 ## Specification
 
-Below is the current specification of ULID as implemented in this repository. *Note: the binary format has not been implemented.*
+Below is the current specification of ULID as implemented in this repository.
+
+*Note: the binary format has not been implemented.*
 
 ```
  01AN4Z07BY      79KA1307SR9X4MV3
 
 |----------|    |----------------|
  Timestamp          Randomness
-  10 chars           16 chars
    48bits             80bits
-   base32             base32
 ```
 
 ### Components
