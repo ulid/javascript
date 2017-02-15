@@ -51,6 +51,7 @@ From the community!
 | Language | Author | Binary Implementation |
 | -------- | ------ | --------------------- |
 | [C++](https://github.com/suyash/ulid) | [suyash](https://github.com/suyash) | ✓ |
+| [Objective-C](https://github.com/whitesmith/ulid) | [ricardopereira](https://github.com/ricardopereira) | ⚠️ prerelease |
 | [Crystal](https://github.com/SuperPaintman/ulid) | [SuperPaintman](https://github.com/SuperPaintman) |
 | [Delphi](https://github.com/martinusso/ulid) | [matinusso](https://github.com/martinusso) |
 | [Erlang](https://github.com/savonarola/ulid) | [savonarola](https://github.com/savonarola) |
