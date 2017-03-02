@@ -1,6 +1,6 @@
-(function(_window) {
+"use strict";
 
-  "use strict";
+function factory(prng) {
 
   // Crockford's Base32
   // https://en.wikipedia.org/wiki/Base32
@@ -9,36 +9,6 @@
   var TIME_MAX = 281474976710655
   var TIME_LEN = 10
   var RANDOM_LEN = 16
-
-  var prng
-
-  if (_window) {
-    try {
-      var crypto = _window.crypto || _window.msCrypto
-      prng = function() {
-        return crypto.getRandomValues(new Uint16Array(1))[0] / 0xFFFF
-      }
-    }
-    catch(e) {}
-  }
-  else {
-    try {
-      var crypto = require("crypto")
-      prng = function() {
-        return crypto.randomBytes(2).readUInt16LE() / 0xFFFF
-      }
-    }
-    catch(e) {}
-  }
-
-  if (typeof prng !== "function") {
-    prng = function() {
-      return Math.random()
-    }
-    if (typeof console !== "undefined" && console.warn) {
-      console.warn("[ulid] crypto not usable, falling back to insecure Math.random()");
-    }
-  }
 
   function encodeTime(now, len) {
     if (now > TIME_MAX) {
@@ -73,16 +43,59 @@
   ulid.encodeTime = encodeTime
   ulid.encodeRandom = encodeRandom
 
+  return ulid
+
+}
+
+/* istanbul ignore next */
+function _prng(root) {
+
+  if (root) {
+    try {
+      var crypto = root.crypto || root.msCrypto
+      return function() {
+        return crypto.getRandomValues(new Uint16Array(1))[0] / 0xFFFF
+      }
+    }
+    catch (e) {}
+  }
+  else {
+    try {
+      var crypto = require("crypto")
+      return function() {
+        return crypto.randomBytes(2).readUInt16LE() / 0xFFFF
+      }
+    }
+    catch (e) {}
+  }
+
+  if (typeof prng !== "function") {
+    if (typeof console !== "undefined" && console.warn) {
+      console.warn("[ulid] crypto not usable, falling back to insecure Math.random()");
+    }
+    return function() {
+      return Math.random()
+    }
+  }
+
+}
+
+/* istanbul ignore next */
+(function(root, fn) {
+
+  var prng = _prng(root)
+  var ulid = fn(prng)
+
   if (("undefined" !== typeof module) && module.exports) {
     module.exports = ulid
   }
   else if (typeof define === "function" && define.amd) {
     define(function() {
-      return ulid;
+      return ulid
     })
   }
   else {
-    _window.ulid = ulid
+    root.ulid = ulid
   }
 
-})("undefined" !== typeof window ? window : null)
+})(typeof window !== "undefined" ? window : null, factory)
