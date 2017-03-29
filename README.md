@@ -42,6 +42,10 @@ npm install --save ulid
 import ulid from 'ulid'
 
 ulid() // 01ARZ3NDEKTSV4RRFFQ69G5FAV
+
+// You can also input a seed time which will consistently give you the same time component
+// This is useful for migrating to ulid
+ulid(1469918176385) // 01ARYZ6S41TSV4RRFFQ69G5FAV
 ```
 
 ## Implementations in other languages

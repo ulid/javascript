@@ -50,6 +50,10 @@ describe('ulid', function() {
       assert.strictEqual(26, ulid().length)
     })
 
+    it('should return expected encoded time component result', function() {
+      assert.strictEqual('01ARYZ6S41', ulid(1469918176385).substring(0, 10))
+    })
+
   })
 
 })
