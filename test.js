@@ -54,6 +54,10 @@ describe('ulid', function() {
       assert.strictEqual('01ARYZ6S41', ulid(1469918176385).substring(0, 10))
     })
 
+    it('should throw an error if seed is not a number', function() {
+      assert.throws(() => ulid('test'), Error)
+    })
+
   })
 
 })

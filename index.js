@@ -38,6 +38,8 @@ function factory(prng) {
   function ulid(seedTime) {
     if(!seedTime) {
       seedTime = Date.now();
+    } else if(isNaN(seedTime) || typeof seedTime !== 'number') {
+      throw new Error(seedTime + ' must be a number');
     }
     
     return encodeTime(seedTime, TIME_LEN) + encodeRandom(RANDOM_LEN)
