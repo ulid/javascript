@@ -10,17 +10,17 @@ function factory(prng) {
   var TIME_LEN = 10
   var RANDOM_LEN = 16
 
-  function encodeTime(now, len) {
-    if (now > TIME_MAX) {
+  function encodeTime(time, len) {
+    if (time > TIME_MAX) {
       throw new Error("cannot encode time greater than " + TIME_MAX)
     }
     var mod
-    var now
+    var time
     var str = ""
     for (var x = len; x > 0; x--) {
-      mod = now % ENCODING_LEN
+      mod = time % ENCODING_LEN
       str = ENCODING.charAt(mod) + str
-      now = (now - mod) / ENCODING_LEN
+      time = (time - mod) / ENCODING_LEN
     }
     return str
   }
@@ -35,8 +35,14 @@ function factory(prng) {
     return str
   }
 
-  function ulid() {
-    return encodeTime(Date.now(), TIME_LEN) + encodeRandom(RANDOM_LEN)
+  function ulid(seedTime) {
+    if(!seedTime) {
+      seedTime = Date.now();
+    } else if(isNaN(seedTime) || typeof seedTime !== 'number') {
+      throw new Error(seedTime + ' must be a number');
+    }
+    
+    return encodeTime(seedTime, TIME_LEN) + encodeRandom(RANDOM_LEN)
   }
 
   ulid.prng = prng
