@@ -66,6 +66,7 @@ From the community!
 | [Java](https://github.com/azam/ulidj) | [azam](https://github.com/azam) |
 | [Java](https://github.com/Lewiscowles1986/jULID) | [Lewiscowles1986](https://github.com/Lewiscowles1986) |
 | [Julia](https://github.com/ararslan/ULID.jl) | [ararslan](https://github.com/ararslan) |
+| [Lua](https://github.com/Tieske/ulid.lua) | [Tieske](https://github.com/Tieske) |
 | [.NET](https://github.com/RobThree/NUlid) | [RobThree](https://github.com/RobThree) | ✓ |
 | [.NET](https://github.com/fvilers/ulid.net) | [fvilers](https://github.com/fvilers)
 | [Perl 5](https://github.com/bk/Data-ULID) | [bk](https://github.com/bk) | ✓ |
