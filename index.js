@@ -10,17 +10,23 @@ function factory(prng) {
   var TIME_LEN = 10
   var RANDOM_LEN = 16
 
-  function encodeTime(time, len) {
-    if (time > TIME_MAX) {
+  function encodeTime(now, len) {
+    if (isNaN(now)) {
+      throw new Error(now + " must be a number")
+    }
+    if (now > TIME_MAX) {
       throw new Error("cannot encode time greater than " + TIME_MAX)
     }
+    if (now < 0) {
+      throw new Error("time must be a positive integer")
+    }
     var mod
-    var time
+    var now
     var str = ""
     for (var x = len; x > 0; x--) {
-      mod = time % ENCODING_LEN
+      mod = now % ENCODING_LEN
       str = ENCODING.charAt(mod) + str
-      time = (time - mod) / ENCODING_LEN
+      now = (now - mod) / ENCODING_LEN
     }
     return str
   }
@@ -36,12 +42,9 @@ function factory(prng) {
   }
 
   function ulid(seedTime) {
-    if(!seedTime) {
+    if (!seedTime) {
       seedTime = Date.now();
-    } else if(isNaN(seedTime) || typeof seedTime !== 'number') {
-      throw new Error(seedTime + ' must be a number');
     }
-    
     return encodeTime(seedTime, TIME_LEN) + encodeRandom(RANDOM_LEN)
   }
 
@@ -52,6 +55,7 @@ function factory(prng) {
   return ulid
 
 }
+
 
 /* istanbul ignore next */
 function _prng(root) {
@@ -64,8 +68,7 @@ function _prng(root) {
       }
     }
     catch (e) {}
-  }
-  else {
+  } else {
     try {
       var crypto = require("crypto")
       return function() {
@@ -85,6 +88,7 @@ function _prng(root) {
   }
 
 }
+
 
 /* istanbul ignore next */
 (function(root, fn) {
