@@ -63,6 +63,7 @@ From the community!
 | [Elixir](https://github.com/merongivian/ulid) | [merongivian](https://github.com/merongivian) |
 | [Go](https://github.com/imdario/go-ulid) | [imdario](https://github.com/imdario/) |
 | [Go](https://github.com/oklog/ulid) | [oklog](https://github.com/oklog) | ✓ |
+| [Haskell](https://github.com/steven777400/ulid) | [steven777400](https://github.com/steven777400) | 
 | [Java](https://github.com/huxi/sulky/tree/master/sulky-ulid) | [huxi](https://github.com/huxi) | ✓ |
 | [Java](https://github.com/azam/ulidj) | [azam](https://github.com/azam) |
 | [Java](https://github.com/Lewiscowles1986/jULID) | [Lewiscowles1986](https://github.com/Lewiscowles1986) |
