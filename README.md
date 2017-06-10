@@ -75,6 +75,7 @@ From the community!
 | [Python](https://github.com/mdipierro/ulid) | [mdipierro](https://github.com/mdipierro) |
 | [Ruby](https://github.com/rafaelsales/ulid) | [rafaelsales](https://github.com/rafaelsales) |
 | [Rust](https://github.com/mmacedoeu/rulid.rs) | [mmacedoeu](https://github.com/mmacedoeu/rulid.rs) | ✓ |
+| [Rust](https://github.com/dylanhart/ulid-rs) | [dylanhart](https://github.com/dylanhart) | ✓ |
 | [Swift](https://github.com/simonwhitehouse/ULIDSwift) | [simonwhitehouse](https://github.com/simonwhitehouse) |
 | [Tcl](https://tcl.wiki/48827) | [dbohdan](https://github.com/dbohdan) |
 
