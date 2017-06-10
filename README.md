@@ -57,6 +57,7 @@ From the community!
 | [C++](https://github.com/suyash/ulid) | [suyash](https://github.com/suyash) | ✓ |
 | [Objective-C](https://github.com/whitesmith/ulid) | [ricardopereira](https://github.com/ricardopereira) |
 | [Crystal](https://github.com/SuperPaintman/ulid) | [SuperPaintman](https://github.com/SuperPaintman) |
+| [Dart](https://github.com/agilord/ulid) | [isoos](https://github.com/isoos) | ✓ |
 | [Delphi](https://github.com/martinusso/ulid) | [matinusso](https://github.com/martinusso) |
 | [Erlang](https://github.com/savonarola/ulid) | [savonarola](https://github.com/savonarola) |
 | [Elixir](https://github.com/merongivian/ulid) | [merongivian](https://github.com/merongivian) |
