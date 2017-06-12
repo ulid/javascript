@@ -5,6 +5,7 @@ function factory(prng) {
   // Crockford's Base32
   // https://en.wikipedia.org/wiki/Base32
   var ENCODING = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
+  var ENCODING_LOWER = "0123456789abcdefghjkmnpqrstvwxyz"
   var ENCODING_LEN = ENCODING.length
   var TIME_MAX = 281474976710655
   var TIME_LEN = 10
@@ -48,9 +49,15 @@ function factory(prng) {
     return encodeTime(seedTime, TIME_LEN) + encodeRandom(RANDOM_LEN)
   }
 
+  function lower(seedTime) {
+    ENCODING = ENCODING_LOWER
+    return ulid(seedTime)
+  }
+
   ulid.prng = prng
   ulid.encodeTime = encodeTime
   ulid.encodeRandom = encodeRandom
+  ulid.lower = lower
 
   return ulid
 
