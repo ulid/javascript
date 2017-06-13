@@ -59,6 +59,7 @@ From the community!
 | [Crystal](https://github.com/SuperPaintman/ulid) | [SuperPaintman](https://github.com/SuperPaintman) |
 | [Dart](https://github.com/agilord/ulid) | [isoos](https://github.com/isoos) | ✓ |
 | [Delphi](https://github.com/martinusso/ulid) | [matinusso](https://github.com/martinusso) |
+| [D](https://github.com/enckse/ulid) | [enckse](https://github.com/enckse) |
 | [Erlang](https://github.com/savonarola/ulid) | [savonarola](https://github.com/savonarola) |
 | [Elixir](https://github.com/merongivian/ulid) | [merongivian](https://github.com/merongivian) |
 | [Go](https://github.com/imdario/go-ulid) | [imdario](https://github.com/imdario/) |
