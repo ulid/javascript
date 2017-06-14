@@ -43,6 +43,16 @@ describe('ulid', function() {
     })
 
   })
+  
+  describe('decodeTime', function() {
+
+    it('should return correct timestamp', function() {
+      var timestamp = Date.now()
+      var id = ulid(timestamp)
+      assert.strictEqual(timestamp, ulid.decodeTime(id))
+    })
+
+  })
 
   describe('ulid', function() {
 
