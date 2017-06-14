@@ -41,6 +41,20 @@ function factory(prng) {
     return str
   }
 
+  function decodeTime(id) {
+    var binStr = ''
+    for (var i = 0; i < 10; i++) {
+      var dec = ENCODING.indexOf(id[i])
+      var bin = dec.toString(2)
+      var fix = 5 - bin.length
+      for (var j = 0; j < fix; j++) {
+        bin = '0' + bin
+      }
+      binStr += bin
+    }
+    return parseInt(binStr, 2)
+  }
+
   function ulid(seedTime) {
     if (!seedTime) {
       seedTime = Date.now();
@@ -51,19 +65,7 @@ function factory(prng) {
   ulid.prng = prng
   ulid.encodeTime = encodeTime
   ulid.encodeRandom = encodeRandom
-  ulid.decodeTime = function(id){
-    var binStr =''
-    for(var i=0; i<10; i++){
-      var dec = ENCODING.indexOf(id[i])
-      var bin = dec.toString(2)
-      var fix = 5 - bin.length
-      for(var j=0; j<fix; j++){
-        bin = '0'+bin 
-      }
-      binStr +=bin
-    }
-    return parseInt(binStr,2)
-  }
+  ulid.decodeTime = decodeTime
 
   return ulid
 
