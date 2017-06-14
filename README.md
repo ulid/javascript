@@ -73,6 +73,7 @@ From the community!
 | [.NET](https://github.com/fvilers/ulid.net) | [fvilers](https://github.com/fvilers)
 | [Perl 5](https://github.com/bk/Data-ULID) | [bk](https://github.com/bk) | ✓ |
 | [PHP](https://github.com/Lewiscowles1986/ulid) | [Lewiscowles1986](https://github.com/Lewiscowles1986) |
+| [PowerShell](https://github.com/PetterBomban/posh-ulid) | [PetterBomban](https://github.com/PetterBomban) |
 | [Python](https://github.com/mdipierro/ulid) | [mdipierro](https://github.com/mdipierro) |
 | [Ruby](https://github.com/rafaelsales/ulid) | [rafaelsales](https://github.com/rafaelsales) |
 | [Rust](https://github.com/mmacedoeu/rulid.rs) | [mmacedoeu](https://github.com/mmacedoeu/rulid.rs) | ✓ |
