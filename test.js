@@ -70,6 +70,10 @@ describe('ulid', function() {
       assert.strictEqual('01ARYZ6S41', ulid(1469918176385).substring(0, 10))
     })
 
+    it('should return an id in lowercase', () => {
+      const lowerUlid = ulid.lower(1497296301475)
+      assert.strictEqual(lowerUlid, lowerUlid.toLowerCase())
+    })
   })
 
 })
