@@ -64,7 +64,7 @@ From the community!
 | [Elixir](https://github.com/merongivian/ulid) | [merongivian](https://github.com/merongivian) |
 | [Go](https://github.com/imdario/go-ulid) | [imdario](https://github.com/imdario/) |
 | [Go](https://github.com/oklog/ulid) | [oklog](https://github.com/oklog) | ✓ |
-| [Haskell](https://github.com/steven777400/ulid) | [steven777400](https://github.com/steven777400) | 
+| [Haskell](https://github.com/steven777400/ulid) | [steven777400](https://github.com/steven777400) | ✓ |
 | [Java](https://github.com/huxi/sulky/tree/master/sulky-ulid) | [huxi](https://github.com/huxi) | ✓ |
 | [Java](https://github.com/azam/ulidj) | [azam](https://github.com/azam) |
 | [Java](https://github.com/Lewiscowles1986/jULID) | [Lewiscowles1986](https://github.com/Lewiscowles1986) |
@@ -77,9 +77,11 @@ From the community!
 | [PHP](https://github.com/Lewiscowles1986/ulid) | [Lewiscowles1986](https://github.com/Lewiscowles1986) |
 | [PowerShell](https://github.com/PetterBomban/posh-ulid) | [PetterBomban](https://github.com/PetterBomban) |
 | [Python](https://github.com/mdipierro/ulid) | [mdipierro](https://github.com/mdipierro) |
+| [Python](https://github.com/ahawker/ulid) | [ahawker](https://github.com/ahawker) | ✓ |
 | [Ruby](https://github.com/rafaelsales/ulid) | [rafaelsales](https://github.com/rafaelsales) |
 | [Rust](https://github.com/mmacedoeu/rulid.rs) | [mmacedoeu](https://github.com/mmacedoeu/rulid.rs) | ✓ |
 | [Rust](https://github.com/dylanhart/ulid-rs) | [dylanhart](https://github.com/dylanhart) | ✓ |
+| [SQL-Microsoft](https://github.com/rmalayter/ulid-mssql) | [rmalayter](https://github.com/rmalayter) | ✓ |
 | [Swift](https://github.com/simonwhitehouse/ULIDSwift) | [simonwhitehouse](https://github.com/simonwhitehouse) |
 | [Tcl](https://tcl.wiki/48827) | [dbohdan](https://github.com/dbohdan) |
 
