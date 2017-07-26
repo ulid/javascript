@@ -21,5 +21,6 @@
   "scripts": {
     "test": "./node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
     "perf": "./node_modules/.bin/matcha perf.js"
-  }
+  },
+  "bin": "./cli.js"
 }
