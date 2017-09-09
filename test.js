@@ -59,13 +59,29 @@ describe('ulid', function() {
     })
 
   })
-  
+
   describe('decodeTime', function() {
 
     it('should return correct timestamp', function() {
       var timestamp = Date.now()
       var id = ulid(timestamp)
       assert.strictEqual(timestamp, ulid.decodeTime(id))
+    })
+
+    it('should accept the maximum allowed timestamp', function() {
+      assert.strictEqual(281474976710655, ulid.decodeTime('7ZZZZZZZZZZZZZZZZZZZZZZZZZ'))
+    })
+
+    describe('should reject', function() {
+
+      it('malformed strings of incorrect length', function() {
+        assert.throws(() => ulid.decodeTime('FFFF'), Error)
+      })
+
+      it('strings with timestamps that are too high', function() {
+        assert.throws(() => ulid.decodeTime('80000000000000000000000000'), Error)
+      })
+
     })
 
   })

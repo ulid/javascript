@@ -92,7 +92,7 @@ From the community!
 
 Below is the current specification of ULID as implemented in this repository.
 
-*Note: the binary format has not been implemented.*
+*Note: the binary format has not been implemented in JavaScript as of yet.*
 
 ```
  01AN4Z07BY      79KA1307SR9X4MV3
@@ -117,13 +117,29 @@ Below is the current specification of ULID as implemented in this repository.
 
 The left-most character must be sorted first, and the right-most character sorted last (lexical order). The default ASCII character set must be used. Within the same millisecond, sort order is not guaranteed
 
-### Encoding
+### Canonical String Representation
+
+```
+ttttttttttrrrrrrrrrrrrrrrr
+
+where
+t is Timestamp (10 characters)
+r is Randomness (16 characters)
+```
+
+#### Encoding
 
 Crockford's Base32 is used as shown. This alphabet excludes the letters I, L, O, and U to avoid confusion and abuse.
 
 ```
 0123456789ABCDEFGHJKMNPQRSTVWXYZ
 ```
+
+#### Overflow Errors when Parsing Base32 Strings
+
+Technically, a 26 character Base32 encoded string can contain 130 bits of information, whereas a ULID must only contain 128 bits. Therefore, the largest valid ULID encoded in Base32 is `7ZZZZZZZZZZZZZZZZZZZZZZZZZ`, which corresponds to an epoch time of `281474976710655`.
+
+Any attempt to decode or encode a ULID larger than this should be rejected by all implementations, to prevent overflow bugs.
 
 ### Binary Layout and Byte Order
 
@@ -141,16 +157,6 @@ The components are encoded as 16 octets. Each component is encoded with the Most
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                       32_bit_uint_random                      |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-```
-
-### String Representation
-
-```
-ttttttttttrrrrrrrrrrrrrrrr
-
-where
-t is Timestamp
-r is Randomness
 ```
 
 ## Prior Art

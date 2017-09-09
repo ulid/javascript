@@ -42,6 +42,9 @@ function factory(prng) {
   }
 
   function decodeTime(id) {
+    if (id.length !== TIME_LEN + RANDOM_LEN) {
+      throw new Error("malformed ulid")
+    }
     var binStr = ''
     for (var i = 0; i < 10; i++) {
       var dec = ENCODING.indexOf(id[i])
@@ -52,7 +55,11 @@ function factory(prng) {
       }
       binStr += bin
     }
-    return parseInt(binStr, 2)
+    var time = parseInt(binStr, 2)
+    if (time > TIME_MAX) {
+      throw new Error("malformed ulid, timestamp too large")
+    }
+    return time
   }
 
   function ulid(seedTime) {
