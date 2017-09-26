@@ -81,10 +81,10 @@ function factory(prng) {
 
 /* istanbul ignore next */
 function _prng(root) {
+  var crypto = root && (root.crypto || root.msCrypto)
 
-  if (root) {
+  if (crypto) {
     try {
-      var crypto = root.crypto || root.msCrypto
       return function() {
         return crypto.getRandomValues(new Uint16Array(1))[0] / 0xFFFF
       }
@@ -92,7 +92,7 @@ function _prng(root) {
     catch (e) {}
   } else {
     try {
-      var crypto = require("crypto")
+      crypto = require("crypto")
       return function() {
         return crypto.randomBytes(2).readUInt16LE() / 0xFFFF
       }
