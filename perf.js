@@ -5,15 +5,15 @@ suite('ulid', function() {
   set('iterations', 100000);
 
   bench('encodeTime', function() {
-    ulid.encodeTime()
+    ulid.encodeTime(1469918176385)
   })
 
   bench('encodeRandom', function() {
-    ulid.encodeRandom()
+    ulid.encodeRandom(10)
   })
 
   bench('generate', function() {
-    ulid()
+    ulid(1469918176385)
   })
 
 })
