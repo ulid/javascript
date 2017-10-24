@@ -47,11 +47,27 @@ ulid() // 01ARZ3NDEKTSV4RRFFQ69G5FAV
 // You can also input a seed time which will consistently
 // give you the same string for the time component. This is
 // useful for migrating to ulid.
-//
-// Note that multiple calls with the same seed time will
-// still monotonically increase the random component for
-// strict sort order.
 ulid(1469918176385) // 01ARYZ6S41TSV4RRFFQ69G5FAV
+```
+
+#### Monotonic ULIDs
+
+To generate monotonically increasing ULIDs, create a monotonic counter.
+
+```javascript
+import { createMonotonic } from 'ulid'
+
+const ulid = createMonotonic()
+
+// Strict ordering for the same timestamp, by incrementing the least-significant random bit by 1
+ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVR8
+ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVR9
+ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVRA
+ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVRB
+ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVRC
+
+// Even if a lower timestamp is passed (or generated), it will preserve sort order
+ulid(100000) // 000XAL6S41ACTAV9WEVGEMMVRD
 ```
 
 ## Implementations in other languages
@@ -124,18 +140,6 @@ Below is the current specification of ULID as implemented in this repository.
 
 The left-most character must be sorted first, and the right-most character sorted last (lexical order). The default ASCII character set must be used. Within the same millisecond, sort order is not guaranteed
 
-#### Monotonicity
-
-When generating a ULID within the same millisecond, we can provide some
-guarantees regarding sort order. Namely, if the same millisecond is detected, the `random` component is incremented by 1 bit in the least significant bit position (with carrying). For example:
-
-```javascript
-ulid() // 01BX5ZZKBKACTAV9WEVGEMMVRZ
-ulid() // 01BX5ZZKBKACTAV9WEVGEMMVS0
-```
-
-If, in the extremely unlikely event that, you manage to generate at most 80 ^ 2 ULIDs within the same millisecond, or cause the random component to overflow in any other way, the generation will fail.
-
 ### Canonical String Representation
 
 ```
@@ -152,6 +156,32 @@ Crockford's Base32 is used as shown. This alphabet excludes the letters I, L, O,
 
 ```
 0123456789ABCDEFGHJKMNPQRSTVWXYZ
+```
+
+### Monotonicity
+
+When generating a ULID within the same millisecond, we can provide some
+guarantees regarding sort order. Namely, if the same millisecond is detected, the `random` component is incremented by 1 bit in the least significant bit position (with carrying). For example:
+
+```javascript
+// Assume that these calls occur within the same millisecond
+ulid() // 01BX5ZZKBKACTAV9WEVGEMMVRZ
+ulid() // 01BX5ZZKBKACTAV9WEVGEMMVS0
+```
+
+If, in the extremely unlikely event that, you manage to generate at most 80 ^ 2 ULIDs within the same millisecond, or cause the random component to overflow with less, the generation will fail.
+
+```javascript
+// Assume that these calls occur within the same millisecond
+ulid() // 01BX5ZZKBKACTAV9WEVGEMMVRY
+ulid() // 01BX5ZZKBKACTAV9WEVGEMMVRZ
+ulid() // 01BX5ZZKBKACTAV9WEVGEMMVS0
+ulid() // 01BX5ZZKBKACTAV9WEVGEMMVS1
+....
+ulid() // 01BX5ZZKBKZZZZZZZZZZZZZZZX
+ulid() // 01BX5ZZKBKZZZZZZZZZZZZZZZY
+ulid() // 01BX5ZZKBKZZZZZZZZZZZZZZZZ
+ulid() // throw new Error()!
 ```
 
 #### Overflow Errors when Parsing Base32 Strings
