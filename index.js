@@ -92,23 +92,30 @@ var factory = function (prng) {
         }
         return time;
     }
-    var lastEncodedTime;
-    var lastRandom;
+    function createMonotonic() {
+        var lastTime = 0;
+        var lastRandom;
+        return function ulid(seedTime) {
+            if (isNaN(seedTime)) {
+                seedTime = Date.now();
+            }
+            if (seedTime <= lastTime) {
+                var incrementedRandom = lastRandom = incrementBase32(lastRandom);
+                return encodeTime(lastTime, TIME_LEN) + incrementedRandom;
+            }
+            lastTime = seedTime;
+            var newRandom = lastRandom = encodeRandom(RANDOM_LEN);
+            return encodeTime(seedTime, TIME_LEN) + newRandom;
+        };
+    }
     var ulid = function ulid(seedTime) {
-        if (isNaN(seedTime) === false) {
-            return encodeTime(seedTime, TIME_LEN) + encodeRandom(RANDOM_LEN);
+        if (isNaN(seedTime)) {
+            seedTime = Date.now();
         }
-        var currTime = Date.now();
-        var encodedTime = encodeTime(currTime, TIME_LEN);
-        if (encodedTime === lastEncodedTime) {
-            var incrementedRandom = lastRandom = incrementBase32(lastRandom);
-            return encodedTime + incrementedRandom;
-        }
-        lastEncodedTime = encodedTime;
-        var newRandom = lastRandom = encodeRandom(RANDOM_LEN);
-        return encodedTime + newRandom;
+        return encodeTime(seedTime, TIME_LEN) + encodeRandom(RANDOM_LEN);
     };
     ulid.prng = prng;
+    ulid.createMonotonic = createMonotonic;
     ulid.incrementBase32 = incrementBase32;
     ulid.randomChar = randomChar;
     ulid.encodeTime = encodeTime;

@@ -1,6 +1,25 @@
 "use strict";
 
-const factory = (prng) => {
+interface PRNG {
+  (): number
+}
+
+interface ULID {
+  (seedTime?: number): string
+}
+
+interface ExportedObject extends ULID {
+  createMonotonic(): ULID
+  prng: PRNG
+  incrementBase32(str: string): string
+  randomChar(): string
+  encodeTime(now: number, len: number): string
+  encodeRandom(len: number): string
+  decodeTime(id: string): number
+  factory(prng: any): ExportedObject
+}
+
+const factory = (prng: PRNG): ExportedObject => {
 
   // These values should NEVER change. If
   // they do, we're no longer making ulids!
@@ -101,36 +120,32 @@ const factory = (prng) => {
     return time
   }
 
-  interface ULID {
-    (seedTime?: number): string
-    prng(): number
-    incrementBase32(str: string): string
-    randomChar(): string
-    encodeTime(now: number, len: number): string
-    encodeRandom(len: number): string
-    decodeTime(id: string): number
-    factory(prng: any): ULID
+  function createMonotonic(): ULID {
+    let lastTime: number = 0
+    let lastRandom: string
+    return function ulid(seedTime?: number): string {
+      if (isNaN(seedTime)) {
+        seedTime = Date.now()
+      }
+      if (seedTime <= lastTime) {
+        const incrementedRandom = lastRandom = incrementBase32(lastRandom)
+        return encodeTime(lastTime, TIME_LEN) + incrementedRandom
+      }
+      lastTime = seedTime
+      const newRandom = lastRandom = encodeRandom(RANDOM_LEN)
+      return encodeTime(seedTime, TIME_LEN) + newRandom
+    }
   }
 
-  let lastEncodedTime: string
-  let lastRandom: string
-
   const ulid = function ulid(seedTime?: number): string {
-    if (isNaN(seedTime) === false) {
-      return encodeTime(seedTime, TIME_LEN) + encodeRandom(RANDOM_LEN)
+    if (isNaN(seedTime)) {
+      seedTime = Date.now()
     }
-    const currTime = Date.now()
-    const encodedTime = encodeTime(currTime, TIME_LEN)
-    if (encodedTime === lastEncodedTime) {
-      const incrementedRandom = lastRandom = incrementBase32(lastRandom)
-      return encodedTime + incrementedRandom
-    }
-    lastEncodedTime = encodedTime
-    const newRandom = lastRandom = encodeRandom(RANDOM_LEN)
-    return encodedTime + newRandom
-  } as ULID
+    return encodeTime(seedTime, TIME_LEN) + encodeRandom(RANDOM_LEN)
+  } as ExportedObject
 
   ulid.prng = prng
+  ulid.createMonotonic = createMonotonic
   ulid.incrementBase32 = incrementBase32
   ulid.randomChar = randomChar
   ulid.encodeTime = encodeTime

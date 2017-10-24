@@ -10,11 +10,9 @@ describe('ulid', function() {
       assert.strictEqual(false, isNaN(ulid.prng()))
     })
 
-    it('should be between 0 and 1, tested many times', function() {
-      for (var x = 0; x < 1000; x++) {
-        var num = ulid.prng()
-        assert(num >= 0 && num <= 1)
-      }
+    it('should be between 0 and 1', function() {
+      var num = ulid.prng()
+      assert(num >= 0 && num <= 1)
     })
 
   })
@@ -45,7 +43,7 @@ describe('ulid', function() {
 
     var sample = {}
 
-    for (var x = 0; x < 100000; x++) {
+    for (var x = 0; x < 320000; x++) {
       char = String(ulid.randomChar()) // for if it were to ever return undefined
       if (sample[char] === undefined) {
         sample[char] = 0
@@ -170,33 +168,65 @@ describe('ulid', function() {
     }
 
     var stubbedUlid = ulid.factory(prng)
-    var clock
 
-    before(function() {
-        clock = lolex.install({
-          now: 1469918176385,
-          toFake: ['Date']
-        })
+    describe('without seedTime', function() {
+
+      var monotonic = stubbedUlid.createMonotonic()
+      var clock
+
+      before(function() {
+          clock = lolex.install({
+            now: 1469918176385,
+            toFake: ['Date']
+          })
+      })
+
+      after(function() {
+          clock.uninstall()
+      })
+
+      it('first call', function() {
+        assert.strictEqual('01ARYZ6S41YYYYYYYYYYYYYYYY', monotonic())
+      })
+
+      it('second call', function() {
+        assert.strictEqual('01ARYZ6S41YYYYYYYYYYYYYYYZ', monotonic())
+      })
+
+      it('third call', function() {
+        assert.strictEqual('01ARYZ6S41YYYYYYYYYYYYYYZ0', monotonic())
+      })
+
+      it('fourth call', function() {
+        assert.strictEqual('01ARYZ6S41YYYYYYYYYYYYYYZ1', monotonic())
+      })
+
     })
 
-    after(function() {
-        clock.uninstall()
-    })
+    describe('with seedTime', function() {
 
-    it('first call', function() {
-      assert.strictEqual('01ARYZ6S41YYYYYYYYYYYYYYYY', stubbedUlid())
-    })
+      var monotonic = stubbedUlid.createMonotonic()
 
-    it('second call', function() {
-      assert.strictEqual('01ARYZ6S41YYYYYYYYYYYYYYYZ', stubbedUlid())
-    })
+      it('first call', function() {
+        assert.strictEqual('01ARYZ6S41YYYYYYYYYYYYYYYY', monotonic(1469918176385))
+      })
 
-    it('third call', function() {
-      assert.strictEqual('01ARYZ6S41YYYYYYYYYYYYYYZ0', stubbedUlid())
-    })
+      it('second call with the same', function() {
+        assert.strictEqual('01ARYZ6S41YYYYYYYYYYYYYYYZ', monotonic(1469918176385))
+      })
 
-    it('fourth call', function() {
-      assert.strictEqual('01ARYZ6S41YYYYYYYYYYYYYYZ1', stubbedUlid())
+      it('third call with less than', function() {
+        assert.strictEqual('01ARYZ6S41YYYYYYYYYYYYYYZ0', monotonic(100000000))
+      })
+
+      it('fourth call with even more less than', function() {
+        assert.strictEqual('01ARYZ6S41YYYYYYYYYYYYYYZ1', monotonic(10000))
+      })
+
+      it('fifth call with 1 greater than', function() {
+        assert.strictEqual('01ARYZ6S42YYYYYYYYYYYYYYYY', monotonic(1469918176386))
+      })
+
     })
 
   })

@@ -27,6 +27,7 @@ Instead, herein is proposed ULID:
 - Uses Crockford's base32 for better efficiency and readability (5 bits per character)
 - Case insensitive
 - No special characters (URL safe)
+- Monotonic sort order (correctly detects and handles the same millisecond)
 
 ## JavaScript
 
@@ -43,8 +44,13 @@ import ulid from 'ulid'
 
 ulid() // 01ARZ3NDEKTSV4RRFFQ69G5FAV
 
-// You can also input a seed time which will consistently give you the same time component
-// This is useful for migrating to ulid
+// You can also input a seed time which will consistently
+// give you the same string for the time component. This is
+// useful for migrating to ulid.
+//
+// Note that multiple calls with the same seed time will
+// still monotonically increase the random component for
+// strict sort order.
 ulid(1469918176385) // 01ARYZ6S41TSV4RRFFQ69G5FAV
 ```
 
@@ -117,6 +123,18 @@ Below is the current specification of ULID as implemented in this repository.
 ### Sorting
 
 The left-most character must be sorted first, and the right-most character sorted last (lexical order). The default ASCII character set must be used. Within the same millisecond, sort order is not guaranteed
+
+#### Monotonicity
+
+When generating a ULID within the same millisecond, we can provide some
+guarantees regarding sort order. Namely, if the same millisecond is detected, the `random` component is incremented by 1 bit in the least significant bit position (with carrying). For example:
+
+```javascript
+ulid() // 01BX5ZZKBKACTAV9WEVGEMMVRZ
+ulid() // 01BX5ZZKBKACTAV9WEVGEMMVS0
+```
+
+If, in the extremely unlikely event that, you manage to generate at most 80 ^ 2 ULIDs within the same millisecond, or cause the random component to overflow in any other way, the generation will fail.
 
 ### Canonical String Representation
 
