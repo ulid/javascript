@@ -8,6 +8,7 @@
 </h1>
 
 [![Build Status](https://travis-ci.org/alizain/ulid.svg?branch=master)](https://travis-ci.org/alizain/ulid) [![codecov](https://codecov.io/gh/alizain/ulid/branch/master/graph/badge.svg)](https://codecov.io/gh/alizain/ulid)
+[![npm](https://img.shields.io/npm/dm/localeval.svg)](https://www.npmjs.com/package/ulid)
 
 # Universally Unique Lexicographically Sortable Identifier
 
