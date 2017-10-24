@@ -34,7 +34,9 @@ describe('ulid', function() {
     })
 
     it('throws when it cannot increment', function() {
-      assert.throws(function() ulid.incrementBase32('ZZZ'))
+      assert.throws(function() {
+        ulid.incrementBase32('ZZZ')
+      })
     })
 
   })
@@ -78,23 +80,33 @@ describe('ulid', function() {
     describe('should throw an error', function() {
 
       it('if time greater than (2 ^ 48) - 1', function() {
-        assert.throws(function() ulid.encodeTime(Math.pow(2, 48), 8), Error)
+        assert.throws(function() {
+          ulid.encodeTime(Math.pow(2, 48), 8)
+        }, Error)
       })
 
       it('if time is not a number', function() {
-        assert.throws(function() ulid.encodeTime('test'), Error)
+        assert.throws(function() {
+          ulid.encodeTime('test')
+        }, Error)
       })
 
       it('if time is infinity', function() {
-        assert.throws(function() ulid.encodeTime(Infinity), Error)
+        assert.throws(function() {
+          ulid.encodeTime(Infinity)
+        }, Error)
       })
 
       it('if time is negative', function() {
-        assert.throws(function() ulid.encodeTime(-1), Error)
+        assert.throws(function() {
+          ulid.encodeTime(-1)
+        }, Error)
       })
 
       it('if time is a float', function() {
-        assert.throws(function() ulid.encodeTime(100.1), Error)
+        assert.throws(function() {
+          ulid.encodeTime(100.1)
+        }, Error)
       })
 
     })
@@ -124,11 +136,15 @@ describe('ulid', function() {
     describe('should reject', function() {
 
       it('malformed strings of incorrect length', function() {
-        assert.throws(function() ulid.decodeTime('FFFF'), Error)
+        assert.throws(function() {
+          ulid.decodeTime('FFFF')
+        }, Error)
       })
 
       it('strings with timestamps that are too high', function() {
-        assert.throws(function() ulid.decodeTime('80000000000000000000000000'), Error)
+        assert.throws(function() {
+          ulid.decodeTime('80000000000000000000000000')
+        }, Error)
       })
 
     })
