@@ -73,9 +73,11 @@ const factory = (prng) => {
   }
 
   function encodeRandom(len: number): string {
-    return new Array(len).fill(true)
-      .map(_ => randomChar())
-      .join('')
+    let str = ""
+    for (; len > 0; len--) {
+      str = randomChar() + str
+    }
+    return str
   }
 
   function decodeTime(id: string): number {

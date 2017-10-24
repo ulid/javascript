@@ -66,9 +66,11 @@ var factory = function (prng) {
         return str;
     }
     function encodeRandom(len) {
-        return new Array(len).fill(true)
-            .map(function (_) { return randomChar(); })
-            .join('');
+        var str = "";
+        for (; len > 0; len--) {
+            str = randomChar() + str;
+        }
+        return str;
     }
     function decodeTime(id) {
         if (id.length !== TIME_LEN + RANDOM_LEN) {
