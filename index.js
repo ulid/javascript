@@ -8,8 +8,7 @@
     }
 })(function (require, exports) {
     "use strict";
-    exports.__esModule = true;
-    exports.factory = function (prng) {
+    var factory = function (prng) {
         // These values should NEVER change. If
         // they do, we're no longer making ulids!
         var ENCODING = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"; // Crockford's Base32
@@ -131,6 +130,7 @@
         ulid.encodeTime = encodeTime;
         ulid.encodeRandom = encodeRandom;
         ulid.decodeTime = decodeTime;
+        ulid.factory = factory;
         return ulid;
     };
     /* istanbul ignore next */
@@ -138,24 +138,24 @@
         var browserCrypto = root && (root.crypto || root.msCrypto);
         if (browserCrypto) {
             try {
-                return function () {
-                    return browserCrypto.getRandomValues(new Uint8Array(1))[0] / 0xFF;
-                };
+                return function () { return browserCrypto.getRandomValues(new Uint8Array(1))[0] / 0xFF; };
             }
             catch (e) { }
         }
         else {
             try {
                 var nodeCrypto_1 = require("crypto");
-                return function () {
-                    return nodeCrypto_1.randomBytes(1).readUInt8() / 0xFF;
-                };
+                return function () { return nodeCrypto_1.randomBytes(1).readUInt8() / 0xFF; };
             }
             catch (e) { }
         }
-        throw new Error("[ulid] secure crypto unusable, falling back to insecure Math.random()!");
+        try {
+            console.error("[ulid] secure crypto unusable, falling back to insecure Math.random()!");
+        }
+        catch (e) { }
+        return function () { return Math.random(); };
     }
     var root = typeof window !== "undefined" ? window : null;
     var prng = _prng(root);
-    exports["default"] = exports.factory(prng);
+    return factory(prng);
 });

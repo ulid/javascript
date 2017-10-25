@@ -16,9 +16,10 @@ interface ExportedObject extends ULID {
   encodeTime(now: number, len: number): string
   encodeRandom(len: number): string
   decodeTime(id: string): number
+  factory(prng: PRNG): ExportedObject
 }
 
-export const factory = (prng: PRNG): ExportedObject => {
+const factory = (prng: PRNG): ExportedObject => {
 
   // These values should NEVER change. If
   // they do, we're no longer making ulids!
@@ -150,6 +151,7 @@ export const factory = (prng: PRNG): ExportedObject => {
   ulid.encodeTime = encodeTime
   ulid.encodeRandom = encodeRandom
   ulid.decodeTime = decodeTime
+  ulid.factory = factory
 
   return ulid
 
@@ -161,22 +163,22 @@ function _prng(root): PRNG {
 
   if (browserCrypto) {
     try {
-      return function() {
-        return browserCrypto.getRandomValues(new Uint8Array(1))[0] / 0xFF
-      }
+      return () => browserCrypto.getRandomValues(new Uint8Array(1))[0] / 0xFF
     } catch (e) {}
   } else {
     try {
       const nodeCrypto = require("crypto")
-      return function() {
-        return nodeCrypto.randomBytes(1).readUInt8() / 0xFF
-      }
+      return () => nodeCrypto.randomBytes(1).readUInt8() / 0xFF
     } catch (e) {}
   }
 
-  throw new Error("[ulid] secure crypto unusable, falling back to insecure Math.random()!")
+  try {
+    console.error("[ulid] secure crypto unusable, falling back to insecure Math.random()!")
+  } catch (e) {}
+
+  return () => Math.random()
 }
 
 const root = typeof window !== "undefined" ? window : null
 const prng = _prng(root)
-export default factory(prng)
+export = factory(prng)

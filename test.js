@@ -2,6 +2,7 @@ var assert = require('assert')
 var lolex = require('lolex')
 var ulid = require('./')
 
+
 describe('ulid', function() {
 
   describe('prng', function() {
@@ -163,11 +164,11 @@ describe('ulid', function() {
 
   describe('monotonicity', function() {
 
-    function prng() {
+    function stubbedPrng() {
       return 0.96
     }
 
-    var stubbedUlid = ulid.factory(prng)
+    var stubbedUlid = ulid.factory(stubbedPrng)
 
     describe('without seedTime', function() {
 

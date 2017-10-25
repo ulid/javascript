@@ -1,9 +1,12 @@
 {
-	"compilerOptions": {
-		"lib": [ "es5", "es6", "es7", "dom" ],
-		"target": "es3"
-	},
-  "module": "AMD",
+  "compilerOptions": {
+    "lib": [
+      "es5", "es6", "es7", "dom"
+    ],
+    "types": ["node"],
+    "target": "es3",
+    "module": "UMD"
+  },
   "strict": true,
   "compileOnSave": true
 }
