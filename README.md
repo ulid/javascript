@@ -30,30 +30,59 @@ Instead, herein is proposed ULID:
 - No special characters (URL safe)
 - Monotonic sort order (correctly detects and handles the same millisecond)
 
-## JavaScript
-
-### Installation
+## Installation
 
 ```
 npm install --save ulid
 ```
 
-### Usage
+## Import
+
+**TypeScript, ES6+, Babel, Webpack, Rollup, etc.. environments**
+```javascript
+import { ulid } from 'ulid'
+
+ulid() // 01ARZ3NDEKTSV4RRFFQ69G5FAV
+```
+
+**CommonJS environments**
+```javascript
+const ULID = require('ulid')
+
+ULID.ulid()
+```
+
+**Browser**
+```html
+<script src="/path/to/ulid.js"></script>
+<script>
+    ULID.ulid()
+</script>
+```
+
+## Usage
+
+To generate a ULID, simply run the function!
 
 ```javascript
 import { ulid } from 'ulid'
 
 ulid() // 01ARZ3NDEKTSV4RRFFQ69G5FAV
+```
 
-// You can also input a seed time which will consistently
-// give you the same string for the time component. This is
-// useful for migrating to ulid.
+### Seed Time
+
+You can also input a seed time which will consistently give you the same string for the time component. This is useful for migrating to ulid.
+
+```javascript
 ulid(1469918176385) // 01ARYZ6S41TSV4RRFFQ69G5FAV
 ```
 
-#### Monotonic ULIDs
+### Monotonic ULIDs
 
 To generate monotonically increasing ULIDs, create a monotonic counter.
+
+*Note that the same seed time is being passed in for this example to demonstrate its behaviour when generating multiple ULIDs within the same millisecond*
 
 ```javascript
 import { monotonicFactory } from 'ulid'
@@ -69,6 +98,47 @@ ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVRC
 
 // Even if a lower timestamp is passed (or generated), it will preserve sort order
 ulid(100000) // 000XAL6S41ACTAV9WEVGEMMVRD
+```
+
+### Pseudo-Random Number Generators
+
+`ulid` automatically detects a suitable PRNG.
+
+#### Allowing the insecure `Math.random`
+
+By default, `ulid` will not use `Math.random`, because that is insecure. To allow the use of `Math.random`, you'll have to use `factory` and `detectPrng`.
+
+```javascript
+import { factory, detectPrng } from 'ulid'
+
+const prng = detectPrng(true) // pass `true` to allow insecure
+const ulid = factory(prng)
+
+ulid() // 01BXAVRG61YJ5YSBRM51702F6M
+```
+
+#### Use your own PRNG
+
+To use your own pseudo-random number generator, import the factory, and pass it your generator function.
+
+```javascript
+import { factory } from 'ulid'
+import prng from 'somewhere'
+
+const ulid = factory(prng)
+
+ulid() // 01BXAVRG61YJ5YSBRM51702F6M
+```
+
+You can also pass in a `prng` to the `monotonicFactory` function.
+
+```javascript
+import { monotonicFactory } from 'ulid'
+import prng from 'somewhere'
+
+const ulid = factory(prng)
+
+ulid() // 01BXAVRG61YJ5YSBRM51702F6M
 ```
 
 ## Implementations in other languages
@@ -195,7 +265,7 @@ ulid() // throw new Error()!
 
 #### Overflow Errors when Parsing Base32 Strings
 
-Technically, a 26 character Base32 encoded string can contain 130 bits of information, whereas a ULID must only contain 128 bits. Therefore, the largest valid ULID encoded in Base32 is `7ZZZZZZZZZZZZZZZZZZZZZZZZZ`, which corresponds to an epoch time of `281474976710655`.
+Technically, a 26 character Base32 encoded string can contain 130 bits of information, whereas a ULID must only contain 128 bits. Therefore, the largest valid ULID encoded in Base32 is `7ZZZZZZZZZZZZZZZZZZZZZZZZZ`, which corresponds to an epoch time of `281474976710655` or `2 ^ 48 - 1`.
 
 Any attempt to decode or encode a ULID larger than this should be rejected by all implementations, to prevent overflow bugs.
 
