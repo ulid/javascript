@@ -15,7 +15,7 @@ const defaultPlugins = [
 const es6Config = Object.assign({}, defaultConfig, {
   output: {
     format: 'es',
-    file: './dist/ulid.es.js'
+    file: './dist/ulid.es6.js'
   },
   plugins: [
     ...defaultPlugins

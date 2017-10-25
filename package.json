@@ -3,7 +3,7 @@
   "version": "2.0.1",
   "description": "A universally unique lexicographically sortable identifier generator",
   "main": "./dist/ulid.umd.js",
-  "module": "./dist/ulid.es.js",
+  "module": "./dist/ulid.es6.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alizain/ulid.git"
