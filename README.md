@@ -52,6 +52,15 @@ const ULID = require('ulid')
 ULID.ulid()
 ```
 
+**AMD (RequireJS) environments**
+```javascript
+define(['ULID'] , function (ULID) {
+
+  ULID.ulid()
+  
+});
+```
+
 **Browser**
 ```html
 <script src="/path/to/ulid.js"></script>
