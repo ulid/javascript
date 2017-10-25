@@ -16,10 +16,9 @@ interface ExportedObject extends ULID {
   encodeTime(now: number, len: number): string
   encodeRandom(len: number): string
   decodeTime(id: string): number
-  factory(prng: any): ExportedObject
 }
 
-const factory = (prng: PRNG): ExportedObject => {
+export const factory = (prng: PRNG): ExportedObject => {
 
   // These values should NEVER change. If
   // they do, we're no longer making ulids!
@@ -151,15 +150,14 @@ const factory = (prng: PRNG): ExportedObject => {
   ulid.encodeTime = encodeTime
   ulid.encodeRandom = encodeRandom
   ulid.decodeTime = decodeTime
-  ulid.factory = factory
 
   return ulid
 
 }
 
 /* istanbul ignore next */
-function _prng(root) {
-  var browserCrypto = root && (root.crypto || root.msCrypto)
+function _prng(root): PRNG {
+  const browserCrypto = root && (root.crypto || root.msCrypto)
 
   if (browserCrypto) {
     try {
@@ -169,35 +167,16 @@ function _prng(root) {
     } catch (e) {}
   } else {
     try {
-      var nodeCrypto = require("crypto")
+      const nodeCrypto = require("crypto")
       return function() {
         return nodeCrypto.randomBytes(1).readUInt8() / 0xFF
       }
     } catch (e) {}
   }
 
-  if (typeof console !== "undefined" && console.warn) {
-    console.warn("[ulid] secure crypto unusable, falling back to insecure Math.random()!")
-  }
-  return function() {
-    return Math.random()
-  }
+  throw new Error("[ulid] secure crypto unusable, falling back to insecure Math.random()!")
 }
 
-/* istanbul ignore next */
-(function(root, fn) {
-
-  var prng = _prng(root)
-  var ulid = fn(prng)
-
-  if (("undefined" !== typeof module) && module.exports) {
-    module.exports = ulid
-  } else if (typeof define === "function" && define.amd) {
-    define(function() {
-      return ulid
-    })
-  } else {
-    root.ulid = ulid
-  }
-
-})(typeof window !== "undefined" ? window : null, factory)
+const root = typeof window !== "undefined" ? window : null
+const prng = _prng(root)
+export default factory(prng)

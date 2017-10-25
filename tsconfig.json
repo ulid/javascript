@@ -3,6 +3,7 @@
 		"lib": [ "es5", "es6", "es7", "dom" ],
 		"target": "es3"
 	},
+  "module": "AMD",
   "strict": true,
   "compileOnSave": true
 }
