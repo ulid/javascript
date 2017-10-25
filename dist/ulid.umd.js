@@ -98,7 +98,7 @@ function decodeTime(id) {
     return time;
 }
 function detectPrng() {
-    var allowInsecure = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+    var allowInsecure = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     var root = arguments[1];
 
     if (!root) {

@@ -95,7 +95,7 @@ function decodeTime(id) {
     }
     return time;
 }
-function detectPrng(allowInsecure = true, root) {
+function detectPrng(allowInsecure = false, root) {
     if (!root) {
         root = typeof window !== "undefined" ? window : null;
     }

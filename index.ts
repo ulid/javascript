@@ -115,7 +115,7 @@ export function decodeTime(id: string): number {
   return time
 }
 
-export function detectPrng(allowInsecure: boolean = true, root?: any): PRNG {
+export function detectPrng(allowInsecure: boolean = false, root?: any): PRNG {
   if (!root) {
     root = typeof window !== "undefined" ? window : null
   }
