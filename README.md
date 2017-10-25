@@ -41,7 +41,7 @@ npm install --save ulid
 ### Usage
 
 ```javascript
-import ulid from 'ulid'
+import { ulid } from 'ulid'
 
 ulid() // 01ARZ3NDEKTSV4RRFFQ69G5FAV
 
@@ -56,9 +56,9 @@ ulid(1469918176385) // 01ARYZ6S41TSV4RRFFQ69G5FAV
 To generate monotonically increasing ULIDs, create a monotonic counter.
 
 ```javascript
-import { createMonotonic } from 'ulid'
+import { monotonicFactory } from 'ulid'
 
-const ulid = createMonotonic()
+const ulid = monotonicFactory()
 
 // Strict ordering for the same timestamp, by incrementing the least-significant random bit by 1
 ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVR8
@@ -165,6 +165,10 @@ When generating a ULID within the same millisecond, we can provide some
 guarantees regarding sort order. Namely, if the same millisecond is detected, the `random` component is incremented by 1 bit in the least significant bit position (with carrying). For example:
 
 ```javascript
+import { monotonicFactory } from 'ulid'
+
+const ulid = monotonicFactory()
+
 // Assume that these calls occur within the same millisecond
 ulid() // 01BX5ZZKBKACTAV9WEVGEMMVRZ
 ulid() // 01BX5ZZKBKACTAV9WEVGEMMVS0
@@ -173,12 +177,16 @@ ulid() // 01BX5ZZKBKACTAV9WEVGEMMVS0
 If, in the extremely unlikely event that, you manage to generate at most 80 ^ 2 ULIDs within the same millisecond, or cause the random component to overflow with less, the generation will fail.
 
 ```javascript
+import { monotonicFactory } from 'ulid'
+
+const ulid = monotonicFactory()
+
 // Assume that these calls occur within the same millisecond
 ulid() // 01BX5ZZKBKACTAV9WEVGEMMVRY
 ulid() // 01BX5ZZKBKACTAV9WEVGEMMVRZ
 ulid() // 01BX5ZZKBKACTAV9WEVGEMMVS0
 ulid() // 01BX5ZZKBKACTAV9WEVGEMMVS1
-....
+...
 ulid() // 01BX5ZZKBKZZZZZZZZZZZZZZZX
 ulid() // 01BX5ZZKBKZZZZZZZZZZZZZZZY
 ulid() // 01BX5ZZKBKZZZZZZZZZZZZZZZZ
