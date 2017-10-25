@@ -1,14 +1,14 @@
 var assert = require('assert')
 var lolex = require('lolex')
-var ulidImport = require('./dist/ulid.umd.js')
-var ulid = ulidImport.factory()
+var ULID = require('./dist/ulid.umd.js')
+var ulid = ULID.factory()
 
 
 describe('ulid', function() {
 
   describe('prng', function() {
 
-    var prng = ulidImport.detectPrng()
+    var prng = ULID.detectPrng()
 
     it('should produce a number', function() {
       assert.strictEqual(false, isNaN(prng()))
@@ -24,20 +24,20 @@ describe('ulid', function() {
   describe('incremenet base32', function() {
 
     it('increments correctly', function() {
-      assert.strictEqual('A109D', ulidImport.incrementBase32('A109C'))
+      assert.strictEqual('A109D', ULID.incrementBase32('A109C'))
     })
 
     it('carries correctly', function() {
-      assert.strictEqual('A1Z00', ulidImport.incrementBase32('A1YZZ'))
+      assert.strictEqual('A1Z00', ULID.incrementBase32('A1YZZ'))
     })
 
     it('double increments correctly', function() {
-      assert.strictEqual('A1Z01', ulidImport.incrementBase32(ulidImport.incrementBase32('A1YZZ')))
+      assert.strictEqual('A1Z01', ULID.incrementBase32(ULID.incrementBase32('A1YZZ')))
     })
 
     it('throws when it cannot increment', function() {
       assert.throws(function() {
-        ulidImport.incrementBase32('ZZZ')
+        ULID.incrementBase32('ZZZ')
       })
     })
 
@@ -46,10 +46,10 @@ describe('ulid', function() {
   describe('randomChar', function() {
 
     var sample = {}
-    var prng = ulidImport.detectPrng()
+    var prng = ULID.detectPrng()
 
     for (var x = 0; x < 320000; x++) {
-      char = String(ulidImport.randomChar(prng)) // for if it were to ever return undefined
+      char = String(ULID.randomChar(prng)) // for if it were to ever return undefined
       if (sample[char] === undefined) {
         sample[char] = 0
       }
@@ -69,46 +69,46 @@ describe('ulid', function() {
   describe('encodeTime', function() {
 
     it('should return expected encoded result', function() {
-      assert.strictEqual('01ARYZ6S41', ulidImport.encodeTime(1469918176385, 10))
+      assert.strictEqual('01ARYZ6S41', ULID.encodeTime(1469918176385, 10))
     })
 
     it('should change length properly', function() {
-      assert.strictEqual('0001AS99AA60', ulidImport.encodeTime(1470264322240, 12))
+      assert.strictEqual('0001AS99AA60', ULID.encodeTime(1470264322240, 12))
     })
 
     it('should truncate time if not enough length', function() {
-      assert.strictEqual('AS4Y1E11', ulidImport.encodeTime(1470118279201, 8))
+      assert.strictEqual('AS4Y1E11', ULID.encodeTime(1470118279201, 8))
     })
 
     describe('should throw an error', function() {
 
       it('if time greater than (2 ^ 48) - 1', function() {
         assert.throws(function() {
-          ulidImport.encodeTime(Math.pow(2, 48), 8)
+          ULID.encodeTime(Math.pow(2, 48), 8)
         }, Error)
       })
 
       it('if time is not a number', function() {
         assert.throws(function() {
-          ulidImport.encodeTime('test')
+          ULID.encodeTime('test')
         }, Error)
       })
 
       it('if time is infinity', function() {
         assert.throws(function() {
-          ulidImport.encodeTime(Infinity)
+          ULID.encodeTime(Infinity)
         }, Error)
       })
 
       it('if time is negative', function() {
         assert.throws(function() {
-          ulidImport.encodeTime(-1)
+          ULID.encodeTime(-1)
         }, Error)
       })
 
       it('if time is a float', function() {
         assert.throws(function() {
-          ulidImport.encodeTime(100.1)
+          ULID.encodeTime(100.1)
         }, Error)
       })
 
@@ -118,10 +118,10 @@ describe('ulid', function() {
 
   describe('encodeRandom', function() {
 
-    var prng = ulidImport.detectPrng()
+    var prng = ULID.detectPrng()
 
     it('should return correct length', function() {
-      assert.strictEqual(12, ulidImport.encodeRandom(12, prng).length)
+      assert.strictEqual(12, ULID.encodeRandom(12, prng).length)
     })
 
   })
@@ -131,24 +131,24 @@ describe('ulid', function() {
     it('should return correct timestamp', function() {
       var timestamp = Date.now()
       var id = ulid(timestamp)
-      assert.strictEqual(timestamp, ulidImport.decodeTime(id))
+      assert.strictEqual(timestamp, ULID.decodeTime(id))
     })
 
     it('should accept the maximum allowed timestamp', function() {
-      assert.strictEqual(281474976710655, ulidImport.decodeTime('7ZZZZZZZZZZZZZZZZZZZZZZZZZ'))
+      assert.strictEqual(281474976710655, ULID.decodeTime('7ZZZZZZZZZZZZZZZZZZZZZZZZZ'))
     })
 
     describe('should reject', function() {
 
       it('malformed strings of incorrect length', function() {
         assert.throws(function() {
-          ulidImport.decodeTime('FFFF')
+          ULID.decodeTime('FFFF')
         }, Error)
       })
 
       it('strings with timestamps that are too high', function() {
         assert.throws(function() {
-          ulidImport.decodeTime('80000000000000000000000000')
+          ULID.decodeTime('80000000000000000000000000')
         }, Error)
       })
 
@@ -174,11 +174,11 @@ describe('ulid', function() {
       return 0.96
     }
 
-    var stubbedUlid = ulidImport.factory(stubbedPrng)
+    var stubbedUlid = ULID.factory(stubbedPrng)
 
     describe('without seedTime', function() {
 
-      var stubbedUlid = ulidImport.monotonicFactory(stubbedPrng)
+      var stubbedUlid = ULID.monotonicFactory(stubbedPrng)
       var clock
 
       before(function() {
@@ -212,7 +212,7 @@ describe('ulid', function() {
 
     describe('with seedTime', function() {
 
-      var stubbedUlid = ulidImport.monotonicFactory(stubbedPrng)
+      var stubbedUlid = ULID.monotonicFactory(stubbedPrng)
 
       it('first call', function() {
         assert.strictEqual('01ARYZ6S41YYYYYYYYYYYYYYYY', stubbedUlid(1469918176385))

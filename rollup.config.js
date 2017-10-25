@@ -4,7 +4,7 @@ import compiler from 'typescript'
 
 
 const defaultConfig = {
-  name: 'ulid',
+  name: 'ULID',
   input: './index.ts',
 }
 
