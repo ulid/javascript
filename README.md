@@ -55,9 +55,7 @@ ULID.ulid()
 **AMD (RequireJS) environments**
 ```javascript
 define(['ULID'] , function (ULID) {
-
   ULID.ulid()
-  
 });
 ```
 
