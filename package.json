@@ -1,6 +1,6 @@
 {
   "name": "ulid",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "A universally unique lexicographically sortable identifier generator",
   "main": "./dist/ulid.umd.js",
   "module": "./dist/ulid.es6.js",
