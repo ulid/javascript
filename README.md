@@ -161,6 +161,7 @@ From the community!
 | [Dart](https://github.com/agilord/ulid) | [isoos](https://github.com/isoos) | ✓ |
 | [Delphi](https://github.com/martinusso/ulid) | [matinusso](https://github.com/martinusso) |
 | [D](https://github.com/enckse/ulid) | [enckse](https://github.com/enckse) |
+| [D (dub)](https://code.dlang.org/packages/ulid-d) | [extrawurst](https://github.com/Extrawurst)
 | [Erlang](https://github.com/savonarola/ulid) | [savonarola](https://github.com/savonarola) |
 | [Elixir](https://github.com/merongivian/ulid) | [merongivian](https://github.com/merongivian) |
 | [F#](https://github.com/lucasschejtman/FSharp.Ulid) | [lucasschejtman](https://github.com/lucasschejtman) |
