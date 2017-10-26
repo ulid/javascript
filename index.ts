@@ -1,12 +1,12 @@
-interface PRNG {
+export interface PRNG {
   (): number
 }
 
-interface ULID {
+export interface ULID {
   (seedTime?: number): string
 }
 
-interface LibError extends Error {
+export interface LibError extends Error {
   source: string
 }
 

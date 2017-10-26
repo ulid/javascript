@@ -1,9 +1,10 @@
 {
   "name": "ulid",
   "version": "2.0.1",
-  "description": "A universally unique lexicographically sortable identifier generator",
-  "main": "./dist/ulid.umd.js",
-  "module": "./dist/ulid.es6.js",
+  "description": "A universally-unique, lexicographically-sortable, identifier generator",
+  "main": "./lib/index.umd.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alizain/ulid.git"
@@ -30,9 +31,15 @@
     "typescript": "^2.5.3"
   },
   "scripts": {
-    "build": "./node_modules/.bin/rollup -c",
+    "ts": "./node_modules/.bin/tsc -p .",
+    "umd": "./node_modules/.bin/rollup -c",
+    "build": "npm run ts && npm run umd",
     "test": "./node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
     "perf": "./node_modules/.bin/matcha perf.js"
   },
-  "bin": "./cli.js"
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "bin": "./bin/cli.js"
 }

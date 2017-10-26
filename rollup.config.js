@@ -12,20 +12,20 @@ const defaultPlugins = [
   typescript({ typescript: compiler })
 ]
 
-const es6Config = Object.assign({}, defaultConfig, {
-  output: {
-    format: 'es',
-    file: './dist/ulid.es6.js'
-  },
-  plugins: [
-    ...defaultPlugins
-  ]
-})
+// const es6Config = Object.assign({}, defaultConfig, {
+//   output: {
+//     format: 'es',
+//     file: './lib/ulid.es6.js'
+//   },
+//   plugins: [
+//     ...defaultPlugins
+//   ]
+// })
 
 const umdConfig = Object.assign({}, defaultConfig, {
   output: {
     format: 'umd',
-    file: './dist/ulid.umd.js'
+    file: './lib/index.umd.js'
   },
   plugins: [
     ...defaultPlugins,
@@ -34,6 +34,6 @@ const umdConfig = Object.assign({}, defaultConfig, {
 })
 
 export default [
-  es6Config,
+  // es6Config,
   umdConfig
 ]

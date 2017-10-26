@@ -1,6 +1,6 @@
 var assert = require('assert')
 var lolex = require('lolex')
-var ULID = require('./dist/ulid.umd.js')
+var ULID = require('./lib/index.umd.js')
 var ulid = ULID.factory()
 
 
