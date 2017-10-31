@@ -1,4 +1,4 @@
 #! /usr/bin/env node
 
-const ulid = require('./dist/ulid.umd.js')
-console.log(ulid())
+var ULID = require('../lib/index.umd.js')
+process.stdout.write(ULID.ulid())
