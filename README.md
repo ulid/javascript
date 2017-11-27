@@ -252,7 +252,7 @@ ulid() // 01BX5ZZKBKACTAV9WEVGEMMVRZ
 ulid() // 01BX5ZZKBKACTAV9WEVGEMMVS0
 ```
 
-If, in the extremely unlikely event that, you manage to generate at most 80 ^ 2 ULIDs within the same millisecond, or cause the random component to overflow with less, the generation will fail.
+If, in the extremely unlikely event that, you manage to generate more than 2<sup>80</sup> ULIDs within the same millisecond, or cause the random component to overflow with less, the generation will fail.
 
 ```javascript
 import { monotonicFactory } from 'ulid'
@@ -273,7 +273,7 @@ ulid() // throw new Error()!
 
 #### Overflow Errors when Parsing Base32 Strings
 
-Technically, a 26 character Base32 encoded string can contain 130 bits of information, whereas a ULID must only contain 128 bits. Therefore, the largest valid ULID encoded in Base32 is `7ZZZZZZZZZZZZZZZZZZZZZZZZZ`, which corresponds to an epoch time of `281474976710655` or `2 ^ 48 - 1`.
+Technically, a 26-character Base32 encoded string can contain 130 bits of information, whereas a ULID must only contain 128 bits. Therefore, the largest valid ULID encoded in Base32 is `7ZZZZZZZZZZZZZZZZZZZZZZZZZ`, which corresponds to an epoch time of `281474976710655` or `2 ^ 48 - 1`.
 
 Any attempt to decode or encode a ULID larger than this should be rejected by all implementations, to prevent overflow bugs.
 
