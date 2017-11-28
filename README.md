@@ -109,7 +109,7 @@ ulid(100000) // 000XAL6S41ACTAV9WEVGEMMVRD
 
 ### Pseudo-Random Number Generators
 
-`ulid` automatically detects a suitable PRNG.
+`ulid` automatically detects a suitable (cryptographically-secure) PRNG. In the browser it will use `crypto.getRandomValues` and on node it will use `crypto.randomBytes`.
 
 #### Allowing the insecure `Math.random`
 
@@ -143,7 +143,7 @@ You can also pass in a `prng` to the `monotonicFactory` function.
 import { monotonicFactory } from 'ulid'
 import prng from 'somewhere'
 
-const ulid = factory(prng)
+const ulid = monotonicFactory(prng)
 
 ulid() // 01BXAVRG61YJ5YSBRM51702F6M
 ```
