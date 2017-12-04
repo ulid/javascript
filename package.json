@@ -7,14 +7,14 @@
   "types": "./lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alizain/ulid.git"
+    "url": "git+https://github.com/ulid/javascript.git"
   },
   "author": "Alizain Feerasta",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alizain/ulid/issues"
+    "url": "https://github.com/ulid/javascript/issues"
   },
-  "homepage": "https://github.com/alizain/ulid#readme",
+  "homepage": "https://github.com/ulid/javascript#readme",
   "devDependencies": {
     "@types/node": "^8.0.47",
     "babel-core": "^6.26.0",
