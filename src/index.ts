@@ -144,7 +144,7 @@ export function detectPrng(allowInsecure: boolean = false, root?: any): PRNG {
     return () => Math.random()
   }
 
-  throw createError("secure crypto unusable, insecure Math.random not allowedW")
+  throw createError("secure crypto unusable, insecure Math.random not allowed")
 }
 
 export function factory(currPrng?: PRNG): ULID {
