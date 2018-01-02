@@ -3,6 +3,7 @@
   "version": "2.2.3",
   "description": "A universally-unique, lexicographically-sortable, identifier generator",
   "main": "./lib/index.umd.js",
+  "browser": "./lib/index.umd.js",
   "module": "./lib/index.esm.js",
   "types": "./lib/index.d.ts",
   "esnext": "./lib/index.js",
