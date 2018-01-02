@@ -3,8 +3,9 @@
   "version": "2.2.3",
   "description": "A universally-unique, lexicographically-sortable, identifier generator",
   "main": "./lib/index.umd.js",
-  "module": "./lib/index.js",
+  "module": "./lib/index.esm.js",
   "types": "./lib/index.d.ts",
+  "esnext": "./lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ulid/javascript.git"
@@ -32,8 +33,8 @@
   },
   "scripts": {
     "ts": "./node_modules/.bin/tsc -p .",
-    "umd": "./node_modules/.bin/rollup -c",
-    "build": "npm run ts && npm run umd",
+    "rollup": "./node_modules/.bin/rollup -c",
+    "build": "npm run ts && npm run rollup",
     "test": "./node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
     "perf": "./node_modules/.bin/matcha perf.js"
   },
