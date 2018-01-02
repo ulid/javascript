@@ -5,7 +5,7 @@ import compiler from 'typescript'
 
 const defaultConfig = {
   name: 'ULID',
-  input: './index.ts',
+  input: './src/index.ts',
 }
 
 const defaultPlugins = [
