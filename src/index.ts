@@ -124,7 +124,11 @@ export function detectPrng(allowInsecure: boolean = false, root?: any): PRNG {
 
   if (browserCrypto) {
     try {
-      return () => browserCrypto.getRandomValues(new Uint8Array(1))[0] / 0xff
+      return () => {
+        const buffer = new Uint8Array(1)
+        browserCrypto.getRandomValues(buffer)
+        return buffer[0] / 0xff
+      }
     } catch (e) {}
   } else {
     try {
@@ -140,7 +144,7 @@ export function detectPrng(allowInsecure: boolean = false, root?: any): PRNG {
     return () => Math.random()
   }
 
-  throw createError("secure crypto unusable, insecure Math.random not allowedW")
+  throw createError("secure crypto unusable, insecure Math.random not allowed")
 }
 
 export function factory(currPrng?: PRNG): ULID {

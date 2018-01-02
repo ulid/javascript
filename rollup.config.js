@@ -5,22 +5,23 @@ import compiler from 'typescript'
 
 const defaultConfig = {
   name: 'ULID',
-  input: './index.ts',
+  input: './src/index.ts',
 }
 
 const defaultPlugins = [
   typescript({ typescript: compiler })
 ]
 
-// const es6Config = Object.assign({}, defaultConfig, {
-//   output: {
-//     format: 'es',
-//     file: './lib/ulid.es6.js'
-//   },
-//   plugins: [
-//     ...defaultPlugins
-//   ]
-// })
+const esModuleConfig = Object.assign({}, defaultConfig, {
+  output: {
+    format: 'es',
+    file: './lib/index.esm.js'
+  },
+  plugins: [
+    ...defaultPlugins,
+    babel()
+  ]
+})
 
 const umdConfig = Object.assign({}, defaultConfig, {
   output: {
@@ -34,6 +35,6 @@ const umdConfig = Object.assign({}, defaultConfig, {
 })
 
 export default [
-  // es6Config,
+  esModuleConfig,
   umdConfig
 ]
