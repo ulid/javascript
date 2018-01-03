@@ -101,18 +101,15 @@ export function detectPrng(allowInsecure = false, root) {
     }
     const browserCrypto = root && (root.crypto || root.msCrypto);
     if (browserCrypto) {
-        try {
-            return () => {
-                const buffer = new Uint8Array(1);
-                browserCrypto.getRandomValues(buffer);
-                return buffer[0] / 0xff;
-            };
-        }
-        catch (e) { }
+        return () => {
+            const buffer = new Uint8Array(1);
+            browserCrypto.getRandomValues(buffer);
+            return buffer[0] / 0xff;
+        };
     }
     else {
         try {
-            const nodeCrypto = require("crypto");
+            const nodeCrypto = global["require"]("crypto");
             return () => nodeCrypto.randomBytes(1).readUInt8() / 0xff;
         }
         catch (e) { }

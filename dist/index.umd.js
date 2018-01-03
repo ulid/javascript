@@ -106,16 +106,14 @@ function detectPrng() {
     }
     var browserCrypto = root && (root.crypto || root.msCrypto);
     if (browserCrypto) {
-        try {
-            return function () {
-                var buffer = new Uint8Array(1);
-                browserCrypto.getRandomValues(buffer);
-                return buffer[0] / 0xff;
-            };
-        } catch (e) {}
+        return function () {
+            var buffer = new Uint8Array(1);
+            browserCrypto.getRandomValues(buffer);
+            return buffer[0] / 0xff;
+        };
     } else {
         try {
-            var nodeCrypto = require("crypto");
+            var nodeCrypto = global["require"]("crypto");
             return function () {
                 return nodeCrypto.randomBytes(1).readUInt8() / 0xff;
             };
