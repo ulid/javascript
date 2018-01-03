@@ -3,7 +3,7 @@ var path = require("path")
 var assert = require("assert")
 var lolex = require("lolex")
 
-var ULID = require("./lib/index.umd.js")
+var ULID = require("./dist/index.umd.js")
 var ulid = ULID.factory()
 
 describe("ulid", function() {

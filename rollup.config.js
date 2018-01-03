@@ -5,7 +5,7 @@ import compiler from 'typescript'
 
 const defaultConfig = {
   name: 'ULID',
-  input: './src/index.ts',
+  input: './lib/index.ts',
 }
 
 const defaultPlugins = [
@@ -15,7 +15,7 @@ const defaultPlugins = [
 const esModuleConfig = Object.assign({}, defaultConfig, {
   output: {
     format: 'es',
-    file: './lib/index.esm.js'
+    file: './dist/index.esm.js'
   },
   plugins: [
     ...defaultPlugins,
@@ -26,7 +26,7 @@ const esModuleConfig = Object.assign({}, defaultConfig, {
 const umdConfig = Object.assign({}, defaultConfig, {
   output: {
     format: 'umd',
-    file: './lib/index.umd.js'
+    file: './dist/index.umd.js'
   },
   plugins: [
     ...defaultPlugins,
