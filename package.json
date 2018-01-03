@@ -40,7 +40,11 @@
   },
   "files": [
     "bin",
-    "dist"
+    "dist",
+    "stubs"
   ],
-  "bin": "./bin/cli.js"
+  "bin": "./bin/cli.js",
+  "browser": {
+    "crypto": "./stubs/crypto.js"
+  }
 }

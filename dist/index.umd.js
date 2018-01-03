@@ -113,7 +113,7 @@ function detectPrng() {
         };
     } else {
         try {
-            var nodeCrypto = global["require"]("crypto");
+            var nodeCrypto = require("crypto");
             return function () {
                 return nodeCrypto.randomBytes(1).readUInt8() / 0xff;
             };

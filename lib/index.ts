@@ -130,7 +130,7 @@ export function detectPrng(allowInsecure: boolean = false, root?: any): PRNG {
     }
   } else {
     try {
-      const nodeCrypto = global["require"]("crypto")
+      const nodeCrypto = require("crypto")
       return () => nodeCrypto.randomBytes(1).readUInt8() / 0xff
     } catch (e) {}
   }
