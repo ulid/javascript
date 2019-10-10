@@ -30,7 +30,7 @@ Instead, herein is proposed ULID:
 - No special characters (URL safe)
 - Monotonic sort order (correctly detects and handles the same millisecond)
 
-## Use in the browser
+## Install with a script tag
 
 ```html
 <script src="https://unpkg.com/ulid@{{VERSION_NUMBER}}/dist/index.umd.js"></script>
