@@ -30,13 +30,22 @@ Instead, herein is proposed ULID:
 - No special characters (URL safe)
 - Monotonic sort order (correctly detects and handles the same millisecond)
 
-## Installation
+## Use in the browser
+
+```html
+<script src="https://unpkg.com/ulid@${VERSION_NUMBER}/dist/index.umd.js"></script>
+<script>
+    ULID.ulid()
+</script>
+```
+
+## Install with NPM
 
 ```
 npm install --save ulid
 ```
 
-## Import
+### Import
 
 **TypeScript, ES6+, Babel, Webpack, Rollup, etc.. environments**
 ```javascript
@@ -57,14 +66,6 @@ ULID.ulid()
 define(['ULID'] , function (ULID) {
   ULID.ulid()
 });
-```
-
-**Browser**
-```html
-<script src="/path/to/ulid.js"></script>
-<script>
-    ULID.ulid()
-</script>
 ```
 
 ## Usage
