@@ -86,6 +86,16 @@ You can also input a seed time which will consistently give you the same string 
 ulid(1469918176385) // 01ARYZ6S41TSV4RRFFQ69G5FAV
 ```
 
+### Decode Time
+
+To extract the time component from a ULID, use `decodeTime`.
+
+```javascript
+import { decodeTime } from 'ulid'
+
+decodeTime('01ARYZ6S41TSV4RRFFQ69G5FAV') // 1469918176385
+```
+
 ### Monotonic ULIDs
 
 To generate monotonically increasing ULIDs, create a monotonic counter.
