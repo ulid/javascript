@@ -33,7 +33,7 @@ Instead, herein is proposed ULID:
 ## Use in the browser
 
 ```html
-<script src="https://unpkg.com/ulid@${VERSION_NUMBER}/dist/index.umd.js"></script>
+<script src="https://unpkg.com/ulid@{{VERSION_NUMBER}}/dist/index.umd.js"></script>
 <script>
     ULID.ulid()
 </script>
