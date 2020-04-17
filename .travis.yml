@@ -1,10 +1,11 @@
 language: node_js
 node_js:
   - "node"
+  - "lts/*"
+  - "12"
+  - "11"
+  - "10"
+  - "9"
   - "8"
-  - "7"
-  - "6"
-  - "5"
-  - "4"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
