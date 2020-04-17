@@ -15,7 +15,7 @@ const defaultPlugins = [
 const esModuleConfig = Object.assign({}, defaultConfig, {
   output: {
     format: 'es',
-    file: './dist/index.esm.js'
+    file: './dist/index.mjs'
   },
   plugins: [
     ...defaultPlugins,
