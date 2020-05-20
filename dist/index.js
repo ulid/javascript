@@ -99,11 +99,13 @@ export function detectPrng(allowInsecure = false, root) {
     if (!root) {
         root = typeof window !== "undefined" ? window : null;
     }
-    const browserCrypto = root && (root.crypto || root.msCrypto);
-    if (browserCrypto) {
+    const webCrypto = root &&
+        (root.crypto || root.msCrypto) ||
+        (typeof crypto !== "undefined" ? crypto : null);
+    if (webCrypto) {
         return () => {
             const buffer = new Uint8Array(1);
-            browserCrypto.getRandomValues(buffer);
+            webCrypto.getRandomValues(buffer);
             return buffer[0] / 0xff;
         };
     }

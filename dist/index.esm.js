@@ -98,11 +98,11 @@ function detectPrng() {
     if (!root) {
         root = typeof window !== "undefined" ? window : null;
     }
-    var browserCrypto = root && (root.crypto || root.msCrypto);
-    if (browserCrypto) {
+    var webCrypto = root && (root.crypto || root.msCrypto) || (typeof crypto !== "undefined" ? crypto : null);
+    if (webCrypto) {
         return function () {
             var buffer = new Uint8Array(1);
-            browserCrypto.getRandomValues(buffer);
+            webCrypto.getRandomValues(buffer);
             return buffer[0] / 0xff;
         };
     } else {
