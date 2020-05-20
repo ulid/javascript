@@ -120,12 +120,14 @@ export function detectPrng(allowInsecure: boolean = false, root?: any): PRNG {
     root = typeof window !== "undefined" ? window : null
   }
 
-  const browserCrypto = root && (root.crypto || root.msCrypto)
+  const webCrypto = root &&
+    (root.crypto || root.msCrypto) ||
+    (typeof crypto !== "undefined" ? crypto : null)
 
-  if (browserCrypto) {
+  if (webCrypto) {
     return () => {
         const buffer = new Uint8Array(1)
-        browserCrypto.getRandomValues(buffer)
+        webCrypto.getRandomValues(buffer)
         return buffer[0] / 0xff
     }
   } else {
