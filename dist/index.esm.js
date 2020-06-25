@@ -153,6 +153,6 @@ function monotonicFactory(currPrng) {
         return encodeTime(seedTime, TIME_LEN) + newRandom;
     };
 }
-var ulid = factory();
+var ulid = /*#__PURE__*/factory();
 
 export { replaceCharAt, incrementBase32, randomChar, encodeTime, encodeRandom, decodeTime, detectPrng, factory, monotonicFactory, ulid };

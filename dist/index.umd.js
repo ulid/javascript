@@ -159,7 +159,7 @@ function monotonicFactory(currPrng) {
         return encodeTime(seedTime, TIME_LEN) + newRandom;
     };
 }
-var ulid = factory();
+var ulid = /*#__PURE__*/factory();
 
 exports.replaceCharAt = replaceCharAt;
 exports.incrementBase32 = incrementBase32;

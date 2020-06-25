@@ -177,4 +177,4 @@ export function monotonicFactory(currPrng?: PRNG): ULID {
   }
 }
 
-export const ulid = factory()
+export const ulid = /*#__PURE__*/factory()

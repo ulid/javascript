@@ -153,4 +153,4 @@ export function monotonicFactory(currPrng) {
         return encodeTime(seedTime, TIME_LEN) + newRandom;
     };
 }
-export const ulid = factory();
+export const ulid = /*#__PURE__*/ factory();
