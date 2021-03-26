@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "lib": [
-      "ES5", "ES6", "ES7", "DOM", "WebWorker"
+      "ES5", "ES6", "ES7", "DOM"
     ],
     "types": [ "Node" ],
     "declaration": true,
