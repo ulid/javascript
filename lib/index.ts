@@ -17,6 +17,7 @@ function createError(message: string): LibError {
 }
 
 function inWebWorker(): boolean {
+  // @ts-ignore
   return typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope
 }
 
