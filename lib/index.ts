@@ -16,6 +16,10 @@ function createError(message: string): LibError {
   return err
 }
 
+function inWebWorker(): boolean {
+  return typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope
+}
+
 // These values should NEVER change. If
 // they do, we're no longer making ulids!
 const ENCODING = "0123456789ABCDEFGHJKMNPQRSTVWXYZ" // Crockford's Base32
@@ -117,7 +121,7 @@ export function decodeTime(id: string): number {
 
 export function detectPrng(allowInsecure: boolean = false, root?: any): PRNG {
   if (!root) {
-    root = typeof window !== "undefined" ? window : null
+    root = typeof window !== "undefined" ? window : inWebWorker() ? self : null
   }
 
   const browserCrypto = root && (root.crypto || root.msCrypto)
