@@ -98,14 +98,14 @@ import { monotonicFactory } from 'ulid'
 const ulid = monotonicFactory()
 
 // Strict ordering for the same timestamp, by incrementing the least-significant random bit by 1
-ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVR8
-ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVR9
-ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVRA
-ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVRB
-ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVRC
+ulid(150000) // 0000004JFG7NP20TJP26ZJDASS
+ulid(150000) // 0000004JFG7NP20TJP26ZJDAST
+ulid(150000) // 0000004JFG7NP20TJP26ZJDASV
+ulid(150000) // 0000004JFG7NP20TJP26ZJDASW
+ulid(150000) // 0000004JFG7NP20TJP26ZJDASX
 
 // Even if a lower timestamp is passed (or generated), it will preserve sort order
-ulid(100000) // 000XAL6S41ACTAV9WEVGEMMVRD
+ulid(100000) // 0000004JFG7NP20TJP26ZJDASY
 ```
 
 ### Pseudo-Random Number Generators
