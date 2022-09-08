@@ -140,25 +140,7 @@ function factory(currPrng) {
         return encodeTime(seedTime, TIME_LEN) + encodeRandom(RANDOM_LEN, currPrng);
     };
 }
-function monotonicFactory(currPrng) {
-    if (!currPrng) {
-        currPrng = detectPrng();
-    }
-    var lastTime = 0;
-    var lastRandom = void 0;
-    return function ulid(seedTime) {
-        if (isNaN(seedTime)) {
-            seedTime = Date.now();
-        }
-        if (seedTime <= lastTime) {
-            var incrementedRandom = lastRandom = incrementBase32(lastRandom);
-            return encodeTime(lastTime, TIME_LEN) + incrementedRandom;
-        }
-        lastTime = seedTime;
-        var newRandom = lastRandom = encodeRandom(RANDOM_LEN, currPrng);
-        return encodeTime(seedTime, TIME_LEN) + newRandom;
-    };
-}
+
 var ulid = factory();
 
 exports.replaceCharAt = replaceCharAt;
