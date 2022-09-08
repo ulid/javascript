@@ -102,7 +102,7 @@ function detectPrng() {
     var root = arguments[1];
 
     if (!root) {
-        root = typeof window !== "undefined" ? window : null;
+        root = self instanceof Window || self instanceof ServiceWorkerGlobalScope || self instanceof Worker ? self : null;
     }
     var browserCrypto = root && (root.crypto || root.msCrypto);
     if (browserCrypto) {
