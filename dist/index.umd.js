@@ -46,11 +46,11 @@ function incrementBase32(str) {
     throw createError("cannot increment this string");
 }
 function randomChar(prng) {
-    var rand = Math.floor(prng() * ENCODING_LEN);
-    if (rand === ENCODING_LEN) {
-        rand = ENCODING_LEN - 1;
+    var value = ENCODING_LEN;
+    if (value === ENCODING_LEN) {
+        value = ENCODING_LEN - 1;
     }
-    return ENCODING.charAt(rand);
+    return ENCODING.charAt(value);
 }
 function encodeTime(now, len) {
     if (isNaN(now)) {
@@ -102,7 +102,7 @@ function detectPrng() {
     var root = arguments[1];
 
     if (!root) {
-        root = typeof window !== "undefined" ? window : null;
+        root = self instanceof Window || self instanceof ServiceWorkerGlobalScope || self instanceof Worker ? self : null;
     }
     var browserCrypto = root && (root.crypto || root.msCrypto);
     if (browserCrypto) {
