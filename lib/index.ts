@@ -137,7 +137,8 @@ export function detectPrng(allowInsecure: boolean = false, root?: any): PRNG {
 
   if (allowInsecure) {
     try {
-      console.error("secure crypto unusable, falling back to insecure Math.random()!")
+      // changed from console.error to console.info to avoid failure inside a service worker (console.error throws).
+      console.info("ERROR: secure crypto unusable, falling back to insecure Math.random()!")
     } catch (e) {}
     return () => Math.random()
   }
