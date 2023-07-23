@@ -117,7 +117,11 @@ export function decodeTime(id: string): number {
 
 export function detectPrng(allowInsecure: boolean = false, root?: any): PRNG {
   if (!root) {
-    root = typeof window !== "undefined" ? window : null
+    root = typeof globalThis !== "undefined"
+        ? globalThis
+        : typeof window !== "undefined"
+        ? window
+        : null
   }
 
   const browserCrypto = root && (root.crypto || root.msCrypto)
