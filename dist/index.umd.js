@@ -28,7 +28,7 @@ function incrementBase32(str) {
     var char = void 0;
     var charIndex = void 0;
     var maxCharIndex = ENCODING_LEN - 1;
-    while (!done && index-- >= 0) {
+    while (!done && --index >= 0) {
         char = str[index];
         charIndex = ENCODING.indexOf(char);
         if (charIndex === -1) {
