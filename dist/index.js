@@ -22,7 +22,7 @@ export function incrementBase32(str) {
     let char;
     let charIndex;
     const maxCharIndex = ENCODING_LEN - 1;
-    while (!done && index-- >= 0) {
+    while (!done && --index >= 0) {
         char = str[index];
         charIndex = ENCODING.indexOf(char);
         if (charIndex === -1) {

@@ -36,6 +36,8 @@ describe("ulid", function() {
     it("throws when it cannot increment", function() {
       assert.throws(function() {
         ULID.incrementBase32("ZZZ")
+      }, {
+        message: "cannot increment this string"
       })
     })
   })
