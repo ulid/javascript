@@ -226,4 +226,14 @@ describe("ulid", function() {
       })
     })
   })
+
+  describe("constants", function () {
+    it("should export MIN_ULID", function () {
+      assert.strictEqual(ULID.MIN_ULID, "00000000000000000000000000");
+    });
+
+    it("should export MAX_ULID", function () {
+      assert.strictEqual(ULID.MAX_ULID, "7ZZZZZZZZZZZZZZZZZZZZZZZZZ");
+    });
+  });
 })
