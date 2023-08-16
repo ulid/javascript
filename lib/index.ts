@@ -24,6 +24,9 @@ const TIME_MAX = Math.pow(2, 48) - 1
 const TIME_LEN = 10
 const RANDOM_LEN = 16
 
+export const MIN_ULID = "00000000000000000000000000";
+export const MAX_ULID = "7ZZZZZZZZZZZZZZZZZZZZZZZZZ";
+
 export function replaceCharAt(str: string, index: number, char: string) {
   if (index > str.length - 1) {
     return str
