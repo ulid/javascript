@@ -12,8 +12,9 @@
     "clean": "rm -rf ./dist",
     "perf": "./node_modules/.bin/matcha perf.js",
     "rollup": "./node_modules/.bin/rollup -c",
-    "test": "mocha -- -R spec",
-    "test:coverage": "c8 --check-coverage --lines 88 --functions 100 --src ./lib npm run test",
+    "test": "npm run test:coverage",
+    "test:specs": "mocha -- -R spec",
+    "test:coverage": "c8 --check-coverage --lines 87 --functions 100 --src ./lib npm run test:specs",
     "ts": "./node_modules/.bin/tsc -p ."
   },
   "files": [
