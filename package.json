@@ -8,11 +8,11 @@
   "esnext": "./dist/index.js",
   "bin": "./bin/cli.js",
   "scripts": {
-    "ts": "./node_modules/.bin/tsc -p .",
-    "rollup": "./node_modules/.bin/rollup -c",
     "build": "npm run ts && npm run rollup",
+    "perf": "./node_modules/.bin/matcha perf.js",
+    "rollup": "./node_modules/.bin/rollup -c",
     "test": "./node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
-    "perf": "./node_modules/.bin/matcha perf.js"
+    "ts": "./node_modules/.bin/tsc -p ."
   },
   "files": [
     "bin",

@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+    push:
+    pull_request:
+
+jobs:
+    nodejs:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [18.x, 20.x, 22.x]
+        steps:
+            - uses: actions/checkout@v2
+            - name: Node.js specs ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - run: npm ci
+            - run: npm run build
+            - run: npm run test
+    types:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [22.x]
+        steps:
+            - uses: actions/checkout@v2
+            - name: Type checks ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - run: npm ci
+            - run: npm run build
+            - run: npx --yes @arethetypeswrong/cli@latest --pack .
