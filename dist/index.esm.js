@@ -1,14 +1,3 @@
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ulid = undefined;
-exports.replaceCharAt = replaceCharAt;
-exports.incrementBase32 = incrementBase32;
-exports.randomChar = randomChar;
-exports.encodeTime = encodeTime;
-exports.encodeRandom = encodeRandom;
-exports.decodeTime = decodeTime;
-exports.detectPrng = detectPrng;
-exports.factory = factory;
-exports.monotonicFactory = monotonicFactory;
 function createError(message) {
     const err = new Error(message);
     err.source = "ulid";
@@ -164,4 +153,6 @@ function monotonicFactory(currPrng) {
         return encodeTime(seedTime, TIME_LEN) + newRandom;
     };
 }
-exports.ulid = factory();
+const ulid = factory();
+
+export { decodeTime, detectPrng, encodeRandom, encodeTime, factory, incrementBase32, monotonicFactory, randomChar, replaceCharAt, ulid };

@@ -1,19 +1,9 @@
-(function (factory) {
-    typeof define === 'function' && define.amd ? define(factory) :
-    factory();
-})((function () { 'use strict';
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.ULID = {}));
+})(this, (function (exports) { 'use strict';
 
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.ulid = undefined;
-    exports.replaceCharAt = replaceCharAt;
-    exports.incrementBase32 = incrementBase32;
-    exports.randomChar = randomChar;
-    exports.encodeTime = encodeTime;
-    exports.encodeRandom = encodeRandom;
-    exports.decodeTime = decodeTime;
-    exports.detectPrng = detectPrng;
-    exports.factory = factory;
-    exports.monotonicFactory = monotonicFactory;
     function createError(message) {
         const err = new Error(message);
         err.source = "ulid";
@@ -169,6 +159,17 @@
             return encodeTime(seedTime, TIME_LEN) + newRandom;
         };
     }
-    exports.ulid = factory();
+    const ulid = factory();
+
+    exports.decodeTime = decodeTime;
+    exports.detectPrng = detectPrng;
+    exports.encodeRandom = encodeRandom;
+    exports.encodeTime = encodeTime;
+    exports.factory = factory;
+    exports.incrementBase32 = incrementBase32;
+    exports.monotonicFactory = monotonicFactory;
+    exports.randomChar = randomChar;
+    exports.replaceCharAt = replaceCharAt;
+    exports.ulid = ulid;
 
 }));
