@@ -34,10 +34,10 @@
   resolved "https://registry.npmjs.org/@types/minimatch/-/minimatch-2.0.29.tgz"
   integrity sha512-HMjwFKEsu7AWge4XGwDf+aB1LbQ+YHlRZth1YfmzXft5+5DROWamftev/ZLTtjvp3//yY4Iqc0pFQrqJwTiKYg==
 
-"@types/node@*", "@types/node@^8.10.66":
-  version "8.10.66"
-  resolved "https://registry.npmjs.org/@types/node/-/node-8.10.66.tgz"
-  integrity sha512-tktOkFUA4kXx2hhhrB8bIFb5TbwzS4uOhKEmwiD+NoiL0qtP2OQ9mFldbgD4dV1djrlBYP6eBuQZiWjuHUpqFw==
+"@types/node@*", "@types/node@^10.17.60":
+  version "10.17.60"
+  resolved "https://registry.npmjs.org/@types/node/-/node-10.17.60.tgz"
+  integrity sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==
 
 "@types/shelljs@0.7.0":
   version "0.7.0"
@@ -1371,10 +1371,10 @@ typescript@^1.8.9:
   resolved "https://registry.npmjs.org/typescript/-/typescript-1.8.10.tgz"
   integrity sha512-amAjhGr2ZKUcd3OpqmSWbyz57bveJcwLdVp4XY31zR3Lylq0ZG8MHAX4IpoJ5AypkdkKkMRRVoqY6lKWrR9uPQ==
 
-typescript@^2.9.2:
-  version "2.9.2"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-2.9.2.tgz"
-  integrity sha512-Gr4p6nFNaoufRIY4NMdpQRNmgxVIGMs4Fcu/ujdYk3nAZqk7supzBE9idmvfZIlH/Cuj//dvi+019qEue9lV0w==
+typescript@^5.7.3:
+  version "5.7.3"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-5.7.3.tgz"
+  integrity sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==
 
 typescript@2.4.1:
   version "2.4.1"

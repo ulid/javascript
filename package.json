@@ -8,7 +8,8 @@
   "esnext": "./dist/index.js",
   "bin": "./bin/cli.js",
   "scripts": {
-    "build": "npm run ts && npm run rollup",
+    "build": "npm run clean && npm run ts && npm run rollup",
+    "clean": "rm -rf ./dist",
     "perf": "./node_modules/.bin/matcha perf.js",
     "rollup": "./node_modules/.bin/rollup -c",
     "test": "./node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
@@ -33,7 +34,7 @@
   },
   "homepage": "https://github.com/ulid/javascript#readme",
   "devDependencies": {
-    "@types/node": "^8.10.66",
+    "@types/node": "^10.17.60",
     "babel-core": "^6.26.3",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.7.0",
@@ -45,6 +46,6 @@
     "rollup-plugin-babel": "^3.0.7",
     "rollup-plugin-typescript": "^0.8.1",
     "typedoc": "^0.9.0",
-    "typescript": "^2.9.2"
+    "typescript": "^5.7.3"
   }
 }
