@@ -1,19 +1,19 @@
-import babel from 'rollup-plugin-babel'
-import typescript from 'rollup-plugin-typescript'
-import compiler from 'typescript'
-
+const typescript = require('@rollup/plugin-typescript');
+const { babel } = require('@rollup/plugin-babel');
 
 const defaultConfig = {
-  name: 'ULID',
   input: './lib/index.ts',
-}
+};
 
 const defaultPlugins = [
-  typescript({ typescript: compiler })
-]
+  typescript({
+    tsconfig: 'tsconfig.json'
+  })
+];
 
 const esModuleConfig = Object.assign({}, defaultConfig, {
   output: {
+    name: 'ULID',
     format: 'es',
     file: './dist/index.esm.js'
   },
@@ -25,6 +25,7 @@ const esModuleConfig = Object.assign({}, defaultConfig, {
 
 const umdConfig = Object.assign({}, defaultConfig, {
   output: {
+    name: 'ULID',
     format: 'umd',
     file: './dist/index.umd.js'
   },
@@ -34,7 +35,7 @@ const umdConfig = Object.assign({}, defaultConfig, {
   ]
 })
 
-export default [
+module.exports = [
   esModuleConfig,
   umdConfig
-]
+];

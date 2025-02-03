@@ -1,13 +1,11 @@
 {
   "compilerOptions": {
-    "lib": [
-      "ES5", "ES6", "ES7", "DOM"
-    ],
     "esModuleInterop": true,
-    "types": [ "Node" ],
+    "types": ["node"],
     "declaration": true,
     "target": "ES6",
-    "module": "ES6",
+    "module": "node16",
+    "moduleResolution": "node16",
     "outDir": "./dist"
   },
   "include": [

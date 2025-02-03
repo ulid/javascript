@@ -1,3 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ulid = void 0;
+exports.replaceCharAt = replaceCharAt;
+exports.incrementBase32 = incrementBase32;
+exports.randomChar = randomChar;
+exports.encodeTime = encodeTime;
+exports.encodeRandom = encodeRandom;
+exports.decodeTime = decodeTime;
+exports.detectPrng = detectPrng;
+exports.factory = factory;
+exports.monotonicFactory = monotonicFactory;
 function createError(message) {
     const err = new Error(message);
     err.source = "ulid";
@@ -10,13 +22,13 @@ const ENCODING_LEN = ENCODING.length;
 const TIME_MAX = Math.pow(2, 48) - 1;
 const TIME_LEN = 10;
 const RANDOM_LEN = 16;
-export function replaceCharAt(str, index, char) {
+function replaceCharAt(str, index, char) {
     if (index > str.length - 1) {
         return str;
     }
     return str.substr(0, index) + char + str.substr(index + 1);
 }
-export function incrementBase32(str) {
+function incrementBase32(str) {
     let done = undefined;
     let index = str.length;
     let char;
@@ -39,14 +51,14 @@ export function incrementBase32(str) {
     }
     throw createError("cannot increment this string");
 }
-export function randomChar(prng) {
+function randomChar(prng) {
     let rand = Math.floor(prng() * ENCODING_LEN);
     if (rand === ENCODING_LEN) {
         rand = ENCODING_LEN - 1;
     }
     return ENCODING.charAt(rand);
 }
-export function encodeTime(now, len) {
+function encodeTime(now, len) {
     if (isNaN(now)) {
         throw new Error(now + " must be a number");
     }
@@ -68,14 +80,14 @@ export function encodeTime(now, len) {
     }
     return str;
 }
-export function encodeRandom(len, prng) {
+function encodeRandom(len, prng) {
     let str = "";
     for (; len > 0; len--) {
         str = randomChar(prng) + str;
     }
     return str;
 }
-export function decodeTime(id) {
+function decodeTime(id) {
     if (id.length !== TIME_LEN + RANDOM_LEN) {
         throw createError("malformed ulid");
     }
@@ -95,7 +107,7 @@ export function decodeTime(id) {
     }
     return time;
 }
-export function detectPrng(allowInsecure = false, root) {
+function detectPrng(allowInsecure = false, root) {
     if (!root) {
         root = typeof window !== "undefined" ? window : null;
     }
@@ -123,7 +135,7 @@ export function detectPrng(allowInsecure = false, root) {
     }
     throw createError("secure crypto unusable, insecure Math.random not allowed");
 }
-export function factory(currPrng) {
+function factory(currPrng) {
     if (!currPrng) {
         currPrng = detectPrng();
     }
@@ -134,7 +146,7 @@ export function factory(currPrng) {
         return encodeTime(seedTime, TIME_LEN) + encodeRandom(RANDOM_LEN, currPrng);
     };
 }
-export function monotonicFactory(currPrng) {
+function monotonicFactory(currPrng) {
     if (!currPrng) {
         currPrng = detectPrng();
     }
@@ -153,4 +165,4 @@ export function monotonicFactory(currPrng) {
         return encodeTime(seedTime, TIME_LEN) + newRandom;
     };
 }
-export const ulid = factory();
+exports.ulid = factory();
