@@ -19,7 +19,7 @@ const esModuleConfig = Object.assign({}, defaultConfig, {
   },
   plugins: [
     ...defaultPlugins,
-    babel()
+    babel({ babelHelpers: 'bundled' })
   ]
 })
 
@@ -31,7 +31,7 @@ const umdConfig = Object.assign({}, defaultConfig, {
   },
   plugins: [
     ...defaultPlugins,
-    babel()
+    babel({ babelHelpers: 'bundled' })
   ]
 })
 
