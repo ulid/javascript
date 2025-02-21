@@ -7,7 +7,8 @@
 	<br>
 </h1>
 
-[![Build Status](https://travis-ci.org/ulid/javascript.svg?branch=master)](https://travis-ci.org/ulid/javascript) [![codecov](https://codecov.io/gh/ulid/javascript/branch/master/graph/badge.svg)](https://codecov.io/gh/ulid/javascript)
+[![Tests](https://github.com/ulid/javascript/actions/workflows/test.yml/badge.svg)](https://github.com/ulid/javascript/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/ulid/javascript/branch/master/graph/badge.svg)](https://codecov.io/gh/ulid/javascript)
 [![npm](https://img.shields.io/npm/dm/ulid.svg)](https://www.npmjs.com/package/ulid)
 
 # Universally Unique Lexicographically Sortable Identifier
