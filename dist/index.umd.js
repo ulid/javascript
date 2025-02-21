@@ -62,7 +62,7 @@
         if (now < 0) {
             throw createError("time must be positive");
         }
-        if (Number.isInteger(now) === false) {
+        if (Number.isInteger(Number(now)) === false) {
             throw createError("time must be an integer");
         }
         let mod;

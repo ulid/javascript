@@ -56,7 +56,7 @@ export function encodeTime(now, len) {
     if (now < 0) {
         throw createError("time must be positive");
     }
-    if (Number.isInteger(Number(now)) === false) { 
+    if (Number.isInteger(Number(now)) === false) {
         throw createError("time must be an integer");
     }
     let mod;
