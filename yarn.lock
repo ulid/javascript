@@ -10,7 +10,7 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@babel/code-frame@^7.25.9", "@babel/code-frame@^7.26.2":
+"@babel/code-frame@^7.26.2":
   version "7.26.2"
   resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.26.2.tgz"
   integrity sha512-RJlIHRueQgwWitWgF8OdFYGZX328Ax5BCemNGlqHfplnRT9ESi8JkFlvaVYbS+UubVY6dpv87Fs2u5M29iNFVQ==
@@ -100,28 +100,28 @@
   integrity sha512-e/zv1co8pp55dNdEcCynfj9X7nyUKUXoUEwfXqaZt0omVOmDe9oOTdKStH4GmAw6zxMFs50ZayuMfHDKlO7Tfw==
 
 "@babel/helpers@^7.26.7":
-  version "7.26.7"
-  resolved "https://registry.npmjs.org/@babel/helpers/-/helpers-7.26.7.tgz"
-  integrity sha512-8NHiL98vsi0mbPQmYAGWwfcFaOy4j2HY49fXJCfuDcdE7fMIsH9a7GdaeXpIBsbT7307WU8KCMp5pUVDNL4f9A==
+  version "7.26.10"
+  resolved "https://registry.npmjs.org/@babel/helpers/-/helpers-7.26.10.tgz"
+  integrity sha512-UPYc3SauzZ3JGgj87GgZ89JVdC5dj0AoetR5Bw6wj4niittNyFh6+eOGonYvJ1ao6B8lEa3Q3klS7ADZ53bc5g==
   dependencies:
-    "@babel/template" "^7.25.9"
-    "@babel/types" "^7.26.7"
+    "@babel/template" "^7.26.9"
+    "@babel/types" "^7.26.10"
 
-"@babel/parser@^7.25.9", "@babel/parser@^7.26.5", "@babel/parser@^7.26.7":
-  version "7.26.7"
-  resolved "https://registry.npmjs.org/@babel/parser/-/parser-7.26.7.tgz"
-  integrity sha512-kEvgGGgEjRUutvdVvZhbn/BxVt+5VSpwXz1j3WYXQbXDo8KzFOPNG2GQbdAiNq8g6wn1yKk7C/qrke03a84V+w==
+"@babel/parser@^7.26.5", "@babel/parser@^7.26.7", "@babel/parser@^7.26.9":
+  version "7.26.10"
+  resolved "https://registry.npmjs.org/@babel/parser/-/parser-7.26.10.tgz"
+  integrity sha512-6aQR2zGE/QFi8JpDLjUZEPYOs7+mhKXm86VaKFiLP35JQwQb6bwUE+XbvkH0EptsYhbNBSUGaUBLKqxH1xSgsA==
   dependencies:
-    "@babel/types" "^7.26.7"
+    "@babel/types" "^7.26.10"
 
-"@babel/template@^7.25.9":
-  version "7.25.9"
-  resolved "https://registry.npmjs.org/@babel/template/-/template-7.25.9.tgz"
-  integrity sha512-9DGttpmPvIxBb/2uwpVo3dqJ+O6RooAFOS+lB+xDqoE2PVCE8nfoHMdZLpfCQRLwvohzXISPZcgxt80xLfsuwg==
+"@babel/template@^7.25.9", "@babel/template@^7.26.9":
+  version "7.26.9"
+  resolved "https://registry.npmjs.org/@babel/template/-/template-7.26.9.tgz"
+  integrity sha512-qyRplbeIpNZhmzOysF/wFMuP9sctmh2cFzRAZOn1YapxBsE1i9bJIY586R/WBLfLcmcBlM8ROBiQURnnNy+zfA==
   dependencies:
-    "@babel/code-frame" "^7.25.9"
-    "@babel/parser" "^7.25.9"
-    "@babel/types" "^7.25.9"
+    "@babel/code-frame" "^7.26.2"
+    "@babel/parser" "^7.26.9"
+    "@babel/types" "^7.26.9"
 
 "@babel/traverse@^7.25.9", "@babel/traverse@^7.26.7":
   version "7.26.7"
@@ -136,10 +136,10 @@
     debug "^4.3.1"
     globals "^11.1.0"
 
-"@babel/types@^7.25.9", "@babel/types@^7.26.5", "@babel/types@^7.26.7":
-  version "7.26.7"
-  resolved "https://registry.npmjs.org/@babel/types/-/types-7.26.7.tgz"
-  integrity sha512-t8kDRGrKXyp6+tjUh7hw2RLyclsW4TRoRvRHtSyAX9Bb5ldlFh+90YAYY6awRXrlB4G5G2izNeGySpATlFzmOg==
+"@babel/types@^7.25.9", "@babel/types@^7.26.10", "@babel/types@^7.26.5", "@babel/types@^7.26.7", "@babel/types@^7.26.9":
+  version "7.26.10"
+  resolved "https://registry.npmjs.org/@babel/types/-/types-7.26.10.tgz"
+  integrity sha512-emqcG3vHrpxUKTrxcblR36dcrcoRDvKmnL/dCL6ZsHaShW80qxCAcNhzQZrpeM765VzEos+xOi4s+r4IXzTwdQ==
   dependencies:
     "@babel/helper-string-parser" "^7.25.9"
     "@babel/helper-validator-identifier" "^7.25.9"
@@ -228,10 +228,15 @@
     estree-walker "^2.0.2"
     picomatch "^4.0.2"
 
-"@rollup/rollup-darwin-arm64@4.34.1":
-  version "4.34.1"
-  resolved "https://registry.npmjs.org/@rollup/rollup-darwin-arm64/-/rollup-darwin-arm64-4.34.1.tgz"
-  integrity sha512-f2AJ7Qwx9z25hikXvg+asco8Sfuc5NCLg8rmqQBIOUoWys5sb/ZX9RkMZDPdnnDevXAMJA5AWLnRBmgdXGEUiA==
+"@rollup/rollup-linux-x64-gnu@4.35.0":
+  version "4.35.0"
+  resolved "https://registry.npmjs.org/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.35.0.tgz"
+  integrity sha512-Pim1T8rXOri+0HmV4CdKSGrqcBWX0d1HoPnQ0uw0bdp1aP5SdQVNBy8LjYncvnLgu3fnnCt17xjWGd4cqh8/hA==
+
+"@rollup/rollup-linux-x64-musl@4.35.0":
+  version "4.35.0"
+  resolved "https://registry.npmjs.org/@rollup/rollup-linux-x64-musl/-/rollup-linux-x64-musl-4.35.0.tgz"
+  integrity sha512-QysqXzYiDvQWfUiTm8XmJNO2zm9yC9P/2Gkrwg2dH9cxotQzunBHYr6jk4SujCTqnfGxduOmQcI7c2ryuW8XVg==
 
 "@types/estree@^1.0.0", "@types/estree@1.0.6":
   version "1.0.6"
@@ -275,10 +280,10 @@
   resolved "https://registry.npmjs.org/@types/minimatch/-/minimatch-2.0.29.tgz"
   integrity sha512-HMjwFKEsu7AWge4XGwDf+aB1LbQ+YHlRZth1YfmzXft5+5DROWamftev/ZLTtjvp3//yY4Iqc0pFQrqJwTiKYg==
 
-"@types/node@*", "@types/node@^22.13.0":
-  version "22.13.0"
-  resolved "https://registry.npmjs.org/@types/node/-/node-22.13.0.tgz"
-  integrity sha512-ClIbNe36lawluuvq3+YYhnIN2CELi+6q8NpnM7PYp4hBn/TatfboPgVSm2rwKRfnV2M+Ty9GWDFI64KEe+kysA==
+"@types/node@*", "@types/node@^22.13.10":
+  version "22.13.10"
+  resolved "https://registry.npmjs.org/@types/node/-/node-22.13.10.tgz"
+  integrity sha512-I6LPUvlRH+O6VRUqYOcMudhaIdUVWfsjnZavnsraHvpBwaEyMN29ry+0UVJhImYL16xsscu0aske3yA+uPOWfw==
   dependencies:
     undici-types "~6.20.0"
 
@@ -594,11 +599,6 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
-
-fsevents@~2.3.2:
-  version "2.3.3"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
-  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.2:
   version "1.1.2"
@@ -1077,32 +1077,32 @@ resolve@^1.22.1:
     path-parse "^1.0.7"
     supports-preserve-symlinks-flag "^1.0.0"
 
-rollup@^1.20.0||^2.0.0||^3.0.0||^4.0.0, rollup@^2.14.0||^3.0.0||^4.0.0, rollup@^4.21.0:
-  version "4.34.1"
-  resolved "https://registry.npmjs.org/rollup/-/rollup-4.34.1.tgz"
-  integrity sha512-iYZ/+PcdLYSGfH3S+dGahlW/RWmsqDhLgj1BT9DH/xXJ0ggZN7xkdP9wipPNjjNLczI+fmMLmTB9pye+d2r4GQ==
+rollup@^1.20.0||^2.0.0||^3.0.0||^4.0.0, rollup@^2.14.0||^3.0.0||^4.0.0, rollup@^4.35.0:
+  version "4.35.0"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-4.35.0.tgz"
+  integrity sha512-kg6oI4g+vc41vePJyO6dHt/yl0Rz3Thv0kJeVQ3D1kS3E5XSuKbPc29G4IpT/Kv1KQwgHVcN+HtyS+HYLNSvQg==
   dependencies:
     "@types/estree" "1.0.6"
   optionalDependencies:
-    "@rollup/rollup-android-arm-eabi" "4.34.1"
-    "@rollup/rollup-android-arm64" "4.34.1"
-    "@rollup/rollup-darwin-arm64" "4.34.1"
-    "@rollup/rollup-darwin-x64" "4.34.1"
-    "@rollup/rollup-freebsd-arm64" "4.34.1"
-    "@rollup/rollup-freebsd-x64" "4.34.1"
-    "@rollup/rollup-linux-arm-gnueabihf" "4.34.1"
-    "@rollup/rollup-linux-arm-musleabihf" "4.34.1"
-    "@rollup/rollup-linux-arm64-gnu" "4.34.1"
-    "@rollup/rollup-linux-arm64-musl" "4.34.1"
-    "@rollup/rollup-linux-loongarch64-gnu" "4.34.1"
-    "@rollup/rollup-linux-powerpc64le-gnu" "4.34.1"
-    "@rollup/rollup-linux-riscv64-gnu" "4.34.1"
-    "@rollup/rollup-linux-s390x-gnu" "4.34.1"
-    "@rollup/rollup-linux-x64-gnu" "4.34.1"
-    "@rollup/rollup-linux-x64-musl" "4.34.1"
-    "@rollup/rollup-win32-arm64-msvc" "4.34.1"
-    "@rollup/rollup-win32-ia32-msvc" "4.34.1"
-    "@rollup/rollup-win32-x64-msvc" "4.34.1"
+    "@rollup/rollup-android-arm-eabi" "4.35.0"
+    "@rollup/rollup-android-arm64" "4.35.0"
+    "@rollup/rollup-darwin-arm64" "4.35.0"
+    "@rollup/rollup-darwin-x64" "4.35.0"
+    "@rollup/rollup-freebsd-arm64" "4.35.0"
+    "@rollup/rollup-freebsd-x64" "4.35.0"
+    "@rollup/rollup-linux-arm-gnueabihf" "4.35.0"
+    "@rollup/rollup-linux-arm-musleabihf" "4.35.0"
+    "@rollup/rollup-linux-arm64-gnu" "4.35.0"
+    "@rollup/rollup-linux-arm64-musl" "4.35.0"
+    "@rollup/rollup-linux-loongarch64-gnu" "4.35.0"
+    "@rollup/rollup-linux-powerpc64le-gnu" "4.35.0"
+    "@rollup/rollup-linux-riscv64-gnu" "4.35.0"
+    "@rollup/rollup-linux-s390x-gnu" "4.35.0"
+    "@rollup/rollup-linux-x64-gnu" "4.35.0"
+    "@rollup/rollup-linux-x64-musl" "4.35.0"
+    "@rollup/rollup-win32-arm64-msvc" "4.35.0"
+    "@rollup/rollup-win32-ia32-msvc" "4.35.0"
+    "@rollup/rollup-win32-x64-msvc" "4.35.0"
     fsevents "~2.3.2"
 
 safe-buffer@^5.1.0:
@@ -1293,10 +1293,10 @@ typedoc@^0.9.0:
     typedoc-default-themes "^0.5.0"
     typescript "2.4.1"
 
-typescript@^5.7.3, typescript@>=3.7.0:
-  version "5.7.3"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-5.7.3.tgz"
-  integrity sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==
+typescript@^5.8.2, typescript@>=3.7.0:
+  version "5.8.2"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-5.8.2.tgz"
+  integrity sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==
 
 typescript@2.4.1:
   version "2.4.1"
