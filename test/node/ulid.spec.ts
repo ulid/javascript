@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-    monotonicFactory,
-    ulid,
-} from "../../";
+import { monotonicFactory, ulid } from "../../";
 
 const ULID_REXP = /^[0-7][0-9a-hjkmnp-tv-zA-HJKMNP-TV-Z]{25}$/;
 
