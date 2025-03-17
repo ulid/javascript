@@ -2,32 +2,13 @@
   "name": "ulid",
   "version": "2.4.0",
   "description": "A universally-unique, lexicographically-sortable, identifier generator",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.esm.js",
-  "types": "./dist/index.d.ts",
-  "esnext": "./dist/index.js",
-  "bin": "./bin/cli.js",
   "scripts": {
-    "build": "npm run clean && npm run ts && npm run rollup",
-    "clean": "rm -rf ./dist",
-    "perf": "./node_modules/.bin/matcha perf.js",
-    "rollup": "./node_modules/.bin/rollup -c",
-    "test": "npm run test:coverage",
-    "test:specs": "mocha -- -R spec",
-    "test:coverage": "c8 --check-coverage --lines 87 --functions 100 --src ./lib npm run test:specs",
-    "ts": "./node_modules/.bin/tsc -p ."
+
   },
-  "files": [
-    "bin",
-    "dist",
-    "stubs"
-  ],
+  "files": [],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ulid/javascript.git"
-  },
-  "browser": {
-    "crypto": "./stubs/crypto.js"
   },
   "author": "Alizain Feerasta",
   "license": "MIT",
@@ -36,16 +17,5 @@
   },
   "homepage": "https://github.com/ulid/javascript#readme",
   "devDependencies": {
-    "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@types/node": "^22.13.10",
-    "c8": "^10.1.3",
-    "lolex": "^2.7.5",
-    "matcha": "^0.7.0",
-    "mocha": "^11.1.0",
-    "rollup": "^4.35.0",
-    "tslib": "^2.8.1",
-    "typedoc": "^0.9.0",
-    "typescript": "^5.8.2"
   }
 }
