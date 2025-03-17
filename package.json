@@ -37,9 +37,10 @@
     "build:node:esm": "FMT=esm ENV=node rollup -c",
     "build:types": "tsc -p tsconfig.dec.json --emitDeclarationOnly  && find ./dist -name '*.d.ts' -exec sh -c 'cp {} $(dirname {})/$(basename -s .d.ts {}).d.cts' \\;",
     "clean": "rm -rf ./dist",
-    "format": "prettier --write \"{{source,test}/**/*.{js,ts},rollup.config.js}\"",
-    "test:format": "prettier --check \"{{source,test}/**/*.{js,ts},rollup.config.js}\"",
-    "test:types": "npm run build && npx --yes @arethetypeswrong/cli --pack ."
+    "format": "prettier --write \"{{source,test}/**/*.{js,ts},rollup.config.js,vitest.config.js}\"",
+    "test:format": "prettier --check \"{{source,test}/**/*.{js,ts},rollup.config.js,vitest.config.js}\"",
+    "test:specs": "vitest",
+    "test:types": "npx --yes @arethetypeswrong/cli --pack ."
   },
   "files": [
     "dist/**/*"
@@ -63,6 +64,7 @@
     "prettier": "^3.5.3",
     "rollup": "^4.36.0",
     "tslib": "^2.8.1",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
   }
 }
