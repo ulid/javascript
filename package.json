@@ -3,7 +3,8 @@
   "version": "2.4.0",
   "description": "A universally-unique, lexicographically-sortable, identifier generator",
   "scripts": {
-
+    "format": "prettier --write \"{{src,test}/**/*.{js,ts},rollup.config.js}\"",
+    "test:format": "prettier --check \"{{src,test}/**/*.{js,ts},rollup.config.js}\""
   },
   "files": [],
   "repository": {
@@ -17,5 +18,8 @@
   },
   "homepage": "https://github.com/ulid/javascript#readme",
   "devDependencies": {
+    "@types/node": "^22.13.10",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
   }
 }

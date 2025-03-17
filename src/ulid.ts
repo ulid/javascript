@@ -12,7 +12,7 @@ import { randomChar } from "./utils.js";
  */
 export function decodeTime(id: ULID): number {
     if (id.length !== TIME_LEN + RANDOM_LEN) {
-      throw new ULIDError(ULIDErrorCode.DecodeTimeValueMalformed, "Malformed ULID");
+        throw new ULIDError(ULIDErrorCode.DecodeTimeValueMalformed, "Malformed ULID");
     }
     const time = id
         .substr(0, TIME_LEN)
@@ -22,12 +22,18 @@ export function decodeTime(id: ULID): number {
         .reduce((carry, char, index) => {
             const encodingIndex = ENCODING.indexOf(char);
             if (encodingIndex === -1) {
-              throw new ULIDError(ULIDErrorCode.DecodeTimeInvalidCharacter, `Time decode error: Invalid character: ${char}`);
+                throw new ULIDError(
+                    ULIDErrorCode.DecodeTimeInvalidCharacter,
+                    `Time decode error: Invalid character: ${char}`
+                );
             }
             return (carry += encodingIndex * Math.pow(ENCODING_LEN, index));
         }, 0);
     if (time > TIME_MAX) {
-      throw new ULIDError(ULIDErrorCode.DecodeTimeValueMalformed, `Malformed ULID: timestamp too large: ${time}`);
+        throw new ULIDError(
+            ULIDErrorCode.DecodeTimeValueMalformed,
+            `Malformed ULID: timestamp too large: ${time}`
+        );
     }
     return time;
 }
@@ -96,10 +102,7 @@ export function encodeTime(now: number, len: number): string {
             `Cannot encode a time larger than ${TIME_MAX}: ${now}`
         );
     } else if (now < 0) {
-        throw new ULIDError(
-            ULIDErrorCode.EncodeTimeNegative,
-            `Time must be positive: ${now}`
-        );
+        throw new ULIDError(ULIDErrorCode.EncodeTimeNegative, `Time must be positive: ${now}`);
     } else if (Number.isInteger(now) === false) {
         throw new ULIDError(
             ULIDErrorCode.EncodeTimeValueMalformed,

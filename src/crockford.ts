@@ -84,8 +84,5 @@ export function incrementBase32(str: string): string {
     if (typeof done === "string") {
         return done;
     }
-    throw new ULIDError(
-        ULIDErrorCode.Base32IncorrectEncoding,
-        "Failed incrementing string"
-    );
+    throw new ULIDError(ULIDErrorCode.Base32IncorrectEncoding, "Failed incrementing string");
 }

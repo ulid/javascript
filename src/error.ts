@@ -12,13 +12,13 @@ export enum ULIDErrorCode {
 }
 
 export class ULIDError extends Error {
-  public code: ULIDErrorCode;
+    public code: ULIDErrorCode;
 
-  constructor(errorCode: ULIDErrorCode, message: string) {
-    super(`${message} (${errorCode})`);
+    constructor(errorCode: ULIDErrorCode, message: string) {
+        super(`${message} (${errorCode})`);
 
-    this.name = "ULIDError";
+        this.name = "ULIDError";
 
-    this.code = errorCode;
-  }
+        this.code = errorCode;
+    }
 }

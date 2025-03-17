@@ -41,14 +41,10 @@ export function uuidToULID(uuid: string): ULID {
     if (!isValid) {
         throw new ULIDError(ULIDErrorCode.UUIDInvalid, `Invalid UUID: ${uuid}`);
     }
-    const bytes = uuid
-        .replace(/-/g, "")
-        .match(/.{1,2}/g);
+    const bytes = uuid.replace(/-/g, "").match(/.{1,2}/g);
     if (!bytes) {
         throw new ULIDError(ULIDErrorCode.Unexpected, `Failed parsing UUID bytes: ${uuid}`);
     }
-    const uint8Array = new Uint8Array(
-        bytes.map(byte => parseInt(byte, 16))
-    );
+    const uint8Array = new Uint8Array(bytes.map(byte => parseInt(byte, 16)));
     return crockfordEncode(uint8Array);
 }
