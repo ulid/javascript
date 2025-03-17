@@ -1,8 +1,8 @@
 import { UUID } from "crypto";
-import { ULID_REGEX, UUID_REGEX } from "./constants";
-import { crockfordDecode, crockfordEncode } from "./crockford";
-import { ULIDError, ULIDErrorCode } from "./error";
-import { ULID } from "./types";
+import { ULID_REGEX, UUID_REGEX } from "./constants.js";
+import { crockfordDecode, crockfordEncode } from "./crockford.js";
+import { ULIDError, ULIDErrorCode } from "./error.js";
+import { ULID } from "./types.js";
 
 /**
  * Convert a ULID to a UUID

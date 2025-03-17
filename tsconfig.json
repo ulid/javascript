@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "module": "node16",
+        "moduleResolution": "node16",
+        "declaration": false,
+        "target": "es2020",
+        "types": ["node"]
+    },
+    "include": [
+        "./source/**/*"
+    ],
+    "exclude":[
+        "node_modules"
+    ]
+}

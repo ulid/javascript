@@ -1,5 +1,5 @@
-import { ENCODING, ENCODING_LEN } from "./constants";
-import { PRNG } from "./types";
+import { ENCODING, ENCODING_LEN } from "./constants.js";
+import { PRNG } from "./types.js";
 
 export function randomChar(prng: PRNG): string {
     let rand = Math.floor(prng() * ENCODING_LEN);
