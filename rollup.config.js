@@ -8,6 +8,9 @@ const EXTENSIONS = [".js", ".ts"];
 const ENV = process.env.ENV ? process.env.ENV : "node";
 const FMT = process.env.FMT ? process.env.FMT : "esm";
 
+const entry = ENV === "cli" ? "source/cli.ts" : "source/index.ts";
+const output = ENV === "cli" ? "dist" : `dist/${ENV}`;
+
 const plugins = [
     typescript({
         tsconfig: "tsconfig.json"
@@ -29,10 +32,10 @@ const externals =
 
 export default {
     external: externals,
-    input: "source/index.ts",
+    input: entry,
     output: [
         {
-            dir: `dist/${ENV}`,
+            dir: output,
             format: FMT,
             entryFileNames: `[name].${extension}`
         }
