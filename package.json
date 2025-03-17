@@ -30,6 +30,7 @@
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
+    "bench": "npm run build && node test/benchmark.js",
     "build": "npm run clean && npm run build:node:cjs && npm run build:node:esm && npm run build:browser:cjs && npm run build:browser:esm && npm run build:types",
     "build:browser:cjs": "FMT=cjs ENV=browser rollup -c --name ulidx",
     "build:browser:esm": "FMT=esm ENV=browser rollup -c --name ulidx",
@@ -61,6 +62,7 @@
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^22.13.10",
+    "benchmark": "^2.1.4",
     "prettier": "^3.5.3",
     "rollup": "^4.36.0",
     "tslib": "^2.8.1",
