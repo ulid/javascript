@@ -1,18 +1,16 @@
 {
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "types": ["node"],
-    "declaration": true,
-    "target": "ES6",
-    "module": "es6",
-    "moduleResolution": "node",
-    "outDir": "./dist"
-  },
-  "include": [
-    "./lib/**/*"
-  ],
-  "exclude":[
-    "node_modules"
-  ],
-  "strict": true
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "module": "node16",
+        "moduleResolution": "node16",
+        "declaration": false,
+        "target": "es2020",
+        "types": ["node"]
+    },
+    "include": [
+        "./source/**/*"
+    ],
+    "exclude":[
+        "node_modules"
+    ]
 }
