@@ -107,6 +107,17 @@ const ulid = monotonicFactory(() => Math.random());
 ulid(); // 01BXAVRG61YJ5YSBRM51702F6M
 ```
 
+### Validity
+
+You can verify if a value is a valid ULID by using `isValid`:
+
+```typescript
+import { isValid } from "ulid";
+
+isValid("01ARYZ6S41TSV4RRFFQ69G5FAV"); // true
+isValid("01ARYZ6S41TSV4RRFFQ69G5FA"); // false
+```
+
 ### Tests
 
 Install dependencies using `npm install` first, and then simply run `npm test` to run the test suite.
