@@ -1,7 +1,19 @@
 import { describe, expect, it } from "vitest";
-import { monotonicFactory, ulid, ULIDFactory } from "../../";
+import { decodeTime, encodeTime, monotonicFactory, ulid, ULIDFactory } from "../../";
 
 const ULID_REXP = /^[0-7][0-9a-hjkmnp-tv-zA-HJKMNP-TV-Z]{25}$/;
+
+describe("decodeTime", function () {
+    it("extracts a timestamp from a ULID", () => {
+        expect(decodeTime("01ARYZ6S41TSV4RRFFQ69G5FAV")).to.equal(1469918176385);
+    });
+});
+
+describe("encodeTime", function () {
+    it("encodes a timestamp", () => {
+        expect(encodeTime(1469918176385)).to.equal("01ARYZ6S41");
+    });
+});
 
 describe("monotonicFactory", () => {
     function stubbedPrng() {

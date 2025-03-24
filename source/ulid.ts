@@ -90,7 +90,7 @@ export function encodeRandom(len: number, prng: PRNG): string {
  * @param len Length to generate
  * @returns The encoded time
  */
-export function encodeTime(now: number, len: number): string {
+export function encodeTime(now: number, len: number = TIME_LEN): string {
     if (isNaN(now)) {
         throw new ULIDError(
             ULIDErrorCode.EncodeTimeValueMalformed,

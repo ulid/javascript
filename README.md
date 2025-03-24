@@ -60,7 +60,7 @@ To quickly generate a ULID, you can simply import the `ulid` function:
 ```typescript
 import { ulid } from "ulid";
 
-ulid(); // 01ARZ3NDEKTSV4RRFFQ69G5FAV
+ulid(); // "01ARZ3NDEKTSV4RRFFQ69G5FAV"
 ```
 
 ### Seed Time
@@ -68,7 +68,7 @@ ulid(); // 01ARZ3NDEKTSV4RRFFQ69G5FAV
 You can also input a seed time which will consistently give you the same string for the time component. This is useful for migrating to ulid.
 
 ```typescript
-ulid(1469918176385) // 01ARYZ6S41TSV4RRFFQ69G5FAV
+ulid(1469918176385) // "01ARYZ6S41TSV4RRFFQ69G5FAV"
 ```
 
 ### Monotonic ULIDs
@@ -83,14 +83,14 @@ import { monotonicFactory } from "ulid";
 const ulid = monotonicFactory();
 
 // Strict ordering for the same timestamp, by incrementing the least-significant random bit by 1
-ulid(150000); // 000XAL6S41ACTAV9WEVGEMMVR8
-ulid(150000); // 000XAL6S41ACTAV9WEVGEMMVR9
-ulid(150000); // 000XAL6S41ACTAV9WEVGEMMVRA
-ulid(150000); // 000XAL6S41ACTAV9WEVGEMMVRB
-ulid(150000); // 000XAL6S41ACTAV9WEVGEMMVRC
+ulid(150000); // "000XAL6S41ACTAV9WEVGEMMVR8"
+ulid(150000); // "000XAL6S41ACTAV9WEVGEMMVR9"
+ulid(150000); // "000XAL6S41ACTAV9WEVGEMMVRA"
+ulid(150000); // "000XAL6S41ACTAV9WEVGEMMVRB"
+ulid(150000); // "000XAL6S41ACTAV9WEVGEMMVRC"
 
 // Even if a lower timestamp is passed (or generated), it will preserve sort order
-ulid(100000); // 000XAL6S41ACTAV9WEVGEMMVRD
+ulid(100000); // "000XAL6S41ACTAV9WEVGEMMVRD"
 ```
 
 ### Pseudo-Random Number Generators
@@ -104,7 +104,7 @@ By default, `ulid` will not use `Math.random` to generate random values. You can
 ```typescript
 const ulid = monotonicFactory(() => Math.random());
 
-ulid(); // 01BXAVRG61YJ5YSBRM51702F6M
+ulid(); // "01BXAVRG61YJ5YSBRM51702F6M"
 ```
 
 ### Validity
@@ -116,6 +116,24 @@ import { isValid } from "ulid";
 
 isValid("01ARYZ6S41TSV4RRFFQ69G5FAV"); // true
 isValid("01ARYZ6S41TSV4RRFFQ69G5FA"); // false
+```
+
+### ULID Time
+
+You can encode and decode ULID timestamps by using `encodeTime` and `decodeTime` respectively:
+
+```typescript
+import { decodeTime } from "ulid";
+
+decodeTime("01ARYZ6S41TSV4RRFFQ69G5FAV"); // 1469918176385
+```
+
+Note that while `decodeTime` works on full ULIDs, `encodeTime` encodes only the _time portion_ of ULIDs:
+
+```typescript
+import { encodeTime } from "ulid";
+
+encodeTime(1469918176385); // "01ARYZ6S41"
 ```
 
 ### Tests
