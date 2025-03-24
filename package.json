@@ -41,9 +41,9 @@
     "build:types": "tsc -p tsconfig.dec.json --emitDeclarationOnly  && find ./dist -name '*.d.ts' -exec sh -c 'cp {} $(dirname {})/$(basename -s .d.ts {}).d.cts' \\;",
     "clean": "rm -rf ./dist",
     "format": "prettier --write \"{{source,test}/**/*.{js,ts},rollup.config.js,vitest.config.js}\"",
-    "test": "npm run test:specs && npm run test:format && npm run test:types",
+    "test": "npm run build && npm run test:specs && npm run test:format && npm run test:types",
     "test:format": "prettier --check \"{{source,test}/**/*.{js,ts},rollup.config.js,vitest.config.js}\"",
-    "test:specs": "npm run build && vitest",
+    "test:specs": "vitest",
     "test:types": "npx --yes @arethetypeswrong/cli --pack ."
   },
   "files": [
