@@ -2,32 +2,56 @@
   "name": "ulid",
   "version": "2.4.0",
   "description": "A universally-unique, lexicographically-sortable, identifier generator",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.esm.js",
-  "types": "./dist/index.d.ts",
-  "esnext": "./dist/index.js",
-  "bin": "./bin/cli.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": {
+        "require": "./dist/index.d.cts",
+        "default": "./dist/index.d.ts"
+      },
+      "node": {
+        "require": "./dist/node/index.cjs",
+        "default": "./dist/node/index.js"
+      },
+      "default": {
+        "require": "./dist/browser/index.cjs",
+        "default": "./dist/browser/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/node/index.cjs",
+  "module": "./dist/node/index.js",
+  "browser": {
+    "./dist/node/index.cjs": "./dist/browser/index.cjs",
+    "./dist/node/index.js": "./dist/browser/index.js"
+  },
+  "react-native": "./dist/browser/index.cjs",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "bin": "./dist/cli.js",
   "scripts": {
-    "build": "npm run clean && npm run ts && npm run rollup",
+    "bench": "npm run build && node test/benchmark.js",
+    "build": "npm run clean && npm run build:node:cjs && npm run build:node:esm && npm run build:browser:cjs && npm run build:browser:esm && npm run build:cli && npm run build:types",
+    "build:browser:cjs": "FMT=cjs ENV=browser rollup -c --name ulidx",
+    "build:browser:esm": "FMT=esm ENV=browser rollup -c --name ulidx",
+    "build:cli": "FMT=esm ENV=cli rollup -c && chmod +x ./dist/cli.js",
+    "build:node:cjs": "FMT=cjs ENV=node rollup -c",
+    "build:node:esm": "FMT=esm ENV=node rollup -c",
+    "build:types": "tsc -p tsconfig.dec.json --emitDeclarationOnly  && find ./dist -name '*.d.ts' -exec sh -c 'cp {} $(dirname {})/$(basename -s .d.ts {}).d.cts' \\;",
     "clean": "rm -rf ./dist",
-    "perf": "./node_modules/.bin/matcha perf.js",
-    "rollup": "./node_modules/.bin/rollup -c",
-    "test": "npm run test:coverage",
-    "test:specs": "mocha -- -R spec",
-    "test:coverage": "c8 --check-coverage --lines 87 --functions 100 --src ./lib npm run test:specs",
-    "ts": "./node_modules/.bin/tsc -p ."
+    "format": "prettier --write \"{{source,test}/**/*.{js,ts},rollup.config.js,vitest.config.js}\"",
+    "test": "npm run build && npm run test:specs && npm run test:format && npm run test:types",
+    "test:format": "prettier --check \"{{source,test}/**/*.{js,ts},rollup.config.js,vitest.config.js}\"",
+    "test:specs": "vitest",
+    "test:types": "npx --yes @arethetypeswrong/cli --pack ."
   },
   "files": [
-    "bin",
-    "dist",
-    "stubs"
+    "dist/**/*"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ulid/javascript.git"
-  },
-  "browser": {
-    "crypto": "./stubs/crypto.js"
   },
   "author": "Alizain Feerasta",
   "license": "MIT",
@@ -36,16 +60,16 @@
   },
   "homepage": "https://github.com/ulid/javascript#readme",
   "devDependencies": {
-    "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-typescript": "^11.1.6",
+    "@rollup/plugin-alias": "^5.1.1",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^22.13.10",
-    "c8": "^10.1.3",
-    "lolex": "^2.7.5",
-    "matcha": "^0.7.0",
-    "mocha": "^11.1.0",
-    "rollup": "^4.35.0",
+    "benchmark": "^2.1.4",
+    "prettier": "^3.5.3",
+    "rollup": "^4.36.0",
     "tslib": "^2.8.1",
-    "typedoc": "^0.9.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
   }
 }

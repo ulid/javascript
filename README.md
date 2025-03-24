@@ -7,11 +7,25 @@
 	<br>
 </h1>
 
+# Universally Unique Lexicographically Sortable Identifier
+
 [![Tests](https://github.com/ulid/javascript/actions/workflows/test.yml/badge.svg)](https://github.com/ulid/javascript/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/ulid/javascript/branch/master/graph/badge.svg)](https://codecov.io/gh/ulid/javascript)
-[![npm](https://img.shields.io/npm/dm/ulid.svg)](https://www.npmjs.com/package/ulid)
+[![npm](https://img.shields.io/npm/dm/ulid.svg)](https://www.npmjs.com/package/ulid) [![npm](https://img.shields.io/npm/dy/ulid)](https://www.npmjs.com/package/ulid)
 
-# Universally Unique Lexicographically Sortable Identifier
+ULIDs are unique, sortable identifiers that work much in the same way as UUIDs, though with some improvements:
+
+ * Lexicographically sortable
+ * Canonically encoded as a 26 character string, as opposed to the 36 character UUID
+ * Uses Crockford's base32 for better efficiency and readability (5 bits per character)
+ * Monotonic sort order (correctly detects and handles the same millisecond)
+
+ULIDs also provide:
+
+ * 128-bit compatibility with UUID
+ * 1.21e+24 unique IDs per millisecond
+ * Case insensitivity
+ * No special characters (URL safe)
 
 UUID can be suboptimal for many uses-cases because:
 
@@ -20,164 +34,122 @@ UUID can be suboptimal for many uses-cases because:
 - UUID v3/v5 requires a unique seed and produces randomly distributed IDs, which can cause fragmentation in many data structures
 - UUID v4 provides no other information than randomness which can cause fragmentation in many data structures
 
-Instead, herein is proposed ULID:
+## Installation
 
-- 128-bit compatibility with UUID
-- 1.21e+24 unique ULIDs per millisecond
-- Lexicographically sortable!
-- Canonically encoded as a 26 character string, as opposed to the 36 character UUID
-- Uses Crockford's base32 for better efficiency and readability (5 bits per character)
-- Case insensitive
-- No special characters (URL safe)
-- Monotonic sort order (correctly detects and handles the same millisecond)
+Install using NPM:
 
-## Install with a script tag
-
-```html
-<script src="https://unpkg.com/ulid@{{VERSION_NUMBER}}/dist/index.umd.js"></script>
-<script>
-    ULID.ulid()
-</script>
+```shell
+npm install ulid --save
 ```
 
-## Install with NPM
+### Compatibility
 
-```
-npm install --save ulid
-```
+ULID supports the following environments:
 
-### Import
+| Version   | NodeJS    | Browsers      | React-Native  | Web Workers   | Edge Functions    |
+|-----------|-----------|---------------|---------------|---------------|-------------------|
+| v3        | v18+      | Yes           | Yes           | Yes           | ?                 |
+| v2        | v16+      | Yes           | No            | No            | No                |
 
-**TypeScript, ES6+, Babel, Webpack, Rollup, etc.. environments**
-```javascript
-import { ulid } from 'ulid'
-
-ulid() // 01ARZ3NDEKTSV4RRFFQ69G5FAV
-```
-
-**CommonJS environments**
-```javascript
-const ULID = require('ulid')
-
-ULID.ulid()
-```
-
-**AMD (RequireJS) environments**
-```javascript
-define(['ULID'] , function (ULID) {
-  ULID.ulid()
-});
-```
+Additionally, both ESM and CommonJS entrypoints are provided.
 
 ## Usage
 
-To generate a ULID, simply run the function!
+To quickly generate a ULID, you can simply import the `ulid` function:
 
-```javascript
-import { ulid } from 'ulid'
+```typescript
+import { ulid } from "ulid";
 
-ulid() // 01ARZ3NDEKTSV4RRFFQ69G5FAV
+ulid(); // "01ARZ3NDEKTSV4RRFFQ69G5FAV"
 ```
 
 ### Seed Time
 
 You can also input a seed time which will consistently give you the same string for the time component. This is useful for migrating to ulid.
 
-```javascript
-ulid(1469918176385) // 01ARYZ6S41TSV4RRFFQ69G5FAV
+```typescript
+ulid(1469918176385) // "01ARYZ6S41TSV4RRFFQ69G5FAV"
 ```
 
 ### Monotonic ULIDs
 
-To generate monotonically increasing ULIDs, create a monotonic counter.
+To generate monotonically increasing ULIDs, create a monotonic counter with `monotonicFactory`.
 
-*Note that the same seed time is being passed in for this example to demonstrate its behaviour when generating multiple ULIDs within the same millisecond*
+> Note that the same seed time is being passed in for this example to demonstrate its behaviour when generating multiple ULIDs within the same millisecond
 
-```javascript
-import { monotonicFactory } from 'ulid'
+```typescript
+import { monotonicFactory } from "ulid";
 
-const ulid = monotonicFactory()
+const ulid = monotonicFactory();
 
 // Strict ordering for the same timestamp, by incrementing the least-significant random bit by 1
-ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVR8
-ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVR9
-ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVRA
-ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVRB
-ulid(150000) // 000XAL6S41ACTAV9WEVGEMMVRC
+ulid(150000); // "000XAL6S41ACTAV9WEVGEMMVR8"
+ulid(150000); // "000XAL6S41ACTAV9WEVGEMMVR9"
+ulid(150000); // "000XAL6S41ACTAV9WEVGEMMVRA"
+ulid(150000); // "000XAL6S41ACTAV9WEVGEMMVRB"
+ulid(150000); // "000XAL6S41ACTAV9WEVGEMMVRC"
 
 // Even if a lower timestamp is passed (or generated), it will preserve sort order
-ulid(100000) // 000XAL6S41ACTAV9WEVGEMMVRD
+ulid(100000); // "000XAL6S41ACTAV9WEVGEMMVRD"
 ```
 
 ### Pseudo-Random Number Generators
 
-`ulid` automatically detects a suitable (cryptographically-secure) PRNG. In the browser it will use `crypto.getRandomValues` and on node it will use `crypto.randomBytes`.
+`ulid` automatically detects a suitable (cryptographically-secure) PRNG. In the browser it will use `crypto.getRandomValues` and on NodeJS it will use `crypto.randomBytes`.
 
-#### Allowing the insecure `Math.random`
+#### Using `Math.random` (insecure)
 
-By default, `ulid` will not use `Math.random`, because that is insecure. To allow the use of `Math.random`, you'll have to use `factory` and `detectPrng`.
+By default, `ulid` will not use `Math.random` to generate random values. You can bypass this limitation by overriding the PRNG:
 
-```javascript
-import { factory, detectPrng } from 'ulid'
+```typescript
+const ulid = monotonicFactory(() => Math.random());
 
-const prng = detectPrng(true) // pass `true` to allow insecure
-const ulid = factory(prng)
-
-ulid() // 01BXAVRG61YJ5YSBRM51702F6M
+ulid(); // "01BXAVRG61YJ5YSBRM51702F6M"
 ```
 
-#### Use your own PRNG
+### Validity
 
-To use your own pseudo-random number generator, import the factory, and pass it your generator function.
+You can verify if a value is a valid ULID by using `isValid`:
 
-```javascript
-import { factory } from 'ulid'
-import prng from 'somewhere'
+```typescript
+import { isValid } from "ulid";
 
-const ulid = factory(prng)
-
-ulid() // 01BXAVRG61YJ5YSBRM51702F6M
+isValid("01ARYZ6S41TSV4RRFFQ69G5FAV"); // true
+isValid("01ARYZ6S41TSV4RRFFQ69G5FA"); // false
 ```
 
-You can also pass in a `prng` to the `monotonicFactory` function.
+### ULID Time
 
-```javascript
-import { monotonicFactory } from 'ulid'
-import prng from 'somewhere'
+You can encode and decode ULID timestamps by using `encodeTime` and `decodeTime` respectively:
 
-const ulid = monotonicFactory(prng)
+```typescript
+import { decodeTime } from "ulid";
 
-ulid() // 01BXAVRG61YJ5YSBRM51702F6M
+decodeTime("01ARYZ6S41TSV4RRFFQ69G5FAV"); // 1469918176385
 ```
 
-## Implementations in other languages
+Note that while `decodeTime` works on full ULIDs, `encodeTime` encodes only the _time portion_ of ULIDs:
 
-Refer to [ulid/spec](https://github.com/ulid/spec)
+```typescript
+import { encodeTime } from "ulid";
+
+encodeTime(1469918176385); // "01ARYZ6S41"
+```
+
+### Tests
+
+Install dependencies using `npm install` first, and then simply run `npm test` to run the test suite.
 
 ## Specification
 
-Refer to [ulid/spec](https://github.com/ulid/spec)
-
-## Test Suite
-
-```
-npm test
-```
+You can find the full specification, as well as information regarding implementations in other languages, over at [ulid/spec](https://github.com/ulid/spec).
 
 ## Performance
 
-```
-npm run perf
-```
+You can test `ulid`'s performance by running `npm run bench`:
 
 ```
-ulid
-336,331,131 op/s » encodeTime
-102,041,736 op/s » encodeRandom
-17,408 op/s » generate
-
-
-Suites:  1
-Benches: 3
-Elapsed: 7,285.75 ms
+Simple ulid x 56,782 ops/sec ±2.50% (86 runs sampled)
+ulid with timestamp x 58,574 ops/sec ±1.80% (87 runs sampled)
+Done!
 ```

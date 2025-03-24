@@ -1,41 +1,44 @@
-const typescript = require('@rollup/plugin-typescript');
-const { babel } = require('@rollup/plugin-babel');
+import { builtinModules } from "node:module";
+import typescript from "@rollup/plugin-typescript";
+import resolve from "@rollup/plugin-node-resolve";
+import alias from "@rollup/plugin-alias";
+import pkg from "./package.json" with { type: "json" };
 
-const defaultConfig = {
-  input: './lib/index.ts',
+const EXTENSIONS = [".js", ".ts"];
+const ENV = process.env.ENV ? process.env.ENV : "node";
+const FMT = process.env.FMT ? process.env.FMT : "esm";
+
+const entry = ENV === "cli" ? "source/cli.ts" : "source/index.ts";
+const output = ENV === "cli" ? "dist" : `dist/${ENV}`;
+
+const plugins = [
+    typescript({
+        tsconfig: "tsconfig.json"
+    }),
+    resolve({ extensions: EXTENSIONS })
+];
+if (ENV !== "node") {
+    plugins.unshift(
+        alias({
+            entries: [{ find: "node:crypto", replacement: "./stub.js" }]
+        })
+    );
+}
+const extension = FMT === "cjs" ? "cjs" : "js";
+const externals =
+    FMT === "esm"
+        ? [...builtinModules, ...(pkg.dependencies ? Object.keys(pkg.dependencies) : [])]
+        : [...builtinModules];
+
+export default {
+    external: externals,
+    input: entry,
+    output: [
+        {
+            dir: output,
+            format: FMT,
+            entryFileNames: `[name].${extension}`
+        }
+    ],
+    plugins
 };
-
-const defaultPlugins = [
-  typescript({
-    tsconfig: 'tsconfig.json'
-  })
-];
-
-const esModuleConfig = Object.assign({}, defaultConfig, {
-  output: {
-    name: 'ULID',
-    format: 'es',
-    file: './dist/index.esm.js'
-  },
-  plugins: [
-    ...defaultPlugins,
-    babel({ babelHelpers: 'bundled' })
-  ]
-})
-
-const umdConfig = Object.assign({}, defaultConfig, {
-  output: {
-    name: 'ULID',
-    format: 'umd',
-    file: './dist/index.umd.js'
-  },
-  plugins: [
-    ...defaultPlugins,
-    babel({ babelHelpers: 'bundled' })
-  ]
-})
-
-module.exports = [
-  esModuleConfig,
-  umdConfig
-];
