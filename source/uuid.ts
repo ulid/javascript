@@ -28,7 +28,7 @@ export function ulidToUUID(ulid: ULID): UUID {
         uuid.substring(16, 20) +
         "-" +
         uuid.substring(20);
-    return uuid as UUID;
+    return uuid.toUpperCase() as UUID;
 }
 
 /**
