@@ -140,6 +140,27 @@ encodeTime(1469918176385); // "01ARYZ6S41"
 
 Install dependencies using `npm install` first, and then simply run `npm test` to run the test suite.
 
+### CLI
+
+`ulid` can be used on the command line, either via global install:
+
+```shell
+npm install -g ulid
+ulid
+```
+
+Or via `npx`:
+
+```shell
+npx ulid
+```
+
+You can also generate multiple IDs at the same time:
+
+```shell
+ulid --count 15
+```
+
 ## Specification
 
 You can find the full specification, as well as information regarding implementations in other languages, over at [ulid/spec](https://github.com/ulid/spec).
