@@ -5,7 +5,7 @@ const ULID_REXP = /^[0-7][0-9a-hjkmnp-tv-zA-HJKMNP-TV-Z]{25}$/;
 
 describe("monotonicFactory", () => {
     function stubbedPrng() {
-        return 0.96
+        return 0.96;
     }
 
     it("creates a factory", () => {
@@ -20,49 +20,49 @@ describe("monotonicFactory", () => {
             expect(id).toMatch(ULID_REXP);
         });
 
-        describe("during single point in time", function() {
+        describe("during single point in time", function () {
             const SEED_TIME = 1469918176385;
             const stubbedUlid: ULIDFactory = monotonicFactory(stubbedPrng);
 
-            it("first call", function() {
+            it("first call", function () {
                 expect(stubbedUlid(SEED_TIME)).to.equal("01ARYZ6S41YYYYYYYYYYYYYYYY");
-            })
+            });
 
-            it("second call", function() {
+            it("second call", function () {
                 expect(stubbedUlid(SEED_TIME)).to.equal("01ARYZ6S41YYYYYYYYYYYYYYYZ");
-            })
+            });
 
-            it("third call", function() {
+            it("third call", function () {
                 expect(stubbedUlid(SEED_TIME)).to.equal("01ARYZ6S41YYYYYYYYYYYYYYZ0");
-            })
+            });
 
-            it("fourth call", function() {
+            it("fourth call", function () {
                 expect(stubbedUlid(SEED_TIME)).to.equal("01ARYZ6S41YYYYYYYYYYYYYYZ1");
-            })
-        })
+            });
+        });
 
-        describe("with specific seedTime", function() {
+        describe("with specific seedTime", function () {
             const stubbedUlid: ULIDFactory = monotonicFactory(stubbedPrng);
 
-            it("first call", function() {
+            it("first call", function () {
                 expect(stubbedUlid(1469918176385)).to.equal("01ARYZ6S41YYYYYYYYYYYYYYYY");
-            })
+            });
 
-            it("second call with the same", function() {
+            it("second call with the same", function () {
                 expect(stubbedUlid(1469918176385)).to.equal("01ARYZ6S41YYYYYYYYYYYYYYYZ");
-            })
+            });
 
-            it("third call with less than", function() {
+            it("third call with less than", function () {
                 expect(stubbedUlid(100000000)).to.equal("01ARYZ6S41YYYYYYYYYYYYYYZ0");
-            })
+            });
 
-            it("fourth call with even more less than", function() {
+            it("fourth call with even more less than", function () {
                 expect(stubbedUlid(10000)).to.equal("01ARYZ6S41YYYYYYYYYYYYYYZ1");
-            })
+            });
 
-            it("fifth call with 1 greater than", function() {
+            it("fifth call with 1 greater than", function () {
                 expect(stubbedUlid(1469918176386)).to.equal("01ARYZ6S42YYYYYYYYYYYYYYYY");
-            })
+            });
         });
     });
 });

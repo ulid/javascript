@@ -3,7 +3,9 @@ import { fixULIDBase32, incrementBase32 } from "../../";
 
 describe("fixULIDBase32", () => {
     it("fixes mis-encoded ULIDs", () => {
-        expect(fixULIDBase32("oLARYZ6-S41TSV4RRF-FQ69G5FAV")).to.equal("01ARYZ6S41TSV4RRFFQ69G5FAV");
+        expect(fixULIDBase32("oLARYZ6-S41TSV4RRF-FQ69G5FAV")).to.equal(
+            "01ARYZ6S41TSV4RRFFQ69G5FAV"
+        );
     });
 });
 
