@@ -64,12 +64,12 @@
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
-    "@types/node": "^22.13.10",
+    "@types/node": "^22.15.30",
     "benchmark": "^2.1.4",
     "prettier": "^3.5.3",
-    "rollup": "^4.36.0",
+    "rollup": "^4.42.0",
     "tslib": "^2.8.1",
-    "typescript": "^5.8.2",
-    "vitest": "^3.0.9"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.2"
   }
 }
