@@ -1,4 +1,3 @@
-import crypto from "node:crypto";
 import { incrementBase32 } from "./crockford.js";
 import { ENCODING, ENCODING_LEN, RANDOM_LEN, TIME_LEN, TIME_MAX } from "./constants.js";
 import { ULIDError, ULIDErrorCode } from "./error.js";
@@ -44,36 +43,17 @@ export function decodeTime(id: ULID): number {
  * @returns The PRNG function
  */
 export function detectPRNG(root?: any): PRNG {
-    const rootLookup = root || detectRoot();
-    const globalCrypto =
-        (rootLookup && (rootLookup.crypto || rootLookup.msCrypto)) ||
-        (typeof crypto !== "undefined" ? crypto : null);
-    if (typeof globalCrypto?.getRandomValues === "function") {
+    if (
+        "getRandomValues" in globalThis.crypto &&
+        typeof globalThis.crypto.getRandomValues === "function"
+    ) {
         return () => {
             const buffer = new Uint8Array(1);
-            globalCrypto.getRandomValues(buffer);
+            globalThis.crypto.getRandomValues(buffer);
             return buffer[0] / 0xff;
         };
-    } else if (typeof globalCrypto?.randomBytes === "function") {
-        return () => globalCrypto.randomBytes(1).readUInt8() / 0xff;
-    } else if (crypto?.randomBytes) {
-        return () => crypto.randomBytes(1).readUInt8() / 0xff;
     }
     throw new ULIDError(ULIDErrorCode.PRNGDetectFailure, "Failed to find a reliable PRNG");
-}
-
-function detectRoot(): any {
-    if (inWebWorker()) return self;
-    if (typeof window !== "undefined") {
-        return window;
-    }
-    if (typeof global !== "undefined") {
-        return global;
-    }
-    if (typeof globalThis !== "undefined") {
-        return globalThis;
-    }
-    return null;
 }
 
 export function encodeRandom(len: number, prng: PRNG): string {
@@ -117,11 +97,6 @@ export function encodeTime(now: number, len: number = TIME_LEN): string {
         now = (now - mod) / ENCODING_LEN;
     }
     return str;
-}
-
-function inWebWorker(): boolean {
-    // @ts-ignore
-    return typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
 }
 
 /**

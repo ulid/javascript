@@ -1,4 +1,3 @@
-import { UUID } from "crypto";
 import { ULID_REGEX, UUID_REGEX } from "./constants.js";
 import { crockfordDecode, crockfordEncode } from "./crockford.js";
 import { ULIDError, ULIDErrorCode } from "./error.js";
@@ -9,7 +8,7 @@ import { ULID } from "./types.js";
  * @param ulid The ULID to convert
  * @returns A UUID string
  */
-export function ulidToUUID(ulid: ULID): UUID {
+export function ulidToUUID(ulid: ULID): string {
     const isValid = ULID_REGEX.test(ulid);
     if (!isValid) {
         throw new ULIDError(ULIDErrorCode.ULIDInvalid, `Invalid ULID: ${ulid}`);
@@ -28,7 +27,7 @@ export function ulidToUUID(ulid: ULID): UUID {
         uuid.substring(16, 20) +
         "-" +
         uuid.substring(20);
-    return uuid.toUpperCase() as UUID;
+    return uuid.toUpperCase();
 }
 
 /**
