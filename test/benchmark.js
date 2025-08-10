@@ -1,5 +1,5 @@
 import Benchmark from "benchmark";
-import { ulid } from "../dist/node/index.js";
+import { ulid } from "ulid";
 
 const suite = new Benchmark.Suite();
 
