@@ -15,7 +15,7 @@ export function decodeTime(id: ULID): number {
         throw new ULIDError(ULIDErrorCode.DecodeTimeValueMalformed, "Malformed ULID");
     }
     const time = id
-        .substr(0, TIME_LEN)
+        .substring(0, TIME_LEN)
         .toUpperCase()
         .split("")
         .reverse()
