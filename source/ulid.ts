@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import { incrementBase32 } from "./crockford.js";
-import { ENCODING, ENCODING_LEN, RANDOM_LEN, TIME_LEN, TIME_MAX } from "./constants.js";
+import { ENCODING, ENCODING_LEN, ENCODING_LOOKUP, RANDOM_LEN, TIME_LEN, TIME_MAX } from "./constants.js";
 import { ULIDError, ULIDErrorCode } from "./error.js";
 import { PRNG, ULID, ULIDFactory } from "./types.js";
 import { randomChar } from "./utils.js";
@@ -20,7 +20,7 @@ export function decodeTime(id: ULID): number {
         .split("")
         .reverse()
         .reduce((carry, char, index) => {
-            const encodingIndex = ENCODING.indexOf(char);
+            const encodingIndex = ENCODING_LOOKUP.get(char) ?? -1;
             if (encodingIndex === -1) {
                 throw new ULIDError(
                     ULIDErrorCode.DecodeTimeInvalidCharacter,
@@ -147,7 +147,7 @@ export function isValid(id: string): boolean {
         id
             .toUpperCase()
             .split("")
-            .every(char => ENCODING.indexOf(char) !== -1)
+            .every(char => ENCODING_LOOKUP.has(char))
     );
 }
 

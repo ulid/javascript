@@ -1,5 +1,5 @@
 // Code from https://github.com/devbanana/crockford-base32/blob/develop/src/index.ts
-import { B32_CHARACTERS, ENCODING, ENCODING_LEN } from "./constants.js";
+import { B32_CHARACTERS, B32_CHARACTERS_LOOKUP, ENCODING, ENCODING_LEN, ENCODING_LOOKUP } from "./constants.js";
 import { ULIDError, ULIDErrorCode } from "./error.js";
 import { replaceCharAt } from "./utils.js";
 
@@ -30,7 +30,7 @@ export function crockfordDecode(input: string): Uint8Array {
     let bitsRead = 0;
     let buffer = 0;
     for (const character of sanitizedInput) {
-        const byte = B32_CHARACTERS.indexOf(character);
+        const byte = B32_CHARACTERS_LOOKUP.get(character) ?? -1;
         if (byte === -1) {
             throw new Error(`Invalid base 32 character found in string: ${character}`);
         }
@@ -68,7 +68,7 @@ export function incrementBase32(str: string): string {
     const maxCharIndex = ENCODING_LEN - 1;
     while (!done && index-- >= 0) {
         char = output[index];
-        charIndex = ENCODING.indexOf(char);
+        charIndex = ENCODING_LOOKUP.get(char) ?? -1;
         if (charIndex === -1) {
             throw new ULIDError(
                 ULIDErrorCode.Base32IncorrectEncoding,
