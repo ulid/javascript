@@ -92,7 +92,7 @@ function detectRoot(): any {
 export function encodeRandom(len: number, prng: PRNG): string {
     const str = new Array(len);
     for (let currentLen = len; currentLen > 0; currentLen--) {
-        str[len - currentLen] = randomChar(prng);
+        str[currentLen - 1] = randomChar(prng);
     }
     return str.join("");
 }
@@ -121,7 +121,7 @@ export function encodeTime(now: number, len: number = TIME_LEN): string {
     const str = new Array(len);
     for (let currentLen = len; currentLen > 0; currentLen--) {
         mod = now % ENCODING_LEN;
-        str[len - currentLen] = ENCODING[mod];
+        str[currentLen - 1] = ENCODING[mod];
         now = (now - mod) / ENCODING_LEN;
     }
     return str.join("");
