@@ -30,8 +30,8 @@ export function crockfordDecode(input: string): Uint8Array {
     let bitsRead = 0;
     let buffer = 0;
     for (const character of sanitizedInput) {
-        const byte = B32_CHARACTERS_LOOKUP.get(character) ?? -1;
-        if (byte === -1) {
+        const byte = B32_CHARACTERS_LOOKUP.get(character);
+        if (byte === undefined) {
             throw new Error(`Invalid base 32 character found in string: ${character}`);
         }
         buffer |= byte << bitsRead;
@@ -68,8 +68,8 @@ export function incrementBase32(str: string): string {
     const maxCharIndex = ENCODING_LEN - 1;
     while (!done && index-- >= 0) {
         char = output[index];
-        charIndex = ENCODING_LOOKUP.get(char) ?? -1;
-        if (charIndex === -1) {
+        charIndex = ENCODING_LOOKUP.get(char);
+        if (charIndex === undefined) {
             throw new ULIDError(
                 ULIDErrorCode.Base32IncorrectEncoding,
                 "Incorrectly encoded string"

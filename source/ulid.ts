@@ -20,8 +20,8 @@ export function decodeTime(id: ULID): number {
         .split("")
         .reverse()
         .reduce((carry, char, index) => {
-            const encodingIndex = ENCODING_LOOKUP.get(char) ?? -1;
-            if (encodingIndex === -1) {
+            const encodingIndex = ENCODING_LOOKUP.get(char);
+            if (encodingIndex === undefined) {
                 throw new ULIDError(
                     ULIDErrorCode.DecodeTimeInvalidCharacter,
                     `Time decode error: Invalid character: ${char}`
