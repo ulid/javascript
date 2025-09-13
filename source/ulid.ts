@@ -62,6 +62,7 @@ export function detectPRNG(root?: any): PRNG {
         (rootLookup && (rootLookup.crypto || rootLookup.msCrypto)) ||
         (typeof crypto !== "undefined" ? crypto : null);
     if (typeof globalCrypto?.getRandomValues === "function") {
+        const buffer = new Uint8Array(1);
         return () => {
             const buffer = new Uint8Array(1);
             globalCrypto.getRandomValues(buffer);
