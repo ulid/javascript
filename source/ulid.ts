@@ -94,8 +94,12 @@ export function encodeRandom(len: number, prng: PRNG): string {
     let str = "";
     for (; len > 0; len--) {
         str = randomChar(prng) + str;
+    const str = new Array(len);
+    for (let currentLen = len; currentLen > 0; currentLen--) {
+        str[len - currentLen] = randomChar(prng);
     }
     return str;
+    return str.join("");
 }
 
 /**
@@ -125,12 +129,16 @@ export function encodeTime(now: number, len: number = TIME_LEN): string {
     }
     let mod: number,
         str: string = "";
+    let mod: number;
+    const str = new Array(len);
     for (let currentLen = len; currentLen > 0; currentLen--) {
         mod = now % ENCODING_LEN;
         str = ENCODING.charAt(mod) + str;
+        str[len - currentLen] = ENCODING[mod];
         now = (now - mod) / ENCODING_LEN;
     }
     return str;
+    return str.join("");
 }
 
 function inWebWorker(): boolean {
