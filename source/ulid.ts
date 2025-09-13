@@ -38,6 +38,19 @@ export function decodeTime(id: ULID): number {
     return time;
 }
 
+export function detectPRNGMemoized(): () => PRNG {
+    let prng: PRNG | null = null;
+    return (): PRNG => {
+        if (prng === null) {
+            prng = detectPRNG();
+        }
+        return prng;
+    };
+}
+
+// memoized prng detector for performance
+const getPRNG = detectPRNGMemoized();
+
 /**
  * Detect the best PRNG (pseudo-random number generator)
  * @param root The root to check from (global/window)
@@ -153,7 +166,7 @@ export function isValid(id: string): boolean {
  *  ulid(); // "01HNZXD07M5CEN5XA66EMZSRZW"
  */
 export function monotonicFactory(prng?: PRNG): ULIDFactory {
-    const currentPRNG = prng || detectPRNG();
+    const currentPRNG = prng || getPRNG();
     let lastTime: number = 0,
         lastRandom: string;
     return function _ulid(seedTime?: number): ULID {
@@ -179,5 +192,6 @@ export function monotonicFactory(prng?: PRNG): ULIDFactory {
 export function ulid(seedTime?: number, prng?: PRNG): ULID {
     const currentPRNG = prng || detectPRNG();
     const seed = !seedTime || isNaN(seedTime) ? Date.now() : seedTime;
+    const currentPRNG = prng || getPRNG();
     return encodeTime(seed, TIME_LEN) + encodeRandom(RANDOM_LEN, currentPRNG);
 }
