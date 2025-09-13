@@ -64,7 +64,6 @@ export function detectPRNG(root?: any): PRNG {
     if (typeof globalCrypto?.getRandomValues === "function") {
         const buffer = new Uint8Array(1);
         return () => {
-            const buffer = new Uint8Array(1);
             globalCrypto.getRandomValues(buffer);
             return buffer[0] / 0xff;
         };
@@ -91,14 +90,10 @@ function detectRoot(): any {
 }
 
 export function encodeRandom(len: number, prng: PRNG): string {
-    let str = "";
-    for (; len > 0; len--) {
-        str = randomChar(prng) + str;
     const str = new Array(len);
     for (let currentLen = len; currentLen > 0; currentLen--) {
         str[len - currentLen] = randomChar(prng);
     }
-    return str;
     return str.join("");
 }
 
@@ -109,10 +104,10 @@ export function encodeRandom(len: number, prng: PRNG): string {
  * @returns The encoded time
  */
 export function encodeTime(now: number, len: number = TIME_LEN): string {
-    if (isNaN(now)) {
+    if (Number.isInteger(now) === false) {
         throw new ULIDError(
             ULIDErrorCode.EncodeTimeValueMalformed,
-            `Time must be a number: ${now}`
+            `Time must be an integer: ${now}`
         );
     } else if (now > TIME_MAX) {
         throw new ULIDError(
@@ -121,23 +116,14 @@ export function encodeTime(now: number, len: number = TIME_LEN): string {
         );
     } else if (now < 0) {
         throw new ULIDError(ULIDErrorCode.EncodeTimeNegative, `Time must be positive: ${now}`);
-    } else if (Number.isInteger(now) === false) {
-        throw new ULIDError(
-            ULIDErrorCode.EncodeTimeValueMalformed,
-            `Time must be an integer: ${now}`
-        );
     }
-    let mod: number,
-        str: string = "";
     let mod: number;
     const str = new Array(len);
     for (let currentLen = len; currentLen > 0; currentLen--) {
         mod = now % ENCODING_LEN;
-        str = ENCODING.charAt(mod) + str;
         str[len - currentLen] = ENCODING[mod];
         now = (now - mod) / ENCODING_LEN;
     }
-    return str;
     return str.join("");
 }
 
@@ -179,7 +165,7 @@ export function monotonicFactory(prng?: PRNG): ULIDFactory {
     let lastTime: number = 0,
         lastRandom: string;
     return function _ulid(seedTime?: number): ULID {
-        const seed = !seedTime || isNaN(seedTime) ? Date.now() : seedTime;
+        const seed = typeof seedTime === 'undefined' ? Date.now() : seedTime;
         if (seed <= lastTime) {
             const incrementedRandom = (lastRandom = incrementBase32(lastRandom));
             return encodeTime(lastTime, TIME_LEN) + incrementedRandom;
@@ -199,8 +185,7 @@ export function monotonicFactory(prng?: PRNG): ULIDFactory {
  *  ulid(); // "01HNZXD07M5CEN5XA66EMZSRZW"
  */
 export function ulid(seedTime?: number, prng?: PRNG): ULID {
-    const currentPRNG = prng || detectPRNG();
-    const seed = !seedTime || isNaN(seedTime) ? Date.now() : seedTime;
     const currentPRNG = prng || getPRNG();
+    const seed = typeof seedTime === 'undefined' ? Date.now() : seedTime;
     return encodeTime(seed, TIME_LEN) + encodeRandom(RANDOM_LEN, currentPRNG);
 }
