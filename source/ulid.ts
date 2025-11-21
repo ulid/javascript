@@ -52,12 +52,12 @@ export function detectPRNG(root?: any): PRNG {
         return () => {
             const buffer = new Uint8Array(1);
             globalCrypto.getRandomValues(buffer);
-            return buffer[0] / 0xff;
+            return buffer[0] / 256;
         };
     } else if (typeof globalCrypto?.randomBytes === "function") {
-        return () => globalCrypto.randomBytes(1).readUInt8() / 0xff;
+        return () => globalCrypto.randomBytes(1).readUInt8() / 256;
     } else if (crypto?.randomBytes) {
-        return () => crypto.randomBytes(1).readUInt8() / 0xff;
+        return () => crypto.randomBytes(1).readUInt8() / 256;
     }
     throw new ULIDError(ULIDErrorCode.PRNGDetectFailure, "Failed to find a reliable PRNG");
 }
