@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import { incrementBase32 } from "./crockford.js";
-import { ENCODING, ENCODING_LEN, RANDOM_LEN, TIME_LEN, TIME_MAX } from "./constants.js";
+import { ENCODING, ENCODING_LEN, ENCODING_LOOKUP, RANDOM_LEN, TIME_LEN, TIME_MAX } from "./constants.js";
 import { ULIDError, ULIDErrorCode } from "./error.js";
 import { PRNG, ULID, ULIDFactory } from "./types.js";
 import { randomChar } from "./utils.js";
@@ -15,13 +15,13 @@ export function decodeTime(id: ULID): number {
         throw new ULIDError(ULIDErrorCode.DecodeTimeValueMalformed, "Malformed ULID");
     }
     const time = id
-        .substr(0, TIME_LEN)
+        .substring(0, TIME_LEN)
         .toUpperCase()
         .split("")
         .reverse()
         .reduce((carry, char, index) => {
-            const encodingIndex = ENCODING.indexOf(char);
-            if (encodingIndex === -1) {
+            const encodingIndex = ENCODING_LOOKUP.get(char);
+            if (encodingIndex === undefined) {
                 throw new ULIDError(
                     ULIDErrorCode.DecodeTimeInvalidCharacter,
                     `Time decode error: Invalid character: ${char}`
@@ -38,6 +38,19 @@ export function decodeTime(id: ULID): number {
     return time;
 }
 
+export function detectPRNGMemoized(): () => PRNG {
+    let prng: PRNG | null = null;
+    return (): PRNG => {
+        if (prng === null) {
+            prng = detectPRNG();
+        }
+        return prng;
+    };
+}
+
+// memoized prng detector for performance
+const getPRNG = detectPRNGMemoized();
+
 /**
  * Detect the best PRNG (pseudo-random number generator)
  * @param root The root to check from (global/window)
@@ -49,8 +62,8 @@ export function detectPRNG(root?: any): PRNG {
         (rootLookup && (rootLookup.crypto || rootLookup.msCrypto)) ||
         (typeof crypto !== "undefined" ? crypto : null);
     if (typeof globalCrypto?.getRandomValues === "function") {
+        const buffer = new Uint8Array(1);
         return () => {
-            const buffer = new Uint8Array(1);
             globalCrypto.getRandomValues(buffer);
             return buffer[0] / 256;
         };
@@ -77,11 +90,11 @@ function detectRoot(): any {
 }
 
 export function encodeRandom(len: number, prng: PRNG): string {
-    let str = "";
-    for (; len > 0; len--) {
-        str = randomChar(prng) + str;
+    const str = new Array(len);
+    for (let currentLen = len; currentLen > 0; currentLen--) {
+        str[currentLen - 1] = randomChar(prng);
     }
-    return str;
+    return str.join("");
 }
 
 /**
@@ -91,10 +104,10 @@ export function encodeRandom(len: number, prng: PRNG): string {
  * @returns The encoded time
  */
 export function encodeTime(now: number, len: number = TIME_LEN): string {
-    if (isNaN(now)) {
+    if (Number.isInteger(now) === false) {
         throw new ULIDError(
             ULIDErrorCode.EncodeTimeValueMalformed,
-            `Time must be a number: ${now}`
+            `Time must be an integer: ${now}`
         );
     } else if (now > TIME_MAX) {
         throw new ULIDError(
@@ -103,20 +116,15 @@ export function encodeTime(now: number, len: number = TIME_LEN): string {
         );
     } else if (now < 0) {
         throw new ULIDError(ULIDErrorCode.EncodeTimeNegative, `Time must be positive: ${now}`);
-    } else if (Number.isInteger(now) === false) {
-        throw new ULIDError(
-            ULIDErrorCode.EncodeTimeValueMalformed,
-            `Time must be an integer: ${now}`
-        );
     }
-    let mod: number,
-        str: string = "";
+    let mod: number;
+    const str = new Array(len);
     for (let currentLen = len; currentLen > 0; currentLen--) {
         mod = now % ENCODING_LEN;
-        str = ENCODING.charAt(mod) + str;
+        str[currentLen - 1] = ENCODING[mod];
         now = (now - mod) / ENCODING_LEN;
     }
-    return str;
+    return str.join("");
 }
 
 function inWebWorker(): boolean {
@@ -139,7 +147,7 @@ export function isValid(id: string): boolean {
         id
             .toUpperCase()
             .split("")
-            .every(char => ENCODING.indexOf(char) !== -1)
+            .every(char => ENCODING_LOOKUP.has(char))
     );
 }
 
@@ -153,11 +161,11 @@ export function isValid(id: string): boolean {
  *  ulid(); // "01HNZXD07M5CEN5XA66EMZSRZW"
  */
 export function monotonicFactory(prng?: PRNG): ULIDFactory {
-    const currentPRNG = prng || detectPRNG();
+    const currentPRNG = prng || getPRNG();
     let lastTime: number = 0,
         lastRandom: string;
     return function _ulid(seedTime?: number): ULID {
-        const seed = !seedTime || isNaN(seedTime) ? Date.now() : seedTime;
+        const seed = typeof seedTime === 'undefined' ? Date.now() : seedTime;
         if (seed <= lastTime) {
             const incrementedRandom = (lastRandom = incrementBase32(lastRandom));
             return encodeTime(lastTime, TIME_LEN) + incrementedRandom;
@@ -177,7 +185,7 @@ export function monotonicFactory(prng?: PRNG): ULIDFactory {
  *  ulid(); // "01HNZXD07M5CEN5XA66EMZSRZW"
  */
 export function ulid(seedTime?: number, prng?: PRNG): ULID {
-    const currentPRNG = prng || detectPRNG();
-    const seed = !seedTime || isNaN(seedTime) ? Date.now() : seedTime;
+    const currentPRNG = prng || getPRNG();
+    const seed = typeof seedTime === 'undefined' ? Date.now() : seedTime;
     return encodeTime(seed, TIME_LEN) + encodeRandom(RANDOM_LEN, currentPRNG);
 }

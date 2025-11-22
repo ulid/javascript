@@ -10,3 +10,11 @@ export const TIME_LEN = 10;
 export const TIME_MAX = 281474976710655; // from Math.pow(2, 48) - 1;
 export const ULID_REGEX = /^[0-7][0-9a-hjkmnp-tv-zA-HJKMNP-TV-Z]{25}$/;
 export const UUID_REGEX = /^[0-9a-fA-F]{8}-(?:[0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$/;
+
+// fast lookup of index, avoid O(n) indexOf calls
+export const ENCODING_LOOKUP = new Map<string, number>(
+    ENCODING.split("").map((char, index) => [char, index])
+);
+export const B32_CHARACTERS_LOOKUP = new Map<string, number>(
+    B32_CHARACTERS.split("").map((char, index) => [char, index])
+);
