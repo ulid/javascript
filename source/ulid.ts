@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import { incrementBase32 } from "./crockford.js";
-import { ENCODING, ENCODING_LEN, RANDOM_LEN, TIME_LEN, TIME_MAX } from "./constants.js";
+import { ENCODING, ENCODING_LEN, RANDOM_LEN, TIME_LEN, TIME_MAX, ULID_REGEX } from "./constants.js";
 import { ULIDError, ULIDErrorCode } from "./error.js";
 import { PRNG, ULID, ULIDFactory } from "./types.js";
 import { randomChar } from "./utils.js";
@@ -133,14 +133,9 @@ function inWebWorker(): boolean {
  *   isValid(""); // false
  */
 export function isValid(id: string): boolean {
-    return (
-        typeof id === "string" &&
-        id.length === TIME_LEN + RANDOM_LEN &&
-        id
-            .toUpperCase()
-            .split("")
-            .every(char => ENCODING.indexOf(char) !== -1)
-    );
+    // ULID_REGEX also constrains the leading character to 0-7, so a string whose
+    // timestamp exceeds the 48-bit maximum (which decodeTime rejects) is invalid.
+    return typeof id === "string" && ULID_REGEX.test(id);
 }
 
 /**

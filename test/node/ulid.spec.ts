@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { decodeTime, encodeTime, monotonicFactory, ulid, ULIDFactory } from "../../";
+import { decodeTime, encodeTime, isValid, monotonicFactory, ulid, ULIDFactory } from "../../";
 
 const ULID_REXP = /^[0-7][0-9a-hjkmnp-tv-zA-HJKMNP-TV-Z]{25}$/;
 
@@ -83,5 +83,39 @@ describe("ulid", () => {
     it("generates a ULID", () => {
         const id = ulid();
         expect(id).toMatch(ULID_REXP);
+    });
+});
+
+describe("isValid", () => {
+    it("accepts a generated ULID, in either case", () => {
+        const id = ulid();
+        expect(isValid(id)).toBe(true);
+        expect(isValid(id.toLowerCase())).toBe(true);
+    });
+
+    it("rejects non-strings, the wrong length and out-of-alphabet characters", () => {
+        expect(isValid("")).toBe(false);
+        expect(isValid("0".repeat(25))).toBe(false);
+        expect(isValid("0I" + "0".repeat(24))).toBe(false); // I is not in Crockford base32
+    });
+
+    it("rejects a timestamp larger than the 48-bit maximum", () => {
+        // The largest valid ULID is 7ZZ…; a leading character above 7 overflows
+        // the 48-bit timestamp, which decodeTime rejects — so isValid must too.
+        expect(isValid("8" + "0".repeat(25))).toBe(false);
+        expect(isValid("Z".repeat(26))).toBe(false);
+    });
+
+    it("agrees with decodeTime", () => {
+        const ids = ["7" + "Z".repeat(25), "8" + "0".repeat(25), "Z".repeat(26)];
+        for (const id of ids) {
+            let decodes = true;
+            try {
+                decodeTime(id);
+            } catch {
+                decodes = false;
+            }
+            expect(isValid(id)).toBe(decodes);
+        }
     });
 });
